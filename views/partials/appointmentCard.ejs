@@ -1,0 +1,116 @@
+<div class="appointment-card">
+  <div class="appointment-header">
+    <span class="status-badge <%= getStatusVariant(appointment.status) %>">
+      <i
+        data-feather="<%= getStatusIcon(appointment.status) %>"
+        class="h-4 w-4 text-brandpurple"
+      ></i>
+      <span class="font-semibold tracking-wide">
+        <%= appointment.status.charAt(0).toUpperCase() +
+        appointment.status.slice(1) %>
+      </span>
+    </span>
+  </div>
+
+  <div class="appointment-details">
+    <div class="detail-row">
+      <i data-feather="calendar" class="text-blue-600"></i>
+      <span class="font-semibold text-gray-800">
+        <%= new Date(appointment.date_time).toLocaleDateString('en-US', {
+        weekday: 'long' , year: 'numeric' , month: 'long' , day: 'numeric' }) %>
+      </span>
+    </div>
+    <div class="detail-row">
+      <i data-feather="clock" class="text-blue-600"></i>
+      <span class="font-normal text-gray-600">
+        <%= new Date(appointment.date_time).toLocaleTimeString('en-US', { hour:
+        '2-digit' , minute: '2-digit' }) %> • <%= appointment.duration %>
+        minutes
+      </span>
+    </div>
+  </div>
+
+  <% if (appointment.cancellation_reason) { %>
+  <div class="cancellation-reason">
+    <strong class="font-semibold text-gray-800">Cancellation Reason:</strong>
+    <span class="font-normal text-gray-600">
+      <%= appointment.cancellation_reason %>
+    </span>
+    <% if (appointment.cancellation_initiated_by) { %>
+    <span class="ml-2 font-medium text-gray-500"
+      >(by <%= appointment.cancellation_initiated_by.charAt(0).toUpperCase() +
+      appointment.cancellation_initiated_by.slice(1) %>)</span
+    >
+    <% } %>
+  </div>
+  <% } %> <% if (appointment.decline_reason) { %>
+  <div class="decline-reason">
+    <strong class="font-semibold text-gray-800">Declined By:</strong>
+    <span class="font-normal text-gray-600">
+      <%= appointment.decline_reason %>
+    </span>
+    <% if (appointment.reschedule_initiated_by) { %>
+    <span class="ml-2 font-medium text-gray-500"
+      >(by <%= appointment.reschedule_initiated_by==='client' ? 'Client' :
+      'Therapist' %>)</span
+    >
+    <% } %>
+  </div>
+  <% } %> <% if (type==='upcoming' &&
+  appointment.status.toLowerCase()==='confirmed' ) { %>
+  <div class="appointment-actions">
+    <div class="flex gap-3 w-full mb-3">
+      <a
+        href="/appointments/management/<%= appointment.appointment_id %><%= viewType === 'therapist' ? '/therapist' : '' %>/reschedule-form"
+        class="action-btn reschedule-btn"
+      >
+        <span class="font-semibold tracking-wide">Reschedule</span>
+      </a>
+      <button
+        class="action-btn cancel cancel-btn"
+        data-appointment-id="<%= appointment.appointment_id %>"
+        data-view-type="<%= viewType %>"
+        data-datetime="<%= appointment.date_time %>"
+        data-payment-amount="<%= appointment.payment_amount %>"
+        data-is-subscription="<%= appointment.is_subscription %>"
+      >
+        <span class="font-semibold tracking-wide">Cancel</span>
+      </button>
+    </div>
+    <% if (appointment.isJoinable) { %>
+    <a
+      href="/api/jitsi-sessions/join/<%= appointment.appointment_id %>"
+      class="action-btn join-session-btn"
+    >
+      <i data-feather="video" class="h-4 w-4 mr-2 text-white"></i>
+      <span class="font-semibold tracking-wide">Join Session</span>
+    </a>
+    <% } else { %>
+    <button class="action-btn join-session-btn-disabled" disabled>
+      <i data-feather="video-off" class="h-4 w-4 mr-2 text-gray-400"></i>
+      <span class="font-semibold tracking-wide text-gray-400"
+        >Not Joinable Yet</span
+      >
+    </button>
+    <% } %>
+  </div>
+  <% } %> <% if (type==='pending' && appointment.reschedule_initiated_by
+  !==viewType) { %>
+  <div class="appointment-actions">
+    <button
+      class="action-btn accept accept-reschedule-btn"
+      data-appointment-id="<%= appointment.appointment_id %>"
+    >
+      <i data-feather="check-circle" class="h-4 w-4 mr-2 text-brandpurple"></i>
+      <span class="font-semibold tracking-wide">Accept</span>
+    </button>
+    <button
+      class="action-btn decline decline-reschedule-btn"
+      data-appointment-id="<%= appointment.appointment_id %>"
+    >
+      <i data-feather="x-circle" class="h-4 w-4 mr-2 text-brandpurple"></i>
+      <span class="font-semibold tracking-wide">Decline</span>
+    </button>
+  </div>
+  <% } %>
+</div>

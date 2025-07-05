@@ -1,0 +1,75 @@
+<div class="summary-cards">
+  <div class="card pending">
+    <h4>Pending Applications</h4>
+    <p><%= applicationSummary.pending %></p>
+  </div>
+  <div class="card approved">
+    <h4>Approved</h4>
+    <p><%= applicationSummary.approved %></p>
+  </div>
+  <div class="card declined">
+    <h4>Declined</h4>
+    <p><%= applicationSummary.rejected %></p>
+  </div>
+</div>
+
+<div class="section-header">
+  <h3>Therapist Applications</h3>
+</div>
+<div class="applications-list">
+  <% if (applications && applications.length > 0) { %> <%
+  applications.forEach(app => { %>
+  <div
+    class="application-card status-<%= app.application_status.toLowerCase() %>"
+  >
+    <div class="application-header">
+      <h4>Dr. <%= app.therapist_name %></h4>
+      <span
+        class="status-badge status-<%= app.application_status.toLowerCase() %>"
+        ><%= app.application_status %></span
+      >
+    </div>
+    <p class="therapy-type"><%= app.specialization %></p>
+    <div class="application-details">
+      <p><strong>Email:</strong> <%= app.therapist_email %></p>
+      <p><strong>Experience:</strong> <%= app.experience_years %> years</p>
+      <p><strong>License:</strong> <%= app.license_number %></p>
+      <p>
+        <strong>Applied Date:</strong> <%= new
+        Date(app.submission_date).toLocaleDateString('en-US', { year: 'numeric',
+        month: '2-digit', day: '2-digit' }) %>
+      </p>
+      <p>
+        <strong>Application:</strong>
+        <a
+          href="<%= app.application_link %>"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="application-link"
+        >
+          <i class="fas fa-file-alt"></i>
+          View Application
+        </a>
+      </p>
+    </div>
+    <% if (app.application_status === 'Pending') { %>
+    <div class="application-actions">
+      <button
+        class="btn btn-approve"
+        data-therapist-id="<%= app.therapist_id %>"
+      >
+        <i class="fas fa-check"></i> Approve
+      </button>
+      <button
+        class="btn btn-decline"
+        data-therapist-id="<%= app.therapist_id %>"
+      >
+        <i class="fas fa-times"></i> Decline
+      </button>
+    </div>
+    <% } %>
+  </div>
+  <% }); %> <% } else { %>
+  <p>No therapist applications found.</p>
+  <% } %>
+</div>

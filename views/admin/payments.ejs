@@ -1,0 +1,54 @@
+<div class="summary-cards">
+    <div class="card revenue">
+        <h4>Total Revenue</h4>
+        <p><%= paymentSummary.total_revenue %> EGP</p>
+    </div>
+    <div class="card paid">
+        <h4>Paid</h4>
+        <p><%= paymentSummary.completed_payments_count %></p>
+    </div>
+    <div class="card pending">
+        <h4>Pending</h4>
+        <p><%= paymentSummary.pending_payments_count %></p>
+    </div>
+    <div class="card failed">
+        <h4>Failed</h4>
+        <p><%= paymentSummary.failed_payments_count %></p>
+    </div>
+</div>
+
+<div class="section-header">
+    <h3>All Payments</h3>
+</div>
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Invoice ID</th>
+                <th>Patient</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Method</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (payments && payments.length > 0) { %>
+                <% payments.forEach(payment => { %>
+                    <tr>
+                        <td><%= payment.payment_id %></td>
+                        <td><%= payment.clientname %></td>
+                        <td><%= payment.amount %> EGP</td>
+                        <td><%= new Date(payment.transaction_date).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) %></td>
+                        <td><%= payment.payment_method %></td>
+                        <td><span class="status-badge status-<%= payment.status.toLowerCase().replace(' ', '-') %>"><%= payment.status %></span></td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="7">No payments found.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>

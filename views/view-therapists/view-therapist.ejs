@@ -1,0 +1,130 @@
+<% var extraCSS='<link rel="stylesheet" href="/css/view-therapists/view-one.css" />' ; %>
+<%- include('../partials/header', {title: 'View Therapist Details' , extraCSS: extraCSS}) %>
+<div class="container">
+    <% if (therapist) { %>
+        <div class="profile-header card-header">
+            <%
+                // Logic for determining the avatar source
+                let avatarSrc = '/images/illustrations/default-generic-avatar.png';
+                if (therapist.profile_picture) {
+                    avatarSrc = therapist.profile_picture;
+                } else if (therapist.gender && therapist.gender.toLowerCase() === 'female') {
+                    avatarSrc = '/images/illustrations/default-female-avatar.png';
+                } else if (therapist.gender && therapist.gender.toLowerCase() === 'male') {
+                    avatarSrc = '/images/illustrations/default-male-avatar.png';
+                }
+            %>
+            <div class="profile-main-info">
+                <img src="<%= avatarSrc %>" alt="<%= therapist.name %> Profile Picture" class="profile-pic-lg">
+                <div class="profile-text-content">
+                    <h1>Dr. <%= therapist.name %></h1>
+                    <p class="specialization"><%= therapist.specialization %> Specialist</p>
+                    <p class="level"><%= therapist.level.toUpperCase() %></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-sections">
+            <h2 class="section-title"><i class="fas fa-info-circle"></i> About Dr. <%= therapist.name %></h2>
+            <div class="bio-section">
+                <p><%= therapist.bio || 'This therapist has not provided a detailed biography yet.' %></p>
+            </div>
+
+            <h2 class="section-title"><i class="fas fa-user-circle"></i> Professional Details</h2>
+            <div class="professional-details-grid">
+                <div class="detail-item-card">
+                    <div class="detail-icon-wrapper" style="background-color: #e6e6fa;">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <div class="detail-content">
+                        <p class="detail-label">Experience</p>
+                        <span class="detail-value"><%= therapist.experience_years %> years</span>
+                    </div>
+                </div>
+                <div class="detail-item-card">
+                    <div class="detail-icon-wrapper" style="background-color: #d8f5e7;">
+                        <i class="fas fa-id-card"></i>
+                    </div>
+                    <div class="detail-content">
+                        <p class="detail-label">License No</p>
+                        <span class="detail-value"><%= therapist.license_number %></span>
+                    </div>
+                </div>
+                <% if (therapist.approach_style) { %>
+                    <div class="detail-item-card">
+                        <div class="detail-icon-wrapper" style="background-color: #fffacd;">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="detail-content">
+                            <p class="detail-label">Therapeutic Approach</p>
+                            <span class="detail-value"><%= therapist.approach_style %></span>
+                        </div>
+                    </div>
+                <% } %>
+                <% if (therapist.religion) { %>
+                    <div class="detail-item-card">
+                        <div class="detail-icon-wrapper" style="background-color: #fff0d8;">
+                            <%
+                                // --- THIS BLOCK IS NOW CORRECT ---
+                                // The entire switch statement is contained in one EJS tag with valid syntax.
+                                let religionIconClass = 'fas fa-question';
+                                switch (therapist.religion.toLowerCase()) {
+                                    case 'christianity': religionIconClass = 'fas fa-cross'; break;
+                                    case 'islam': religionIconClass = 'fas fa-star-and-crescent'; break;
+                                    case 'judaism': religionIconClass = 'fas fa-menorah'; break;
+                                    case 'buddhism': religionIconClass = 'fas fa-dharmachakra'; break;
+                                    case 'hinduism': religionIconClass = 'fas fa-om'; break;
+                                    case 'atheism':
+                                    case 'agnosticism': religionIconClass = 'fas fa-ban'; break;
+                                }
+                            %>
+                            <i class="<%= religionIconClass %>"></i>
+                        </div>
+                        <div class="detail-content">
+                            <p class="detail-label">Religion</p>
+                            <span class="detail-value"><%= therapist.religion %></span>
+                        </div>
+                    </div>
+                <% } %>
+            </div>
+
+            <% if (therapist.languages && therapist.languages.length > 0) { %>
+                <div class="languages-section">
+                    <p class="languages-label">Languages</p>
+                    <div class="language-tags-container">
+                        <% therapist.languages.forEach(function(language) { %>
+                            <span class="language-tag"><%= language %></span>
+                        <% }); %>
+                    </div>
+                </div>
+            <% } %>
+
+            <%
+                // --- THIS BLOCK IS NOW CORRECT ---
+                let price = 'N/A';
+                switch (therapist.level.toLowerCase()) {
+                    case 'junior': price = 300; break;
+                    case 'licensed': price = 500; break;
+                    case 'senior': price = 700; break;
+                }
+            %>
+            <div class="price-section">
+                <p class="price"><%= price %> EGP</p>
+                <p class="level-info">per session for a <span><%= therapist.level %></span> therapist</p>
+            </div>
+
+            <div class="action-buttons">
+                <a href="/api/therapists" class="btn btn-back"><i class="fas fa-arrow-left"></i> Back to All Therapists</a>
+                <a href="/api/appointment/book/<%= therapist.therapist_id %>" class="btn btn-book">
+                    Book a Session <i class="fas fa-calendar-check"></i>
+                </a>
+            </div>
+        </div>
+    <% } else { %>
+        <div style="text-align: center; padding: 50px;">
+            <p>Therapist details not found.</p>
+            <a href="/api/therapists" class="btn btn-back">Back to All Therapists</a>
+        </div>
+    <% } %>
+</div>
+<%- include('../partials/footer') %>

@@ -1,0 +1,184 @@
+<% var extraCSS = '<link rel="stylesheet" href="/css/user/profile.css" />'; %>
+<%- include('../partials/header', {title: 'My Profile', extraCSS: extraCSS}) %>
+
+<div class="container">
+    <h1 class="page-title"><i class="fas fa-user-circle page-title-icon"></i> My Profile</h1>
+
+    <div class="profile-summary-card">
+        <%
+            // Logic for dynamically setting the avatar source
+            let avatarSrc = '/images/illustrations/default-male-avatar.png'; // Default generic avatar
+
+            if (user.profile_picture) {
+                avatarSrc = user.profile_picture;
+            } else if (user.gender && user.gender.toLowerCase() === 'female') {
+                avatarSrc = '/images/illustrations/default-female-avatar.png';
+            } else if (user.gender && user.gender.toLowerCase() === 'male') { // Added condition for male explicitly
+                avatarSrc = '/images/illustrations/default-male-avatar.png';
+            }
+            // If gender is 'unspecified', 'non-binary', 'prefer_not_to_say', or null/undefined, it will remain default-generic-avatar.png
+        %>
+        <img id="profile-picture-display" src="<%= avatarSrc %>" alt="Profile Picture" class="profile-picture-large">
+        <div class="user-details">
+            <h2 id="display-name" class="user-name"><%= user.name %></h2>
+            <p id="display-email" class="user-email">
+                <%= user.email %>
+            </p>
+            <button class="btn btn-secondary" id="open-pfp-modal"><i class="fas fa-camera"></i> Personalize your profile picture</button>
+        </div>
+    </div>
+
+    <div class="profile-sections-grid">
+        <div class="profile-card info-group-card">
+            <details open>
+                <summary>
+                    <h3><i class="fas fa-info-circle section-icon"></i> Basic Information</h3>
+                    <p class="section-description">Tell us a little about yourself.</p>
+                </summary>
+                <div id="basic-info-message" class="message-area"></div>
+                <form id="update-basic-info-form">
+                    <div class="info-group">
+                        <label for="edit-name">Your Name:</label>
+                        <span class="display-mode" id="display-name"><%= user.name || 'N/A' %></span>
+                        <input type="text" class="edit-mode" id="edit-name" name="name" value="<%= user.name || '' %>" placeholder="Enter your full name">
+                        <button type="button" class="btn-edit toggle-edit-mode" data-field="name" aria-label="Edit Name">
+                            <i class="fas fa-pencil-alt edit-icon"></i><span class="cancel-text">Cancel</span>
+                        </button>
+                    </div>
+
+                    <div class="info-group">
+                        <label for="edit-date_of_birth">Date of Birth:</label>
+                        <span class="display-mode" id="display-date_of_birth"><%= user.date_of_birth ? new Date(user.date_of_birth).toLocaleDateString() : 'N/A' %></span>
+                        <input type="date" class="edit-mode" id="edit-date_of_birth" name="date_of_birth" value="<%= user.date_of_birth ? user.date_of_birth.substring(0,10) : '' %>">
+                        <small class="input-hint">Your birthdate helps us personalize your experience.</small>
+                        <button type="button" class="btn-edit toggle-edit-mode" data-field="date_of_birth" aria-label="Edit Date of Birth">
+                            <i class="fas fa-pencil-alt edit-icon"></i><span class="cancel-text">Cancel</span>
+                        </button>
+                    </div>
+                    <div class="edit-buttons">
+                        <button type="submit" class="btn btn-primary save-btn" style="display: none;"><i class="fas fa-check"></i> Save ✨</button>
+                        <button type="button" class="btn btn-secondary cancel-btn" style="display: none;"><i class="fas fa-times"></i> Cancel</button>
+                    </div>
+                </form>
+            </details>
+        </div>
+
+        <% if (user.roles.includes('client') && user.clientData) { %>
+        <div class="profile-card info-group-card">
+            <details open>
+                <summary>
+                    <h3><i class="fas fa-hand-holding-heart section-icon"></i> Client Information</h3>
+                    <p class="section-description">Let your therapist know what you're looking for.</p>
+                </summary>
+                <div id="client-info-message" class="message-area"></div>
+                <form id="update-client-info-form">
+                    <div class="info-group">
+                        <label for="edit-therapy_goals">What would you like to achieve through therapy?</label>
+                        <span class="display-mode" id="display-therapy_goals"><%= user.clientData.therapy_goals || 'N/A' %></span>
+                        <textarea class="edit-mode" id="edit-therapy_goals" name="therapy_goals" rows="4" placeholder="e.g., Manage anxiety, improve relationships..."><%= user.clientData.therapy_goals || '' %></textarea>
+                        <small class="input-hint">Be as specific or general as you like!</small>
+                        <button type="button" class="btn-edit toggle-edit-mode" data-field="therapy_goals" aria-label="Edit Therapy Goals">
+                            <i class="fas fa-pencil-alt edit-icon"></i><span class="cancel-text">Cancel</span>
+                        </button>
+                    </div>
+
+                    <div class="info-group">
+                        <label for="edit-preferred_therapy_type">Preferred Therapy Type:</label>
+                        <span class="display-mode" id="display-preferred_therapy_type"><%= user.clientData.preferred_therapy_type || 'N/A' %></span>
+                        <input type="text" class="edit-mode" id="edit-preferred_therapy_type" name="preferred_therapy_type" value="<%= user.clientData.preferred_therapy_type || '' %>" placeholder="e.g., CBT, DBT, Trauma-informed...">
+                        <small class="input-hint">If you have a specific approach in mind.</small>
+                        <button type="button" class="btn-edit toggle-edit-mode" data-field="preferred_therapy_type" aria-label="Edit Preferred Therapy Type">
+                            <i class="fas fa-pencil-alt edit-icon"></i><span class="cancel-text">Cancel</span>
+                        </button>
+                    </div>
+                    <div class="edit-buttons">
+                        <button type="submit" class="btn btn-primary save-btn" style="display: none;"><i class="fas fa-check"></i> Save ✨</button>
+                        <button type="button" class="btn btn-secondary cancel-btn" style="display: none;"><i class="fas fa-times"></i> Cancel</button>
+                    </div>
+                </form>
+            </details>
+        </div>
+        <% } %>
+
+        <% if (user.roles.includes('therapist') && user.therapistData) { %>
+        <div class="profile-card info-group-card">
+            <details open>
+                <summary>
+                    <h3><i class="fas fa-user-md section-icon"></i> Therapist Information</h3>
+                    <p class="section-description">Share your professional details with potential clients.</p>
+                </summary>
+                <div id="therapist-info-message" class="message-area"></div>
+                <form id="update-therapist-info-form">
+                    <div class="info-group">
+                        <label for="edit-specialization">Your Specialization:</label>
+                        <span class="display-mode" id="display-specialization"><%= user.therapistData.specialization || 'N/A' %></span>
+                        <input type="text" class="edit-mode" id="edit-specialization" name="specialization" value="<%= user.therapistData.specialization || '' %>" placeholder="e.g., Depression, Anxiety, Couples Therapy...">
+                        <small class="input-hint">What areas do you excel in?</small>
+                        <button type="button" class="btn-edit toggle-edit-mode" data-field="specialization" aria-label="Edit Specialization">
+                            <i class="fas fa-pencil-alt edit-icon"></i><span class="cancel-text">Cancel</span>
+                        </button>
+                    </div>
+
+                    <div class="info-group">
+                        <label for="edit-experience_years">Years of Experience:</label>
+                        <span class="display-mode" id="display-experience_years"><%= user.therapistData.years_of_experience || 'N/A' %></span>
+                        <input type="number" class="edit-mode" id="edit-experience_years" name="experience_years" value="<%= user.therapistData.years_of_experience || 0 %>" min="0">
+                        <small class="input-hint">How many years have you been practicing?</small>
+                        <button type="button" class="btn-edit toggle-edit-mode" data-field="experience_years" aria-label="Edit Years of Experience">
+                            <i class="fas fa-pencil-alt edit-icon"></i><span class="cancel-text">Cancel</span>
+                        </button>
+                    </div>
+
+                    <div class="info-group">
+                        <label for="edit-bio">Tell us about yourself:</label>
+                        <span class="display-mode" id="display-bio"><%= user.therapistData.bio || 'N/A' %></span>
+                        <textarea class="edit-mode" id="edit-bio" name="bio" rows="4" placeholder="Share your approach, philosophy, or what makes you unique."><%= user.therapistData.bio || '' %></textarea>
+                        <small class="input-hint">This will be visible to potential clients on your profile.</small>
+                        <button type="button" class="btn-edit toggle-edit-mode" data-field="bio" aria-label="Edit Bio">
+                            <i class="fas fa-pencil-alt edit-icon"></i><span class="cancel-text">Cancel</span>
+                        </button>
+                    </div>
+                    <div class="edit-buttons">
+                        <button type="submit" class="btn btn-primary save-btn" style="display: none;"><i class="fas fa-check"></i> Save ✨</button>
+                        <button type="button" class="btn btn-secondary cancel-btn" style="display: none;"><i class="fas fa-times"></i> Cancel</button>
+                    </div>
+                </form>
+            </details>
+        </div>
+        <% } %>
+
+    <div id="pfp-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" aria-label="Close Profile Picture Modal">&times;</span>
+        <h4><i class="fas fa-image modal-icon"></i> Personalize your profile picture</h4>
+        <div id="modal-pfp-message" class="message-area"></div>
+        <form id="upload-pfp-form-modal" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="modal_profile_picture_input">Select an image:</label>
+                <input type="file" id="modal_profile_picture_input" name="profile_picture" accept="image/*" required>
+                <small class="input-hint">Choose a clear, recent photo of yourself!</small>
+            </div>
+            <div class="pfp-preview-container">
+                <%
+                    // Logic for dynamically setting the modal preview avatar source
+                    let modalAvatarSrc = '/images/illustrations/default-male-avatar.png'; // Default generic avatar
+
+                    if (user.profile_picture) {
+                        modalAvatarSrc = user.profile_picture;
+                    } else if (user.gender && user.gender.toLowerCase() === 'female') {
+                        modalAvatarSrc = '/images/illustrations/default-female-avatar.png';
+                    } else if (user.gender && user.gender.toLowerCase() === 'male') { // Added condition for male explicitly
+                        modalAvatarSrc = '/images/illustrations/default-male-avatar.png';
+                    }
+                %>
+                <img id="modal_pfp_preview" src="<%= modalAvatarSrc %>" alt="Profile Picture Preview">
+            </div>
+            <button type="submit" class="btn btn-primary"><i class="fas fa-upload"></i> Upload Picture</button>
+        </form>
+    </div>
+    </div>
+</div>
+</div>
+
+<script src="/js/user/profile.js"></script>
+<%- include('../partials/footer') %>

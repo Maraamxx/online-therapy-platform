@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error - <%= status || '500' %></title>
+    <link rel="stylesheet" href="/css/admin/style.css"> </head>
+<body>
+    <div class="error-container">
+        <h1>Error: <%= status || '500' %></h1>
+        <p><%= message || 'An unexpected error occurred.' %></p>
+        <a href="/api/admin" class="btn">Go to Admin Dashboard</a>
+    </div>
+</body>
+</html>

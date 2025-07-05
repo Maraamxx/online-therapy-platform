@@ -1,0 +1,17 @@
+<div class="section-header">
+    <h3>Plan Subscriber Counts</h3>
+</div>
+<div class="summary-cards">
+    <% if (planCounts && planCounts.length > 0) { %>
+        <% planCounts.forEach(plan => { %>
+            <div class="card info">
+                <h4><%= plan.plan_name %></h4>
+                <p><%= plan.subscriber_count %></p>
+            </div>
+        <% }); %>
+    <% } else { %>
+        <div class="card">
+            <p>No plan data available.</p>
+        </div>
+    <% } %>
+</div>

@@ -1,0 +1,38 @@
+<nav class="navbar">
+  <div class="navbar-brand">
+    <a class="logo-link" href="/">
+      <span class="logo-text">INNERAURA.</span>
+    </a>
+  </div>
+  <ul class="navbar-links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About Us</a></li>
+    <li><a href="/api/contact-us">Contact Us</a></li>
+    <% if (loggedIn) { %>
+    <% if (user && user.roles && user.roles.includes('therapist')) { %>
+    <li><a href="/appointments/management/therapist">Appointments</a></li>
+    <li><a href="/api/availability">Availability</a></li>
+    <% } else if (user && user.roles && user.roles.includes('client')) { %>
+    <li><a href="/api/therapists/">View Therapists</a></li>
+    <li><a href="/api/subscriptions/plans">Our Plans</a></li>
+    <li><a href="/appointments/management/client">Appointments</a></li>
+    <% } %>
+    <li><a href="/api/user/dashboard">Profile</a></li>
+    <li>
+      <form action="/api/auth/logout" method="POST" style="display: inline">
+        <button type="submit" class="navbar-link-button">Logout</button>
+      </form>
+    </li>
+    <% } else { %>
+    <li><a class="btn-navbar-primary" href="/api/auth/login">Login</a></li>
+    <li>
+      <a class="btn-navbar-secondary" href="/api/auth/register">Register</a>
+    </li>
+    <% } %>
+  </ul>
+  <div class="navbar-toggle" id="navbarToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</nav>

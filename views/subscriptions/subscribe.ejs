@@ -1,0 +1,168 @@
+<% var extraCSS = '<link rel="stylesheet" href="/css/subscriptions/subs-payment.css" />'; %>
+<%- include('../partials/header', {title: 'Subscription Payment', extraCSS:
+extraCSS}) %>
+
+<div class="page-wrapper">
+  <div class="container">
+    <h1 class="page-title">Subscribe to <%= plan.plan_name %></h1>
+
+    <div class="summary-section">
+      <h2>Your Plan Summary</h2>
+      <div class="summary-item">
+        <span class="label">Plan Type:</span>
+        <span class="value"><%= plan.plan_name %></span>
+      </div>
+      <div class="summary-item">
+        <span class="label">Description:</span>
+        <span class="value"><%= plan.description %></span>
+      </div>
+      <div class="summary-item">
+        <span class="label">Sessions Included:</span>
+        <span class="value"><%= plan.session_limit %></span>
+      </div>
+      <div class="summary-item">
+        <span class="label">Duration:</span>
+        <span class="value"><%= plan.duration_days %> days</span>
+      </div>
+      <div class="summary-item total-price">
+        <span class="label">Total Price:</span>
+        <span class="value"><%= plan.price %> <%= plan.currency %></span>
+      </div>
+    </div>
+
+    <div class="payment-section">
+      <h2>Complete Your Payment</h2>
+      <form id="paymentForm">
+        <input type="hidden" name="clientId" value="4" />
+        <input type="hidden" name="planId" value="<%= plan.plan_id %>" />
+        <input type="hidden" name="amount" value="<%= plan.price %>" />
+        <input type="hidden" name="currency" value="<%= plan.currency %>" />
+        <input
+          type="hidden"
+          name="sessionLimit"
+          value="<%= plan.session_limit %>"
+        />
+
+      <div class="mb-3">
+          <label for="paymentMethod" class="form-label">Select Payment Method</label>
+          <select class="form-select" name="paymentMethod" id="paymentMethod" required>
+            <option value="">Choose a method</option>
+            <option value="card">Credit/Debit Card</option>
+          <option value="vodafone_cash">Vodafone Cash</option>
+          <option value="orange_money">Orange Money</option>
+          <option value="etisalat_cash">Etisalat Cash</option>
+          </select>
+          <div class="error-message" id="paymentMethod-error"></div>
+        </div>
+
+        <!-- Card Payment Fields (shown only when card is selected) -->
+      <div id="card-fields" class="conditional-field">
+        <div class="mb-3">
+          <label class="form-label">Card Number</label>
+          <input
+            type="text"
+            class="form-control"
+            id="cardNumber"
+            placeholder="1234 5678 9012 3456"
+            maxlength="19"
+            pattern="[0-9\s]{13,19}"
+            autocomplete="cc-number"
+          />
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <label class="form-label">Expiration Date</label>
+            <input
+              type="text"
+              class="form-control"
+              id="expirationDate"
+              placeholder="MM/YY"
+              maxlength="5"
+              pattern="(0[1-9]|1[0-2])\/?([0-9]{2})"
+            />
+          </div>
+          <div class="col-md-6 mb-3">
+            <label class="form-label">CVV</label>
+            <input
+              type="text"
+              class="form-control"
+              id="cvv"
+              placeholder="123"
+              maxlength="4"
+              pattern="[0-9]{3,4}"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">Cardholder Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="cardholderName"
+            placeholder="Name on card"
+          />
+        </div>
+      </div>
+
+      <!-- Vodafone Cash fields -->
+      <div id="vodafone-cash-fields" class="conditional-field">
+        <div class="mb-3">
+          <label class="form-label">Vodafone Cash Number</label>
+          <input
+            type="text"
+            class="form-control"
+            id="mobileNumber"
+            placeholder="0100 123 4567"
+            maxlength="11"
+            pattern="01[0-9]{9}"
+          />
+        </div>
+      </div>
+
+      <!-- Orange Money fields -->
+      <div id="orange-money-fields" class="conditional-field">
+        <div class="mb-3">
+          <label class="form-label">Orange Money Number</label>
+          <input
+            type="text"
+            class="form-control"
+            id="mobileNumber"
+            placeholder="0122 345 6789"
+            maxlength="11"
+            pattern="01[0-9]{9}"
+          />
+        </div>
+      </div>
+
+      <!-- Etisalat Cash fields -->
+      <div id="etisalat-cash-fields" class="conditional-field">
+        <div class="mb-3">
+          <label class="form-label">Etisalat Cash Number</label>
+          <input
+            type="text"
+            class="form-control"
+            id="mobileNumber"
+            placeholder="0111 987 6543"
+            maxlength="11"
+            pattern="01[0-9]{9}"
+          />
+        </div>
+      </div>
+        <button type="submit" class="btn btn-primary">
+          Pay Now (<%= plan.price %> <%= plan.currency %>)
+        </button>
+      </form>
+    </div>
+    <p class="footer-note">Secure payment processing ensured.</p>
+
+    <div
+      id="resultMessage"
+      class="message-container"
+      style="display: none"
+    ></div>
+  </div>
+</div>
+<script src="/js/payments/subs-payment.js"></script>
+<%- include('../partials/footer') %>

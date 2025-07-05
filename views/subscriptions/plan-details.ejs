@@ -1,0 +1,37 @@
+<%- include('../partials/header', {title: plan.plan_name}) %>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h2><%= plan.plan_name %></h2>
+                </div>
+                <div class="card-body">
+                    <p class="lead"><%= plan.description %></p>
+                    <hr>
+                    <h3 class="text-center">
+                        <%= plan.currency %><%= plan.price %>
+                        <small class="text-muted">for <%= plan.duration_days %> days</small>
+                    </h3>
+                    <ul class="list-group list-group-flush my-4">
+                        <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill text-success"></i>
+                            <%= plan.session_limit %> training sessions
+                        </li>
+                        <li class="list-group-item">
+                            <i class="bi bi-check-circle-fill text-success"></i>
+                            Valid for <%= plan.duration_days %> days from start date
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-footer text-center">
+                    <a href="/api/subscriptions/subscribe/<%= plan.plan_id %>" class="btn btn-success btn-lg">Subscribe Now</a>
+                    <a href="/api/subscriptions/plans" class="btn btn-outline-secondary">Back to Plans</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

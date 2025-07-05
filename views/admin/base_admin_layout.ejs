@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Admin Panel - <%= typeof title !== 'undefined' ? title : 'Dashboard' %>
+    </title>
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+
+    <link rel="stylesheet" href="/css/global.css" />
+    <link rel="stylesheet" href="/css/admin/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <style>
+      /* Your base_admin_layout specific styles here (sidebar, main-content, etc.) */
+      body {
+        display: flex;
+        font-family: Arial, sans-serif; /* Changed to Arial for a cleaner look, similar to the image */
+        margin: 0;
+        min-height: 100vh;
+        background-color: #f0f2f5; /* Light background for the overall page */
+        color: #333;
+      }
+      .sidebar {
+        width: 250px;
+        background-color: #ffffff; /* White background for the sidebar matching the image */
+        color: #333; /* Darker text for sidebar links */
+        padding: 20px;
+        box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05); /* Subtle shadow on the right */
+        flex-shrink: 0;
+      }
+      .sidebar-header {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #eee; /* Lighter border for separation */
+      }
+      .sidebar-header h2 {
+        color: #333; /* Dark text for header */
+        font-size: 1.5em;
+        margin: 0;
+      }
+      .sidebar ul {
+        list-style: none;
+        padding: 0;
+      }
+      .sidebar ul li {
+        margin-bottom: 5px; /* Slightly less space between links */
+      }
+      .sidebar ul li a {
+        color: #555; /* Default link color */
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        border-radius: 8px; /* More rounded corners for links */
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      .sidebar ul li a:hover {
+        background-color: #f0f2f5; /* Light background on hover */
+        color: #007bff; /* Primary blue on hover */
+      }
+      .sidebar ul li a.active {
+        background-color: #e6f0ff; /* Light blue background for active link, matching image */
+        color: #007bff; /* Primary blue text for active link */
+        font-weight: bold; /* Bold text for active link */
+      }
+      .sidebar ul li a i {
+        margin-right: 10px;
+        font-size: 1.2em;
+        color: inherit; /* Icons inherit color from parent link */
+      }
+      .main-content {
+        flex-grow: 1;
+        padding: 30px;
+        overflow-y: auto;
+      }
+      .dashboard-header {
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .dashboard-header h1 {
+        margin: 0;
+        color: #2c3e50;
+        font-size: 2.2em;
+      }
+      .dashboard-header p {
+        color: #7f8c8d;
+        font-size: 1.1em;
+      }
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        margin-bottom: 30px;
+      }
+      .card {
+        background-color: #ffffff;
+        padding: 25px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        text-align: center;
+      }
+      .card h3 {
+        color: #34495e;
+        margin-top: 0;
+        font-size: 1.8em;
+      }
+      .card p {
+        color: #7f8c8d;
+        font-size: 1.1em;
+        margin-bottom: 0;
+      }
+      .data-table {
+        background-color: #ffffff; /* White background for table container */
+        border-radius: 8px; /* Rounded corners for table container */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Subtle shadow for table container */
+        overflow-x: auto;
+        padding: 20px; /* Add padding inside the table container */
+      }
+      .data-table table {
+        width: 100%;
+        border-collapse: separate; /* Use separate to allow border-spacing */
+        border-spacing: 0; /* Remove default spacing */
+      }
+      .data-table th,
+      .data-table td {
+        padding: 15px; /* Generous padding for cells */
+        text-align: left;
+        /* No explicit border-bottom here; will use for tbody tr */
+      }
+      .data-table th {
+        background-color: #f8f8f8; /* Very light grey for header background, matching image */
+        color: #333; /* Darker text for header */
+        font-weight: bold;
+        text-transform: uppercase;
+        font-size: 0.9em;
+        border-bottom: 1px solid #eee; /* Light border below header */
+      }
+      .data-table tbody tr {
+        border-bottom: 1px solid #eee; /* Light border between rows */
+      }
+      .data-table tbody tr:last-child {
+        border-bottom: none; /* No border for the last row */
+      }
+      .data-table tbody tr:hover {
+        background-color: #f8f8f8; /* Subtle light grey on row hover, matching image */
+      }
+      .status-badge {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.85em;
+        font-weight: bold;
+        text-transform: capitalize;
+      }
+      /* Specific status badge colors based on the image */
+      .status-badge.scheduled {
+        background-color: #e6f0ff; /* Light blue */
+        color: #007bff; /* Darker blue */
+      }
+      .status-badge.completed {
+        background-color: #e2fce4; /* Light green */
+        color: #28a745; /* Darker green */
+      }
+      .status-badge.cancelled {
+        background-color: #ffe6e6; /* Light red */
+        color: #dc3545; /* Darker red */
+      }
+      /* Other status badges can remain as defined in style.css or be updated */
+      .status-badge.in-progress {
+        background-color: #fff3cd;
+        color: #856404;
+      }
+      .status-badge.pending {
+        background-color: #fde6cc;
+        color: #e66a00;
+      }
+      .status-badge.approved {
+        background-color: #d4edda;
+        color: #155724;
+      }
+      .status-badge.declined {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('../partials/admin-sidebar', { currentPage: currentPage }) %>
+    <div class="main-content">
+      <% console.log("Including file:", body); %> <%- include(body, locals) %>
+    </div>
+    <script src="/js/admin/script.js"></script>
+  </body>
+</html>

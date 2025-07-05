@@ -1,0 +1,146 @@
+<% var extraCSS = '<link rel="stylesheet" href="/css/register/signup.css" />'; %>
+<%- include('../partials/header', {title: 'Registration', extraCSS: extraCSS}) %>
+
+<div class="container">
+    <h1>Register</h1>
+    <form id="registrationForm" enctype="multipart/form-data" novalidate>
+        <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" id="name" name="name"  value="<%= formData ? formData.name : '' %>">
+            <div id="nameError" class="error"><%= errors ? errors.name : '' %></div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email"  value="<%= formData ? formData.email : '' %>">
+            <div id="emailError" class="error"><%= errors ? errors.email : '' %></div>
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" >
+            <div id="passwordError" class="error"><%= errors ? errors.password : '' %></div>
+        </div>
+
+        <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword" >
+            <div id="confirmPasswordError" class="error"><%= errors ? errors.confirmPassword : '' %></div>
+        </div>
+
+        <div class="form-group">
+            <label for="dateOfBirth">Date of Birth</label>
+            <input type="date" id="dateOfBirth" name="dateOfBirth" value="<%= formData ? formData.dateOfBirth : '' %>">
+                <div id="dateOfBirthError" class="error"><%= errors ? errors.dateOfBirthError : '' %></div>
+
+        </div>
+
+        <div class="form-group">
+            <label for="gender">Gender</label>
+            <select id="gender" name="gender">
+                <option value="">Select</option>
+                <option value="male" <%= formData && formData.gender === 'male' ? 'selected' : '' %>>Male</option>
+                <option value="female" <%= formData && formData.gender === 'female' ? 'selected' : '' %>>Female</option>
+                <option value="other" <%= formData && formData.gender === 'other' ? 'selected' : '' %>>Other</option>
+                <option value="prefer-not-to-say" <%= formData && formData.gender === 'prefer-not-to-say' ? 'selected' : '' %>>Prefer not to say</option>
+            </select>
+                <div id="genderError" class="error"><%= errors ? errors.gender : '' %></div>
+        </div>
+
+        <div class="form-group">
+            <label>Register as</label>
+            <div class="radio-group">
+                <div class="radio-option">
+                    <input type="radio" id="clientRole" name="role" value="client" <%= role === 'client' ? 'checked' : '' %>>
+                    <label for="clientRole">Client</label>
+                </div>
+                <div class="radio-option">
+                    <input type="radio" id="therapistRole" name="role" value="therapist" <%= role === 'therapist' ? 'checked' : '' %>>
+                    <label for="therapistRole">Therapist</label>
+                </div>
+            </div>
+        </div>
+
+        <div id="clientSection" class="role-section <%= role === 'client' ? 'active' : '' %>">
+            <h3>Client Information</h3>
+            <div class="form-group">
+                <label for="therapy_goals">Therapy Goals</label>
+                <textarea id="therapy_goals" name="therapy_goals" rows="3"><%= formData ? formData.therapy_goals : '' %></textarea>
+                <div id="therapyGoalsError" class="error"><%= errors ? errors.therapy_goals : '' %></div>
+            </div>
+
+            <div class="form-group">
+                <label for="preferred_therapy_type">Preferred Therapy Type</label>
+                <select id="preferred_therapy_type" name="preferred_therapy_type">
+                    <option value="">Select</option>
+                    <option value="cbt" <%= formData && formData.preferred_therapy_type === 'cbt' ? 'selected' : '' %>>Cognitive Behavioral Therapy</option>
+                    <option value="psychodynamic" <%= formData && formData.preferred_therapy_type === 'psychodynamic' ? 'selected' : '' %>>Psychodynamic Therapy</option>
+                    <option value="humanistic" <%= formData && formData.preferred_therapy_type === 'humanistic' ? 'selected' : '' %>>Humanistic Therapy</option>
+                    <option value="integrative" <%= formData && formData.preferred_therapy_type === 'integrative' ? 'selected' : '' %>>Integrative Therapy</option>
+                </select>
+                <div id="therapyTypeError" class="error"><%= errors ? errors.preferred_therapy_type : '' %></div>
+            </div>
+        </div>
+
+        <div id="therapistSection" class="role-section <%= role === 'therapist' ? 'active' : '' %>">
+            <h3>Therapist Information</h3>
+            <div class="form-group">
+                <label for="license_number">License Number</label>
+                <input type="text" id="license_number" name="license_number" value="<%= formData ? formData.license_number : '' %>">
+                <div id="licenseNumberError" class="error"><%= errors ? errors.license_number : '' %></div>
+            </div>
+
+            <div class="form-group">
+                <label for="specialization">Specialization</label>
+                <input type="text" id="specialization" name="specialization" value="<%= formData ? formData.specialization : '' %>">
+                <div id="specializationError" class="error"><%= errors ? errors.specialization : '' %></div>
+            </div>
+
+            <div class="form-group">
+                <label for="experience_years">Years of Experience</label>
+                <input type="number" id="experience_years" name="experience_years" min="0" value="<%= formData ? formData.experience_years : '' %>">
+<div id="experienceYearsError" class="error"><%= errors ? errors.experience_years : '' %></div>
+            </div>
+
+            <div class="form-group">
+                <label for="bio">Bio</label>
+                <textarea id="bio" name="bio" rows="3"><%= formData ? formData.bio : '' %></textarea>
+                <div id="bioError" class="error"><%= errors ? errors.bio : '' %></div>
+
+            </div>
+
+            <div class="form-group">
+                <label>Upload Your License / CV (PDF, JPG, PNG)</label>
+                <input type="file" id="applicationFile" name="applicationFile" accept=".pdf,.jpg,.jpeg,.png" style="display: none;">
+                
+                <label for="applicationFile" class="file-upload-label" id="customFileUploadLabel">
+                    <span id="fileUploadText">Choose File</span>
+                </label>
+                <div id="applicationFileError" class="error"><%= errors ? errors.applicationFile : '' %></div>
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" id="is_verified" name="is_verified" <%= formData && formData.is_verified ? 'checked' : '' %>>
+                    I am a verified professional
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" id="submitBtn">Register</button>
+        </div>
+        <p class="auth-links">
+            Already have an account? <a href="/api/auth/login">Login here</a>
+        </p>
+
+        <div id="formError" class="error"><%= errors ? errors.form : '' %></div>
+    </form>
+        <div id="successMessage" style="display: none; color: green; margin-top: 20px;">
+    Registration successful! Redirecting...
+    </div>
+</div>
+
+
+<script src="/js/register/auth.js"></script>
+    <%- include('../partials/footer') %>

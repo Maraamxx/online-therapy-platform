@@ -1,0 +1,173 @@
+
+<div class="dashboard-header">
+    <h1>User Profile</h1>
+    <p>Details for <%= user.firstName %> <%= user.lastName %></p>
+</div>
+
+<div class="card-grid">
+    <div class="card">
+        <h3>User Information</h3>
+        <p><strong>Name:</strong> <%= user.firstName %> <%= user.lastName %></p>
+        <p><strong>Email:</strong> <%= user.email %></p>
+        <p><strong>Role:</strong> <%= user.role %></p>
+        <p><strong>Status:</strong> 
+            <% if (user.isActive) { %>
+                <span class="status-badge approved">Active</span>
+            <% } else { %>
+                <span class="status-badge declined">Inactive</span>
+            <% } %>
+        </p>
+
+        <div style="margin-top: 20px;">
+            <% if (user.isActive) { %>
+                <button id="deactivateUserBtn" class="btn btn-danger">Deactivate User</button>
+            <% } else { %>
+                <button id="activateUserBtn" class="btn btn-success">Activate User</button>
+            <% } %>
+        </div>
+        
+    </div>
+
+    <div class="card">
+        <h3>Account Details</h3>
+        <p><strong>User ID:</strong> <%= user.user_id %></p>
+        <p><strong>Joined:</strong> <%= new Date(user.createdAt).toLocaleDateString() %></p>
+        <p><strong>Last Updated:</strong> <%= new Date(user.updatedAt).toLocaleDateString() %></p>
+        <% if (user.lastLogin) { %>
+            <p><strong>Last Login:</strong> <%= new Date(user.lastLogin).toLocaleString() %></p>
+        <% } %>
+    </div>
+</div>
+
+<% if (user.role === 'therapist') { %>
+    <div class="data-table" style="margin-top: 30px;">
+        <h3>Therapist Specific Details</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Specialization</th>
+                    <th>Bio</th>
+                    <th>License Number</th>
+                    </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><%= user.specialization || 'N/A' %></td>
+                    <td><%= user.bio || 'N/A' %></td>
+                    <td><%= user.licenseNumber || 'N/A' %></td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+<% } else if (user.role === 'client') { %>
+    <div class="data-table" style="margin-top: 30px;">
+        <h3>Client Specific Details</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Subscription Plan</th>
+                    <th>Last Assessment</th>
+                    </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><%= user.subscriptionPlan || 'No Plan' %></td>
+                    <td><%= user.lastAssessmentDate ? new Date(user.lastAssessmentDate).toLocaleDateString() : 'N/A' %></td>
+                    </tr>
+            </tbody>
+        </table>
+    </div>
+<% } %>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const userId = "<%= user.user_id %>"; // Get user ID from EJS variable
+
+        const deactivateBtn = document.getElementById('deactivateUserBtn');
+        const activateBtn = document.getElementById('activateUserBtn');
+
+        if (deactivateBtn) {
+            deactivateBtn.addEventListener('click', async () => {
+                if (confirm(`Are you sure you want to deactivate <%= user.firstName %> <%= user.lastName %>?`)) {
+                    try {
+                        const response = await fetch(`/api/admin/users/${userId}/deactivate`, {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                // Include CSRF token if you are using one
+                            },
+                        });
+
+                        const data = await response.json();
+
+                        if (response.ok) {
+                            alert(data.message);
+                            window.location.reload(); // Reload to show updated status
+                        } else {
+                            alert(`Error: ${data.error || 'Failed to deactivate user'}`);
+                        }
+                    } catch (error) {
+                        console.error('Error deactivating user:', error);
+                        alert('An error occurred during deactivation.');
+                    }
+                }
+            });
+        }
+
+        if (activateBtn) {
+            activateBtn.addEventListener('click', async () => {
+                if (confirm(`Are you sure you want to activate <%= user.firstName %> <%= user.lastName %>?`)) {
+                    try {
+                        const response = await fetch(`/api/admin/users/${userId}/activate`, {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                // Include CSRF token if you are using one
+                            },
+                        });
+
+                        const data = await response.json();
+
+                        if (response.ok) {
+                            alert(data.message);
+                            window.location.reload(); // Reload to show updated status
+                        } else {
+                            alert(`Error: ${data.error || 'Failed to activate user'}`);
+                        }
+                    } catch (error) {
+                        console.error('Error activating user:', error);
+                        alert('An error occurred during activation.');
+                    }
+                }
+            });
+        }
+    });
+</script>
+
+<style>
+    .btn {
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    .btn-danger {
+        background-color: #dc3545;
+        color: white;
+    }
+    .btn-danger:hover {
+        background-color: #c82333;
+        transform: translateY(-1px);
+    }
+    .btn-success {
+        background-color: #28a745;
+        color: white;
+    }
+    .btn-success:hover {
+        background-color: #218838;
+        transform: translateY(-1px);
+    }
+</style>

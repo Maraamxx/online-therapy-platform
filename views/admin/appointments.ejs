@@ -1,0 +1,41 @@
+<div class="dashboard-header">
+    <h1>All Appointments</h1>
+    <p>Manage all scheduled and past appointments.</p>
+</div>
+
+<div class="data-table">
+    <table>
+        <thead>
+            <tr>
+                <th>Appointment ID</th>
+                <th>Patient</th>
+                <th>Therapist</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (appointments && appointments.length > 0) { %>
+                <% appointments.forEach(appointment => { %>
+                    <tr>
+                        <td><%= appointment.appointment_id %></td>
+                        <td><%= appointment.patientname %></td>
+                        <td><%= appointment.therapistname %></td>
+                        <td><%= new Date(appointment.date).toLocaleDateString() %></td>
+                        <td><%= appointment.time %></td>
+                        <td><%= appointment.type %></td>
+                        <td><span class="status-badge status-<%= appointment.status.toLowerCase().replace(' ', '-') %>"><%= appointment.status %></span></td>
+                        <td><%= appointment.notes %></td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="8">No appointments found.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>

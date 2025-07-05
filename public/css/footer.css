@@ -1,0 +1,176 @@
+/* --- Footer Styling --- */
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+
+.footer {
+  background-color: #333; /* Dark background for contrast */
+  color: #f0f0f0; /* Light text color */
+  padding: 60px 5%; /* Top/bottom padding and horizontal margin */
+  font-size: 0.95em;
+  line-height: 1.8;
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(220px, 1fr)
+  ); /* Responsive columns */
+  gap: 40px; /* Space between columns */
+  max-width: 1200px;
+  margin: 0 auto 50px auto; /* Center content and add space above bottom bar */
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Subtle separator */
+}
+
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align text to the left within columns */
+}
+
+/* Specific styling for brand column */
+.footer-brand {
+  align-items: center; /* Center brand elements on larger screens */
+  text-align: center;
+}
+
+.footer-logo,
+.footer-logo span{
+  font-family: "Oswald", sans-serif; /* Consistency with your branding */
+  text-decoration: none;
+  font-size: 1.5em; /* Adjust as needed for your logo text/image */
+  font-weight: bold;
+  color: white; /* Logo color */
+  margin-bottom: 10px;
+}
+
+.brand-tagline {
+  font-size: 1em;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 20px;
+}
+
+.social-links {
+  display: flex;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.social-links a {
+  color: white;
+  font-size: 1.5em;
+  transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+  color: var(--primary-blue); /* Use your accent color */
+}
+
+/* Styling for other columns */
+.footer-column h3 {
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  font-size: 1.3em;
+  margin-bottom: 20px;
+  position: relative;
+  padding-bottom: 5px;
+}
+
+/* Underline effect for headings */
+.footer-column h3::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50px; /* Length of the underline */
+  height: 3px;
+  background-color: var(
+    --primary-purple
+  ); /* Your accent color for the underline */
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-column ul li a:hover {
+  color: var(--primary-blue);
+}
+
+.footer-contact p {
+  margin-bottom: 10px;
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+}
+
+.footer-contact p i {
+  margin-right: 10px;
+  color: var(--primary-purple); /* Icon color */
+}
+
+.footer-contact p a {
+  color: rgba(255, 255, 255, 0.7);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-contact p a:hover {
+  color: var(--primary-blue);
+}
+
+.working-hours {
+  font-style: italic;
+  font-size: 0.9em;
+  margin-top: 15px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+/* Bottom Bar */
+.footer-bottom {
+  text-align: center;
+  padding-top: 20px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.9em;
+}
+
+.footer-bottom p {
+  margin: 5px 0;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .footer-container {
+    grid-template-columns: 1fr; /* Stack columns on smaller screens */
+    text-align: center; /* Center content when stacked */
+  }
+
+  .footer-column {
+    align-items: center; /* Center items within columns */
+  }
+
+  .footer-column h3 {
+    text-align: center;
+  }
+
+  .footer-column h3::after {
+    left: 50%; /* Center the underline */
+    transform: translateX(-50%);
+  }
+
+  .footer-brand {
+    margin-bottom: 30px;
+  }
+}

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Failed</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+    <script>
+        Swal.fire({
+            title: 'Payment Failed',
+            text: '<%= decodeURIComponent(error) %>',
+            icon: 'error',
+            confirmButtonText: 'Try Again'
+        }).then(() => {
+            window.location.href = `/payment/<%= appointment_id %>`; // Back to payment page
+        });
+    </script>
+</body>
+</html>

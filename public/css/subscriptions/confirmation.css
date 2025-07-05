@@ -1,0 +1,165 @@
+/* General Body Styles */
+body {
+    font-family: 'Poppins', sans-serif; /* Modern, clean font */
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec); /* Soft gradient background */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+/* Container & Card Styling */
+.container {
+    flex-grow: 1; /* Allows the container to take up available space */
+    display: flex;
+    align-items: center; /* Vertically center content */
+    justify-content: center; /* Horizontally center content */
+    padding: 20px;
+    margin: 1% auto;
+}
+
+.card {
+    border-radius: 15px; /* Softer, rounded corners */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); /* More pronounced, modern shadow */
+    overflow: hidden; /* Ensures header corners are rounded with parent */
+    border: none; /* Remove default card border */
+    background-color: #ffffff;
+}
+
+h2 {
+    background-color: var(--success-color); /* Green background */
+    color: white; /* White text */
+    padding: 15px 20px; /* Some padding */
+    border-top-left-radius: 10px; /* Match container border radius */
+    border-top-right-radius: 10px;
+    margin: -40px -40px 40px -40px; /* Negative margin to pull it to edges of container */
+    text-align: center; /* <<< Add this for centering */
+    font-size: 1.5em; /* Adjust font size */
+    font-weight: bold; /* Make it bold */
+}
+
+.card-header {
+    background-color: #6722e6; /* A chic, deep purple */
+    color: #ffffff;
+    border-bottom: none; /* Remove header border */
+    padding: 25px 20px; /* More padding for a premium feel */
+    font-weight: 600;
+    font-size: 1.8rem; /* Slightly larger header */
+    text-align: center;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.card-body {
+    padding: 40px 30px; /* Generous padding */
+}
+
+/* Icon Styling */
+.bi-check-circle-fill {
+    color: #28a745; /* Bootstrap success green, keep it clear */
+    font-size: 6rem !important; /* Make the icon really stand out */
+    animation: bounceIn 0.8s ease-out; /* Fun entrance animation */
+}
+
+@keyframes bounceIn {
+    0% {
+        transform: scale(0.1);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Text Styles */
+h3 {
+    color: #333d47; /* Darker text for readability */
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.lead {
+    color: #5a6b7c;
+    font-size: 1.15rem;
+    margin-bottom: 30px;
+}
+
+/* Subscription Details Table */
+.card.mb-4 {
+    border: 1px solid #e0e6ed; /* Lighter border for details card */
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05); /* Softer shadow for inner card */
+}
+
+.card.mb-4 .card-header {
+    background-color: #e6f7ff; /* Light blue background for details header */
+    color: #0056b3; /* Darker blue text */
+    padding: 15px 20px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.table {
+    margin-bottom: 0; /* Remove default table margin */
+}
+
+.table th,
+.table td {
+    padding: 12px 15px; /* More padding for table cells */
+    border-top: 1px solid #f0f4f8; /* Lighter table borders */
+    color: #4a5568;
+}
+
+.table th {
+    font-weight: 600;
+    width: 40%; /* Give more space to labels */
+    color: #333d47;
+}
+
+/* Button Styling */
+.btn-primary {
+    background-color: #6722e6; /* Match header purple */
+    border-color: #6722e6;
+    padding: 12px 25px; /* Larger, more inviting button */
+    font-size: 1.1rem;
+    font-weight: 600;
+    border-radius: 8px; /* Slightly rounded button */
+    transition: all 0.3s ease; /* Smooth hover effect */
+}
+
+.btn-primary:hover {
+    background-color: #6722e6; /* Darker purple on hover */
+    border-color: #6722e6;
+    transform: translateY(-2px); /* Subtle lift effect */
+    box-shadow: 0 4px 10px rgba(106, 5, 114, 0.3);
+}
+
+/* Footer Note (if you have one) */
+.footer-note {
+    margin-top: 30px;
+    font-size: 0.9rem;
+    color: #8898aa;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .card-header {
+        font-size: 1.5rem;
+    }
+    .bi-check-circle-fill {
+        font-size: 4rem !important;
+    }
+    .card-body {
+        padding: 30px 20px;
+    }
+    .table th,
+    .table td {
+        padding: 10px 12px;
+    }
+}

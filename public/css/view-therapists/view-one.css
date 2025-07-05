@@ -1,0 +1,391 @@
+:root {
+  --primary-aura: #8a2be2; /* Violet - main brand color */
+  --secondary-aura: #45c1ff;
+  --text-dark: #333;
+  --text-light: #f4f4f4;
+  --bg-light: #f9f9f9;
+  --card-bg: #ffffff;
+  --border-color: #eee;
+  --shadow-light: rgba(0, 0, 0, 0.08);
+  --shadow-medium: rgba(0, 0, 0, 0.15);
+  --gradient-start: #f8edff;
+  --gradient-end: #e0f2f7;
+
+  /* New variables for the detail cards and sections, matching image_ac6a6f.png */
+  --detail-card-bg: #ffffff; /* Background for the individual cards */
+  --detail-card-border: #e0e0e0; /* Border for the individual cards */
+  --detail-card-shadow: rgba(0, 0, 0, 0.05); /* Shadow for individual cards */
+  --text-label: #777; /* Color for the labels like 'Experience' */
+  --text-value: #333; /* Color for the values like '8 years' */
+  --language-tag-bg: #fbfdff; /* Background for language tags */
+  --language-tag-border: #45c1ff; /* Border for language tags */
+  --language-tag-text: #45c1ff; /* Text color for language tags */
+  --section-dot-color: #5cb85c; /* Green color for the section title dot */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(
+    135deg,
+    var(--gradient-start),
+    var(--gradient-end)
+  );
+  min-height: 100vh;
+  color: var(--text-dark);
+  line-height: 1.6;
+  font-family: "Poppins", sans-serif; /* Ensure Poppins is applied */
+}
+
+.container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 40px;
+  background-color: var(--card-bg);
+  border-radius: 20px;
+  box-shadow: 0 10px 30px var(--shadow-medium);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center items within the header */
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border-color);
+  width: 100%;
+}
+
+/* Style for the main profile info (pic and text) */
+.profile-main-info {
+    display: flex; /* Use flexbox for the image and text content */
+    align-items: center; /* Vertically align items in the middle */
+    justify-content: flex-start; /* Aligns image to the left, and text next to it */
+    width: 100%; /* Take full width of parent */
+    padding-bottom: 25px;
+}
+
+.profile-text-content {
+    display: flex;
+    flex-direction: column;
+    text-align: left; /* Align text content to the left */
+    flex-grow: 1; /* Allow text content to take available space */
+    /* No margin-right here, as image is on the left */
+}
+
+
+.profile-pic-lg {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 6px solid var(--primary-aura);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+  margin-right: 25px; /* Add space to the right of the image */
+  flex-shrink: 0; /* Prevent image from shrinking */
+}
+.profile-header h1 {
+  font-size: 1.8em;
+  color: var(
+    --primary-aura
+  ); /* Changed to primary-aura to match section titles */
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+
+.profile-header p.specialization {
+  font-size: 1em;
+  color: var(--primary-aura);
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+.profile-header p.level {
+  /* margin: auto; */ /* Keep previous removal of auto margin */
+  font-size: 1em;
+  color: var(--secondary-aura);
+  padding: 5px 15px;
+  border: 2px solid var(--secondary-aura);
+  width: fit-content; /* Ensure the badge fits its content */
+  border-radius: 50px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.profile-sections {
+  width: 100%;
+  padding: 0 20px;
+}
+
+/* Section Title styling for the dot and icon */
+.section-title {
+  font-size: 1.3em;
+  color: var(--primary-aura);
+  margin-top: 30px;
+  margin-bottom: 20px;
+  padding-bottom: 0; /* No padding if border removed */
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  position: relative; /* For positioning the dot */
+}
+
+.section-title i {
+  margin-right: 10px; /* Space between icon and title text */
+  color: var(--primary-aura); /* Color the icon */
+  font-size: 1em; /* Adjust icon size relative to title */
+}
+
+/* Grid layout for Professional Details and Contact sections */
+.professional-details-grid,
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(280px, 1fr)
+  ); /* Two columns, responsive */
+  gap: 20px; /* Space between grid items */
+  margin-bottom: 30px; /* Space below the grid */
+}
+
+/* Individual detail cards styling */
+.detail-item-card {
+  display: flex;
+  align-items: center; /* Vertically align content */
+  padding: 20px; /* Increased padding */
+  background-color: var(--detail-card-bg);
+  border: 1px solid var(--detail-card-border);
+  border-radius: 12px; /* More rounded corners */
+  box-shadow: 0 4px 10px var(--detail-card-shadow);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.detail-item-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+}
+
+.detail-icon-wrapper {
+  width: 40px; /* Size of the colored circle/square for icon */
+  height: 40px;
+  min-width: 40px; /* Prevent shrinking */
+  border-radius: 8px; /* Slightly rounded corners for icon background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 15px; /* Space between icon wrapper and text content */
+}
+
+.detail-icon-wrapper i {
+  font-size: 1.2em; /* Larger icon inside the wrapper */
+  color: var(--primary-aura); /* Icon color */
+}
+
+.detail-content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.detail-content .detail-label {
+  font-size: 1em; /* Smaller label text */
+  color: var(--text-label); /* Grayish color for label */
+  margin: 0 0 5px 0; /* Adjust spacing */
+  font-weight: 500;
+}
+
+.detail-content .detail-value {
+  font-size: 0.9em; /* Value text size */
+  color: var(--text-value); /* Darker color for value */
+  font-weight: 600;
+}
+
+/* Languages section styling */
+.languages-section {
+  margin-top: 20px;
+  margin-bottom: 30px;
+  padding: 15px 0;
+  border-top: 1px solid var(--border-color); /* Separator */
+  border-bottom: 1px solid var(--border-color); /* Separator */
+}
+
+.languages-label {
+  font-size: 0.9em;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.language-tags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Space between tags */
+}
+
+.language-tag {
+  display: inline-flex;
+  background-color: var(--language-tag-bg);
+  color: var(--language-tag-text);
+  padding: 8px 15px;
+  border-radius: 20px;
+  font-size: 0.9em;
+  font-weight: 700;
+  border: 2px solid var(--language-tag-border);
+  transition: background-color 0.2s ease;
+}
+
+.language-tag:hover {
+  background-color: #fff3f3;
+  cursor: pointer;
+}
+
+/* Existing styles (retained and adjusted) */
+.bio-section p {
+  background-color: var(--bg-light);
+  padding: 25px;
+  border-radius: 12px;
+  border-left: 5px solid var(--primary-aura);
+  font-style: italic;
+  color: #444;
+  line-height: 1.8;
+  font-size: 1em;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); /* Added shadow for bio */
+}
+
+.price-section {
+  text-align: center; /* Ensures price and text are centered */
+  margin-top: 40px;
+  padding: 30px;
+  background-color: #f0f8ff; /* Light blue */
+  border-radius: 15px;
+  border: 1px solid #cceeff;
+  width: 100%;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.price-section .price {
+  font-size: 2.6em;
+  font-weight: 700;
+  color: var(--primary-aura);
+  margin-bottom: 10px;
+  letter-spacing: 0.5px;
+}
+
+.price-section .level-info {
+  font-size: 1.1em;
+  color: #666;
+  margin-top: 5px;
+  text-transform: capitalize;
+}
+.price-section .level-info span {
+  font-weight: 600;
+  color: var(--secondary-aura);
+}
+
+.action-buttons {
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.action-buttons .fas {
+  padding: 0 8px;
+}
+
+.action-buttons .btn {
+  display: inline-block;
+  padding: 15px 35px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1em;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.action-buttons .btn-back {
+  background-color: #6c757d; /* Grey */
+  color: white;
+}
+.action-buttons .btn-back:hover {
+  background-color: #5a6268;
+  transform: translateY(-3px);
+}
+
+.action-buttons .btn-book {
+  background-color: var(--primary-aura);
+  color: white;
+  padding: 15px 40px; /* Slightly larger for main action */
+}
+.action-buttons .btn-book:hover {
+  background-color: #6a0dad; /* Darker violet */
+  transform: translateY(-3px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container {
+    margin: 30px 15px;
+    padding: 25px;
+  }
+  .profile-header h1 {
+    font-size: 2.3em;
+  }
+  .profile-header .profile-pic-lg {
+    width: 150px;
+    height: 150px;
+  }
+  .section-title {
+    font-size: 1.4em;
+  }
+  /* On smaller screens, make detail cards take full width */
+  .professional-details-grid,
+  .contact-grid {
+    grid-template-columns: 1fr; /* Single column on small screens */
+    gap: 15px;
+  }
+  .detail-item-card {
+    flex-direction: row; /* Keep content in a row on small screens */
+    align-items: center;
+  }
+  .detail-item-card .detail-icon-wrapper {
+    margin-bottom: 0;
+    margin-right: 15px; /* Adjust spacing */
+  }
+  .price-section .price {
+    font-size: 2em;
+  }
+  .action-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .action-buttons .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Responsive adjustments for the profile header on mobile */
+  .profile-main-info {
+      flex-direction: column; /* Stack image and text vertically */
+      text-align: center; /* Center align all content */
+      align-items: center; /* Center children horizontally */
+  }
+  .profile-pic-lg {
+      margin-right: 0; /* Remove horizontal margin */
+      margin-bottom: 20px; /* Add space below the image */
+      order: 1; /* Ensure image is at the top */
+  }
+  .profile-text-content {
+      margin-right: 0; /* Remove horizontal margin */
+      margin-bottom: 0; /* No margin below text when stacked vertically */
+      order: 2; /* Ensure text is below the image */
+      text-align: center; /* Center align text content */
+  }
+  .profile-header p.level {
+      margin: 15px auto 0 auto; /* Center the level badge horizontally */
+  }
+}

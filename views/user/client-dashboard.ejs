@@ -1,0 +1,103 @@
+<% var extraCSS='<link rel="stylesheet" href="/css/user/dashboard.css" />' ; %>
+    <%- include('../partials/header', {title: 'Client Dashboard' , extraCSS: extraCSS}) %>
+
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h1>Welcome, <%= user.firstName %>!</h1>
+                <p>Here's an overview of your therapy journey</p>
+            </div>
+
+            <div class="dashboard-grid">
+                <!-- Quick Actions Card -->
+                <div class="dashboard-card">
+                    <h2>Quick Actions</h2>
+                    <div class="action-buttons">
+                        <a href="/api/therapists" class="btn btn-primary">Find a Therapist</a>
+                        <a href="/appointments/management/client" class="btn btn-secondary">View Appointments</a>
+                        <a href="/api/subscriptions/plans" class="btn btn-secondary">View Plans</a>
+                    </div>
+                </div>
+
+                <!-- Upcoming Appointments Card -->
+                <div class="dashboard-card">
+                    <h2>Upcoming Appointments</h2>
+                    <% if (user.appointments && user.appointments.length> 0) { %>
+                        <div class="appointment-list">
+                            <% user.appointments.slice(0, 3).forEach(appointment=> { %>
+                                <div class="appointment-item">
+                                    <div class="appointment-info">
+                                        <h3>Session with <%= appointment.therapistName %>
+                                        </h3>
+                                        <p>
+                                            <%= new Date(appointment.dateTime).toLocaleDateString() %> at <%= new
+                                                    Date(appointment.dateTime).toLocaleTimeString() %>
+                                        </p>
+                                    </div>
+                                    <span class="status-badge <%= appointment.status.toLowerCase() %>">
+                                        <%= appointment.status %>
+                                    </span>
+                                </div>
+                                <% }); %>
+                        </div>
+                        <% if (user.appointments.length> 3) { %>
+                            <a href="/appointments/management/client" class="view-all-link">View All Appointments</a>
+                            <% } %>
+                                <% } else { %>
+                                    <div class="no-data">
+                                        <p>No upcoming appointments</p>
+                                        <a href="/api/therapists" class="btn btn-primary">Book a Session</a>
+                                    </div>
+                                    <% } %>
+                </div>
+
+                <!-- Subscription Status Card -->
+                <div class="dashboard-card">
+                    <h2>Subscription Status</h2>
+                    <% if (user.subscriptionPlan) { %>
+                        <div class="subscription-info">
+                            <h3>
+                                <%= user.subscriptionPlan %>
+                            </h3>
+                            <p>Active until: <%= new Date(user.subscriptionEndDate).toLocaleDateString() %>
+                            </p>
+                            <a href="/api/subscriptions/plans" class="btn btn-secondary">Manage Subscription</a>
+                        </div>
+                        <% } else { %>
+                            <div class="no-data">
+                                <p>No active subscription</p>
+                                <a href="/api/subscriptions/plans" class="btn btn-primary">View Plans</a>
+                            </div>
+                            <% } %>
+                </div>
+
+                <!-- Recent Activity Card -->
+                <div class="dashboard-card">
+                    <h2>Recent Activity</h2>
+                    <% if (user.recentActivity && user.recentActivity.length> 0) { %>
+                        <div class="activity-list">
+                            <% user.recentActivity.forEach(activity=> { %>
+                                <div class="activity-item">
+                                    <div class="activity-icon">
+                                        <i class="fas <%= activity.icon %>"></i>
+                                    </div>
+                                    <div class="activity-info">
+                                        <p>
+                                            <%= activity.description %>
+                                        </p>
+                                        <small>
+                                            <%= new Date(activity.timestamp).toLocaleDateString() %>
+                                        </small>
+                                    </div>
+                                </div>
+                                <% }); %>
+                        </div>
+                        <% } else { %>
+                            <div class="no-data">
+                                <p>No recent activity</p>
+                            </div>
+                            <% } %>
+                </div>
+            </div>
+        </div>
+
+        <%- include('../partials/footer') %>

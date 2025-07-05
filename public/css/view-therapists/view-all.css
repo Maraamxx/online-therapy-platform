@@ -1,0 +1,536 @@
+/* public/css/view-therapists/view-all.css */
+
+:root {
+  /* Brand Colors (Adjusted slightly to match the image better) */
+  --primary-aura: #6722e6; /* A deeper violet/purple */
+  --secondary-aura: #45c1ff; /* A brighter purple for accents */
+  --text-dark: #333;
+  --text-medium: #555;
+  --text-light: #f4f4f4;
+  --bg-light: #f0f2f5; /* Light grey background */
+  --card-bg: #ffffff;
+  --border-color: #e0e0e0;
+  --shadow-light: rgba(0, 0, 0, 0.05);
+  --shadow-medium: rgba(0, 0, 0, 0.12);
+  --hover-purple: #45c1ff; /* Used for buttons on hover */
+  --star-gold: #ffd700;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-light); /* Solid background from image */
+  min-height: 100vh;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+.header-section {
+  background: linear-gradient(
+    to right,
+    #6722e6,
+    #45c1ff
+  ); /* Gradient from primary-aura to secondary-aura */
+  color: var(--text-light);
+  padding: 20px 30%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.header-section h1 {
+  font-size: 1.8em; /* Adjusted size */
+  margin: 0;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: var(--text-light);
+}
+
+.header-section p {
+  display: none; /* Hide the descriptive paragraph for this UI */
+  :root {
+    --primary-aura: #6722e6;
+    --secondary-aura: #45c1ff;
+    --text-dark: #333;
+    --text-medium: #555;
+    --text-light: #f4f4f4;
+    --bg-light: #f0f2f5;
+    --card-bg: #ffffff;
+    --border-color: #e0e0e0;
+    --shadow-light: rgba(0, 0, 0, 0.05);
+    --shadow-medium: rgba(0, 0, 0, 0.12);
+    --hover-purple: #45c1ff;
+    --star-gold: #ffd700;
+  }
+
+  /* ... (rest of your CSS from your earlier message) ... */
+  /* public/css/view-therapists/view-all.css */
+
+  :root {
+    /* Brand Colors (Adjusted slightly to match the image better) */
+    --primary-aura: #6722e6;
+    /* A deeper violet/purple */
+    --secondary-aura: #45c1ff;
+    /* A brighter purple for accents */
+    --text-dark: #333;
+    --text-medium: #555;
+    --text-light: #f4f4f4;
+    --bg-light: #f0f2f5;
+    /* Light grey background */
+    --card-bg: #ffffff;
+    --border-color: #e0e0e0;
+    --shadow-light: rgba(0, 0, 0, 0.05);
+    --shadow-medium: rgba(0, 0, 0, 0.12);
+    --hover-purple: #45c1ff;
+    /* Used for buttons on hover */
+    --star-gold: #ffd700;
+  }
+
+  body {
+    font-family: "Poppins", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-light);
+    /* Solid background from image */
+    min-height: 100vh;
+    color: var(--text-dark);
+    line-height: 1.6;
+  }
+
+  .header-section {
+    background: linear-gradient(to right, #6722e6, #45c1ff);
+    /* Gradient from primary-aura to secondary-aura */
+    color: var(--text-light);
+    padding: 20px 30%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    border-bottom-left-radius: 20%;
+    /* Rounded bottom-left corner */
+    border-bottom-right-radius: 20%;
+    /* Rounded bottom-right corner */
+    border-top-left-radius: 0;
+    /* Ensure top corners are not rounded */
+    border-top-right-radius: 0;
+    /* Ensure top corners are not rounded */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+    box-sizing: border-box;
+    /* Optional: If you want the gradient to extend full width without padding affecting it,
+         you might want to remove padding and add it to an inner container.
+         For now, this assumes padding is fine with the gradient.
+      */
+  }
+
+  .header-section h1 {
+    font-size: 1.8em;
+    /* Adjusted size */
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: var(--text-light);
+  }
+
+  .header-section p {
+    display: none;
+    /* Hide the descriptive paragraph for this UI */
+  }
+
+  /* Specific Search Bar in Header */
+  .header-search-bar {
+    position: relative;
+    width: 320px; /* Adjust as needed */
+  }
+
+  .header-search-bar input {
+    width: 100%;
+    padding: 10px 15px 10px 40px; /* Left padding for icon */
+    border: none;
+    border-radius: 25px;
+    background-color: var(--bg-light); /* Darker background for search input */
+    color: var(--text-dark);
+    font-size: 0.95em;
+    outline: none;
+    transition: background-color 0.3s ease;
+  }
+
+  .header-search-bar input::placeholder {
+    color: var(--text-dark);
+  }
+
+  .header-search-bar input:focus {
+    background-color: #e1e2e3;
+    border: 3px solid var(--primary-aura); /* Light border */
+    transition: all 0.1s ease;
+  }
+  .header-search-bar .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-dark);
+    font-size: 1em;
+  }
+
+  .main-content {
+    display: flex;
+    padding: 30px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+    gap: 30px;
+    box-sizing: border-box;
+  }
+
+  .filter-sidebar {
+    flex: 0 0 280px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px var(--shadow-light);
+    padding: 25px;
+    align-self: flex-start;
+    position: sticky;
+    top: 20px; /* Adjust as needed */
+    height: fit-content;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-color); /* Light border */
+  }
+
+  .filter-sidebar h3 {
+    color: var(--text-dark);
+    margin-bottom: 25px;
+    font-size: 1.2em; /* Smaller as per image */
+    border-bottom: 1px solid var(--border-color); /* Lighter border */
+    padding-bottom: 15px;
+    display: flex;
+    align-items: center;
+    font-weight: 600;
+  }
+  .filter-sidebar h3 i {
+    margin-right: 10px;
+    color: var(--primary-aura);
+  }
+
+  .filter-group {
+    margin-bottom: 20px; /* Reduced spacing */
+  }
+
+  .filter-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-medium);
+    font-size: 0.95em;
+  }
+
+  .filter-group select,
+  .filter-group input[type="text"] {
+    /* Target the search input within sidebar */
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px; /* Slightly less rounded */
+    font-size: 0.9em;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+    background-color: #fcfcfc;
+  }
+
+  .filter-group select:focus,
+  .filter-group input[type="text"]:focus {
+    border-color: var(--primary-aura);
+    box-shadow: 0 0 0 3px rgba(106, 13, 173, 0.1); /* Lighter shadow */
+    outline: none;
+  }
+
+  /* Specific styling for the search bar within the sidebar, if any */
+  .filter-sidebar .search-bar {
+    position: relative;
+    margin-bottom: 25px;
+  }
+  .filter-sidebar .search-bar input {
+    padding-right: 35px; /* Space for icon */
+  }
+  .filter-sidebar .search-bar .search-icon {
+    position: absolute;
+    right: 12px;
+    top: 30%;
+    transform: translateY(-50%);
+    color: #aaa;
+    font-size: 1em;
+  }
+
+  .content-area {
+    flex: 1;
+  }
+
+  .results-summary {
+    font-size: 1.1em;
+    color: var(--text-medium);
+    margin-bottom: 25px;
+    padding-left: 5px; /* Align with therapist cards */
+  }
+
+  .therapist-grid {
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(350px, 1fr)
+    ); /* Wider cards */
+    gap: 25px; /* Reduced gap */
+  }
+
+  .therapist-card {
+    background-color: var(--card-bg);
+    border-radius: 12px; /* Less rounded corners */
+    box-shadow: 0 5px 20px var(--shadow-light); /* Lighter shadow */
+    padding: 25px;
+    text-align: left; /* Align text left as per image */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column; /* For proper internal layout */
+  }
+
+  .therapist-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px var(--shadow-medium);
+  }
+
+  .therapist-card::before {
+    display: none; /* Remove the top gradient bar from previous design */
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .profile-pic-container {
+    width: 70px; /* Smaller profile pic */
+    height: 70px;
+    border-radius: 50%;
+    border: 3px solid var(--primary-aura); /* Purple border */
+    overflow: hidden;
+    margin-right: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; /* Prevent shrinking */
+  }
+
+  .profile-pic-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .therapist-info {
+    flex-grow: 1;
+  }
+
+  .therapist-info h2 {
+    font-size: 1.8em; /* Adjusted size */
+    margin: 0 0 5px 0;
+    color: var(--text-dark);
+    font-weight: 700;
+  }
+
+  .therapist-info .specialization {
+    font-size: 1em;
+    color: var(--secondary-aura); /* Purple color */
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+
+  .rating {
+    color: var(--star-gold); /* Gold stars */
+    font-size: 0.9em;
+  }
+  .rating span {
+    color: var(--text-medium); /* Rating number color */
+    margin-left: 5px;
+    font-weight: 600;
+  }
+
+  .therapist-card .bio-summary {
+    font-size: 0.95em;
+    color: var(--text-medium);
+    margin-bottom: 15px;
+    flex-grow: 1; /* Allow bio to take space */
+  }
+
+  .tag {
+    display: inline-flex; /* Changed from flex to inline-flex */
+    align-items: center;
+    background-color: #45c1ff;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: 600;
+    margin-right: 8px;
+    margin-bottom: 8px;
+    white-space: nowrap; /* Prevents text from breaking into multiple lines */
+    width: fit-content; /* Ensures the tag shrinks to fit content */
+  }
+  .tag i {
+    margin-right: 6px;
+    font-size: 0.9em;
+  }
+  /* Specific tag for level, as per image */
+  .tag.level-tag {
+    background-color: #45c1ff; /* Hot pink for level */
+  }
+
+  .details-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Stack details vertically */
+    gap: 10px;
+    margin-top: 15px;
+    margin-bottom: 20px;
+  }
+
+  .detail-item {
+    display: flex;
+    align-items: center;
+    font-size: 0.9em;
+    color: var(--text-medium);
+  }
+  .detail-item i {
+    color: var(--primary-aura);
+    margin-right: 10px;
+    font-size: 1.1em;
+  }
+
+  .price-display {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: var(--primary-aura);
+    margin-top: 20px;
+    margin-bottom: 25px;
+    text-align: center; /* Aligned right as per image */
+    padding-top: 15px;
+    border-top: 1px dashed var(--border-color); /* Dashed line above price */
+  }
+  .price-display span {
+    font-size: 0.8em; /* "per session" text */
+    color: var(--text-medium);
+    font-weight: 400;
+  }
+
+  .view-details-btn {
+    display: flex; /* Use flex for icon alignment */
+    justify-content: center;
+    align-items: center;
+    background-color: #313338; /* Dark button background */
+    color: white;
+    padding: 12px 28px;
+    border-radius: 8px; /* Less rounded */
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Full width button */
+    box-sizing: border-box;
+  }
+
+  .view-details-btn i {
+    margin-left: 10px;
+    font-size: 0.9em;
+  }
+
+  .view-details-btn:hover {
+    background-color: var(--hover-purple);
+    transform: translateY(-2px);
+  }
+
+  .no-therapists {
+    text-align: center;
+    font-size: 1.2em;
+    color: #777;
+    padding: 50px;
+    background-color: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px var(--shadow-light);
+    margin-top: 20px;
+    grid-column: 1 / -1;
+    border: 1px solid var(--border-color);
+  }
+  .no-therapists p {
+    margin-bottom: 15px;
+  }
+  .no-therapists .clear-filters-btn {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    font-weight: 500;
+  }
+  .no-therapists .clear-filters-btn:hover {
+    background-color: #5a6268;
+  }
+
+  /* Footer styling is kept minimal here, assuming it's in a global CSS or separate partial */
+  /* Or you can copy the full footer from the previous response here if you don't use a partial */
+
+  /* Mobile responsiveness */
+  @media (max-width: 992px) {
+    .main-content {
+      flex-direction: column;
+      padding: 20px 15px;
+    }
+    .filter-sidebar {
+      position: static;
+      width: 100%;
+      margin-bottom: 25px;
+      padding: 20px;
+    }
+    .therapist-grid {
+      grid-template-columns: 1fr; /* Stack cards vertically */
+    }
+    .therapist-card {
+      padding: 20px;
+    }
+    .card-header {
+      flex-direction: column;
+      text-align: center;
+    }
+    .profile-pic-container {
+      margin-right: 0;
+      margin-bottom: 15px;
+    }
+    .therapist-info {
+      text-align: center;
+    }
+    .therapist-info h2 {
+      font-size: 1.6em;
+    }
+    .tag {
+      margin: 5px 5px 0 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .header-section {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 15px;
+    }
+    .header-search-bar {
+      width: 100%;
+      margin-top: 15px;
+    }
+  }
+}

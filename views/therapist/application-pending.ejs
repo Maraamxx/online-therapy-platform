@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title %></title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #f0f2f5;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        min-height: 100vh;
+        color: #333;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 900px; /* Adjust max-width as needed */
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+        padding: 40px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .header h1 {
+        font-size: 2.2em;
+        color: #2c3e50;
+        margin-bottom: 10px;
+      }
+
+      .header p {
+        font-size: 1.1em;
+        color: #7f8c8d;
+      }
+
+      .icon-circle {
+        background-color: #e0f2f7;
+        border-radius: 50%;
+        width: 70px;
+        height: 70px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .icon-circle i {
+        font-size: 2.5em;
+        color: #3498db;
+      }
+
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 25px;
+        margin-bottom: 30px;
+      }
+
+      .card {
+        background-color: #ffffff;
+        border-radius: 10px;
+        padding: 25px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .card h2 {
+        font-size: 1.4em;
+        color: #2c3e50;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .card h2 i {
+        color: #27ae60;
+      }
+
+      .card ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        flex-grow: 1;
+      }
+
+      .card ul li {
+        margin-bottom: 10px;
+        font-size: 0.95em;
+        color: #555;
+        display: flex;
+        align-items: flex-start;
+        gap: 8px;
+      }
+
+      .card ul li i {
+        color: #27ae60;
+        font-size: 0.8em;
+        margin-top: 5px; /* Align icon better with text */
+      }
+
+      /* Specific styles for review timeline card */
+      .card.timeline h2 i {
+        color: #3498db;
+      }
+
+      .timeline-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .timeline-icon {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 15px;
+        flex-shrink: 0;
+      }
+
+      .timeline-icon.completed {
+        background-color: #27ae60;
+      }
+
+      .timeline-icon.current {
+        background-color: #3498db;
+      }
+
+      .timeline-icon.pending {
+        background-color: #e0e0e0;
+      }
+
+      .timeline-icon i {
+        color: #fff;
+        font-size: 0.8em;
+      }
+
+      .timeline-icon.pending i {
+        color: #888;
+      }
+
+      .timeline-content {
+        flex-grow: 1;
+        font-size: 0.95em;
+      }
+
+      .timeline-content strong {
+        display: block;
+        margin-bottom: 2px;
+        color: #333;
+      }
+
+      .timeline-content span {
+        color: #7f8c8d;
+        font-size: 0.9em;
+      }
+
+      .timeline-status {
+        font-weight: 500;
+        margin-left: auto;
+        white-space: nowrap; /* Prevents wrapping */
+      }
+
+      .timeline-status.today {
+        color: #27ae60;
+      }
+
+      .timeline-status.days {
+        color: #3498db;
+      }
+
+      .timeline-status.grey {
+        color: #7f8c8d;
+      }
+
+      .average-time {
+        font-weight: 600;
+        color: #3498db;
+        text-align: center;
+        padding-top: 15px;
+        border-top: 1px solid #eee;
+        margin-top: 15px;
+      }
+
+      /* Application Status Card */
+      .status-card {
+        padding: 25px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .status-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .status-header h2 {
+        font-size: 1.4em;
+        margin: 0;
+        color: #2c3e50;
+      }
+
+      .status-tag {
+        background-color: #fffacd; /* light yellow */
+        color: #daa520; /* dark yellow/gold */
+        padding: 8px 15px;
+        border-radius: 20px;
+        font-weight: 600;
+        font-size: 0.9em;
+      }
+
+      .stage-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .stage-icon {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-right: 15px;
+        flex-shrink: 0;
+        font-size: 1.1em;
+      }
+
+      .stage-icon.completed {
+        background-color: #e6f9ed; /* light green */
+        color: #27ae60; /* green */
+      }
+
+      .stage-icon.in-progress {
+        background-color: #e0f2f7; /* light blue */
+        color: #3498db; /* blue */
+      }
+
+      .stage-icon.pending {
+        background-color: #f5f5f5; /* light grey */
+        color: #888; /* grey */
+        border: 1px solid #ccc;
+      }
+      .stage-icon.pending i {
+        color: #888;
+      }
+
+      .stage-content {
+        flex-grow: 1;
+      }
+
+      .stage-content strong {
+        display: block;
+        font-size: 1em;
+        color: #333;
+        margin-bottom: 2px;
+      }
+
+      .stage-content span {
+        font-size: 0.9em;
+        color: #7f8c8d;
+      }
+      .stage-status {
+        font-size: 0.9em;
+        font-weight: 600;
+        margin-left: auto;
+        white-space: nowrap;
+      }
+      .stage-status.today {
+        color: #27ae60;
+      }
+      .stage-status.in-progress {
+        color: #3498db;
+      }
+      .stage-status.pending {
+        color: #7f8c8d;
+      }
+
+      /* Contact Section */
+      .contact-section {
+        background-color: #e8f5e9; /* Light green background */
+        padding: 30px;
+        border-radius: 10px;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .contact-section h3 {
+        font-size: 1.6em;
+        color: #2c3e50;
+        margin-bottom: 20px;
+      }
+
+      .contact-methods {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .contact-method {
+        flex: 1;
+        min-width: 200px;
+        background-color: #f7fcf8;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        text-align: center;
+      }
+
+      .contact-method i {
+        font-size: 2em;
+        color: #27ae60;
+      }
+
+      .contact-method strong {
+        font-size: 1.1em;
+        color: #333;
+      }
+
+      .contact-method span {
+        font-size: 0.9em;
+        color: #555;
+      }
+
+      .contact-method a {
+        color: #3498db;
+        text-decoration: none;
+        font-weight: 500;
+      }
+
+      .contact-method a:hover {
+        text-decoration: underline;
+      }
+      .response-time {
+        font-size: 0.85em;
+        color: #7f8c8d;
+        margin-top: 20px;
+      }
+
+      /* Application Details Section */
+      .app-details-section {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        padding: 25px;
+      }
+
+      .app-details-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+      }
+
+      .detail-item {
+        padding: 10px 0;
+      }
+
+      .detail-item strong {
+        display: block;
+        font-size: 0.9em;
+        color: #7f8c8d;
+        margin-bottom: 5px;
+      }
+
+      .detail-item span {
+        font-size: 1.1em;
+        color: #333;
+        font-weight: 500;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .container {
+          padding: 20px;
+        }
+        .card-grid {
+          grid-template-columns: 1fr;
+        }
+        .contact-methods {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="icon-circle">
+          <i class="far fa-clock"></i>
+        </div>
+        <h1>Application Under Review</h1>
+        <p>
+          Thank you for submitting your therapist application. Our team is
+          carefully reviewing your credentials and will get back to you soon.
+        </p>
+        <% if (error) { %>
+        <p style="color: red; margin-top: 15px"><%= error %></p>
+        <% } %>
+      </div>
+
+      <div class="status-card">
+        <div class="status-header">
+          <h2>Application Status</h2>
+          <span class="status-tag"
+            ><%= applicationData.applicationStatus %></span
+          >
+        </div>
+        <div class="stage-item">
+          <div
+            class="stage-icon <%= applicationData.reviewStages.submitted ? 'completed' : 'pending' %>"
+          >
+            <i class="fas fa-check"></i>
+          </div>
+          <div class="stage-content">
+            <strong>Application Submitted</strong>
+            <span>Your application has been received</span>
+          </div>
+          <span class="stage-status today">Today</span>
+        </div>
+        <div class="stage-item">
+          <div
+            class="stage-icon <%= applicationData.reviewStages.documentVerification ? 'in-progress' : 'pending' %>"
+          >
+            <i class="fas fa-file-alt"></i>
+          </div>
+          <div class="stage-content">
+            <strong>Document Verification</strong>
+            <span>Reviewing credentials and licenses</span>
+          </div>
+          <span class="stage-status in-progress">In Progress</span>
+        </div>
+        <div class="stage-item">
+          <div
+            class="stage-icon <%= applicationData.reviewStages.backgroundCheck ? 'completed' : 'pending' %>"
+          >
+            <i class="fas fa-user-shield"></i>
+          </div>
+          <div class="stage-content">
+            <strong>Background Check</strong>
+            <span>Security and background verification</span>
+          </div>
+          <span class="stage-status pending">Pending</span>
+        </div>
+        <div class="stage-item">
+          <div
+            class="stage-icon <%= applicationData.reviewStages.finalReview ? 'completed' : 'pending' %>"
+          >
+            <i class="fas fa-check-double"></i>
+          </div>
+          <div class="stage-content">
+            <strong>Final Review</strong>
+            <span>Administrative approval process</span>
+          </div>
+          <span class="stage-status pending">Pending</span>
+        </div>
+        <div class="stage-item">
+          <div
+            class="stage-icon <%= applicationData.reviewStages.accountActivation ? 'completed' : 'pending' %>"
+          >
+            <i class="fas fa-users-medical"></i>
+          </div>
+          <div class="stage-content">
+            <strong>Account Activation</strong>
+            <span>Welcome to our platform!</span>
+          </div>
+          <span class="stage-status pending">Pending</span>
+        </div>
+      </div>
+
+      <div class="card-grid">
+        <div class="card">
+          <h2><i class="fas fa-question-circle"></i>What's Next?</h2>
+          <ul>
+            <li>
+              <i class="fas fa-check"></i>Our verification team will review your
+              credentials and documentation
+            </li>
+            <li>
+              <i class="fas fa-check"></i>We may contact you for additional
+              information if needed
+            </li>
+            <li>
+              <i class="fas fa-check"></i>You'll receive an email notification
+              once your application is approved
+            </li>
+            <li>
+              <i class="fas fa-check"></i>Complete your profile setup and start
+              helping clients
+            </li>
+          </ul>
+        </div>
+
+        <div class="card timeline">
+          <h2><i class="fas fa-clipboard-list"></i>Review Timeline</h2>
+          <div class="timeline-item">
+            <div class="timeline-icon completed">
+              <i class="fas fa-check"></i>
+            </div>
+            <div class="timeline-content">
+              <strong>Application Submitted</strong>
+            </div>
+            <span class="timeline-status today"
+              ><%= applicationData.reviewTimeline.applicationSubmitted %></span
+            >
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-icon current">
+              <i class="fas fa-clock"></i>
+            </div>
+            <div class="timeline-content">
+              <strong>Under Review</strong>
+            </div>
+            <span class="timeline-status days"
+              ><%= applicationData.reviewTimeline.underReviewExpected %></span
+            >
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-icon pending"><i class="fas fa-bell"></i></div>
+            <div class="timeline-content">
+              <strong>Decision Notification</strong>
+            </div>
+            <span class="timeline-status grey"
+              ><%= applicationData.reviewTimeline.decisionNotificationExpected
+              %></span
+            >
+          </div>
+          <div class="average-time">
+            Average review time: <%=
+            applicationData.reviewTimeline.averageReviewTime %>
+          </div>
+        </div>
+      </div>
+
+      <div class="contact-section">
+        <h3>Need Help or Have Questions?</h3>
+        <p>Our support team is here to assist you during the review process</p>
+        <div class="contact-methods">
+          <div class="contact-method">
+            <i class="fas fa-envelope"></i>
+            <strong>Email Support</strong>
+            <a href="mailto:support@therapy.com">support@therapy.com</a>
+            <span></span>
+          </div>
+          <div class="contact-method">
+            <i class="fas fa-phone"></i>
+            <strong>Phone Support</strong>
+            <span>1-800-THERAPY</span>
+            <span></span>
+          </div>
+          <div class="contact-method">
+            <i class="fas fa-comments"></i>
+            <strong>Live Chat</strong>
+            <span>9 AM - 6 PM EST</span>
+            <span></span>
+          </div>
+        </div>
+        <p class="response-time">
+          Response time: We typically respond within 2-4 hours during business
+          hours
+        </p>
+      </div>
+
+      <div class="app-details-section">
+        <h2>Application Details</h2>
+        <div class="app-details-grid">
+          <div class="detail-item">
+            <strong>Application ID</strong>
+            <span>#<%= applicationData.applicationId %></span>
+          </div>
+          <div class="detail-item">
+            <strong>Submission Date</strong>
+            <span><%= applicationData.submissionDate %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

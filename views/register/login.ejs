@@ -1,0 +1,45 @@
+<% var extraCSS = '<link rel="stylesheet" href="/css/register/login.css" />'; %>
+<%- include('../partials/header', {title: 'Login', extraCSS: extraCSS}) %>
+
+<main>
+  <div class="auth-container">
+    <h1>Login</h1>
+    <form action="/api/auth/login" method="POST" novalidate>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="form-control"
+          value="<%= email %>"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-control"
+          required
+        />
+      </div>
+
+      <% if (error) { %>
+      <p class="error-message"><%= error %></p>
+      <% } %>
+
+      <button type="submit" class="btn-submit">Login</button>
+    </form>
+    <div class="auth-links">
+      <p>
+        Having trouble signing in?
+        <a href="/api/auth/forgot-password">Reset your password</a>
+      </p>
+    </div>
+  </div>
+</main>
+
+<%- include('../partials/footer') %>

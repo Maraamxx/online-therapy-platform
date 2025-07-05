@@ -1,0 +1,134 @@
+<%- include('../partials/header', { title: title, extraCSS: extraCSS, loggedIn: loggedIn, user: user }) %>
+
+    <div class="container mt-4">
+        <h1 class="mb-4">My Appointments</h1>
+
+        <% if (appointments && appointments.length> 0) { %>
+            <div class="appointments-list">
+                <% appointments.forEach(appointment=> { %>
+                    <div class="appointment-card">
+                        <div class="appointment-header">
+                            <h3>Session with <%= appointment.therapist_name %>
+                            </h3>
+                            <span class="status-badge <%= appointment.status.toLowerCase() %>">
+                                <%= appointment.status %>
+                            </span>
+                        </div>
+
+                        <div class="appointment-details">
+                            <p><strong>Date:</strong>
+                                <%= new Date(appointment.date_time).toLocaleDateString() %>
+                            </p>
+                            <p><strong>Time:</strong>
+                                <%= new Date(appointment.date_time).toLocaleTimeString() %>
+                            </p>
+                            <p><strong>Duration:</strong>
+                                <%= appointment.duration %> minutes
+                            </p>
+                            <p><strong>Type:</strong>
+                                <%= appointment.session_type %>
+                            </p>
+                            <p><strong>Price:</strong>
+                                <%= appointment.price %> EGP
+                            </p>
+                        </div>
+
+                        <% if (appointment.status==='Pending' ) { %>
+                            <div class="appointment-actions">
+                                <a href="/api/appointment/payment/<%= appointment.appointment_id %>"
+                                    class="btn btn-primary">Complete Payment</a>
+                            </div>
+                            <% } %>
+                    </div>
+                    <% }); %>
+            </div>
+            <% } else { %>
+                <div class="no-appointments">
+                    <p>You don't have any appointments yet.</p>
+                    <a href="/api/therapists" class="btn btn-primary">Find a Therapist</a>
+                </div>
+                <% } %>
+    </div>
+
+    <style>
+        .appointments-list {
+            display: grid;
+            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        }
+
+        .appointment-card {
+            background: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .appointment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .appointment-header h3 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .status-badge.pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status-badge.confirmed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status-badge.completed {
+            background-color: #cce5ff;
+            color: #004085;
+        }
+
+        .status-badge.cancelled {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .appointment-details {
+            margin-bottom: 1rem;
+        }
+
+        .appointment-details p {
+            margin: 0.5rem 0;
+        }
+
+        .appointment-actions {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        .no-appointments {
+            text-align: center;
+            padding: 3rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .no-appointments p {
+            margin-bottom: 1.5rem;
+            color: #666;
+        }
+    </style>
+
+    <%- include('../partials/footer') %>

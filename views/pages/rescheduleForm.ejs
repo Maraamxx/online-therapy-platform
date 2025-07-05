@@ -1,0 +1,79 @@
+<%
+// Define extraCSS for the header partial if it accepts it
+var extraCSS = '<link rel="stylesheet" href="/css/rescheduleForm.css" />';
+%>
+<%- include('../partials/header', { extraCSS: extraCSS }) %>
+
+<div class="reschedule-page-container">
+    <div class="reschedule-content-wrapper">
+        <a href="/appointments/management/<%= viewType === 'therapist' ? 'therapist' : 'client' %>"
+            class="back-link">
+            <svg xmlns="http://www.w3.org/2000/svg" class="back-link-icon" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Back to Appointments
+        </a>
+        <div class="reschedule-card">
+            <div class="reschedule-header">
+                <h2 class="reschedule-title">Reschedule Appointment</h2>
+                <p class="reschedule-subtitle">Update your appointment to a new date and time</p>
+            </div>
+            <div class="reschedule-form-section">
+                <div class="current-appointment-details">
+                    <h3 class="current-appointment-heading">Current Appointment</h3>
+                    <div class="current-details-list">
+                        <div class="detail-item">
+                            <i data-feather="calendar" class="detail-icon"></i>
+                            <span class="detail-text">
+                                <%= new Date(appointment.date_time).toLocaleDateString('en-US', { weekday: 'long' ,
+                                    year: 'numeric' , month: 'long' , day: 'numeric' }) %>
+                            </span>
+                        </div>
+                        <div class="detail-item">
+                            <i data-feather="clock" class="detail-icon"></i>
+                            <span class="detail-text">
+                                <%= new Date(appointment.date_time).toLocaleTimeString('en-US', { hour: '2-digit' ,
+                                    minute: '2-digit' }) %> • <%= appointment.duration %> minutes
+                            </span>
+                        </div>
+                        <% if (appointment.session_type) { %>
+                        <div class="detail-item">
+                            <i data-feather="video" class="detail-icon"></i>
+                            <span class="detail-label">Type:</span>
+                            <span class="session-type-badge">
+                                <%= appointment.session_type %>
+                            </span>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
+                <form
+                    action="/appointments/management/<%= appointment.appointment_id %><%= viewType === 'therapist' ? '/therapist' : '' %>/reschedule"
+                    method="POST" class="reschedule-form">
+                    <input type="hidden" name="_method" value="PUT" />
+                    <div class="form-group">
+                        <label for="newDateTime" class="form-label">Select New Date & Time</label>
+                        <input type="datetime-local" id="newDateTime" name="newDateTimeString" required
+                            class="form-input" min="<%= new Date().toISOString().slice(0, 16) %>" />
+                        <p class="form-help-text">
+                            Please select a future date and time for your appointment
+                        </p>
+                    </div>
+                    <button type="submit" class="submit-reschedule-btn">
+                        <i data-feather="refresh-cw" class="submit-btn-icon"></i>
+                        Submit Reschedule Request
+                    </button>
+                </form>
+                <div class="info-alert">
+                    <p class="info-alert-text">
+                        <strong>Note:</strong> Your reschedule request will be reviewed and confirmed.
+                        You'll receive a notification once approved.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer') %>

@@ -1,0 +1,33 @@
+<% var extraCSS = '<link rel="stylesheet" href="/css/subscriptions/plans.css" />'; %> <%-
+include('../partials/header', {title: 'Subscription Plans', extraCSS: extraCSS})
+%>
+<div class="content-header-wrapper">
+<h1>Invest in Your Peace, Your Way</h1>
+<p class="subtitle">
+  Pick the perfect plan to fit your needs. Upgrade, cancel, or change anytime.
+</p>
+</div>
+<% if (plans.length > 0) { %>
+<div class="plans-container">
+  <div class="row">
+    <% plans.forEach(plan => { %>
+      <div class="plan-card">
+        <div class="plan-header"><%= plan.plan_name %></div>
+        <div class="plan-price">
+          <%= plan.price %> <%= plan.currency %><span
+            style="font-size: 1.1rem; font-weight: 400"><br>/<%= plan.duration_days %> days</span>
+        </div>
+        <ul class="features">
+          <li><%= plan.description %></li>
+          <li><%= plan.session_limit %> sessions included</li>
+        </ul>
+        <a href="/api/subscriptions/subscribe/<%= plan.plan_id %>" class="subscribe-btn">Subscribe Now</a>
+      </div>
+    <% }) %>
+  </div>
+</div>
+<% } else { %>
+<div class="alert alert-warning text-center">
+  No active subscription plans available at this time.
+</div>
+<% } %> <%- include('../partials/footer') %>

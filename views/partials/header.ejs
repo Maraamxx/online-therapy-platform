@@ -1,0 +1,41 @@
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= typeof title !=='undefined' ? title : 'Inner Aura' %></title>
+  <link rel="icon" type="image/png" href="/images/logo.png" />
+
+  <style>
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
+    @import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap");
+  </style>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+
+  <link rel="stylesheet" href="/css/global.css" />
+  <link rel="stylesheet" href="/css/navbar.css" />
+  <link rel="stylesheet" href="/css/footer.css" />
+  <%- typeof extraCSS !=='undefined' ? extraCSS : '' %>
+  <!-- Tailwind CSS -->
+  <!-- Custom Appointments CSS -->
+  <link href="/css/appointments.css" rel="stylesheet" />
+  <!-- Feather icons (similar to Lucide) -->
+  <!-- <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script> -->
+  <script src="/js/feather.min.js"></script>
+  <script src="/js/feather.init.js"></script>
+</head>
+
+<body>
+  <%- include('navbar', { loggedIn: loggedIn, user: user }) %>
+  <main></main>
+</body>

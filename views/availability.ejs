@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Therapist Availability</title>
+    <link rel="icon" type="image/png" href="/images/logo.png" />
+    <link rel="stylesheet" href="/css/availability.css" />
+    <link rel="stylesheet" href="/css/navbar.css" />
+    <link rel="stylesheet" href="/css/footer.css" />
+    <link rel="stylesheet" href="/css/global.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <%- include('./partials/navbar') %>
+    <div class="container">
+      <h1><i class="fas fa-calendar-check"></i> Manage Your Availability</h1>
+      <input type="hidden" id="therapistId" value="<%= therapistId %>" />
+
+      <div class="availability-form">
+        <h2><i class="fas fa-plus-circle"></i> Add New Time Slot</h2>
+        <form id="availabilityForm">
+          <div class="form-group">
+            <label for="startTimestamp"
+              ><i class="far fa-calendar-alt"></i> Start Date & Time:</label
+            >
+            <br />
+            <input
+              type="datetime-local"
+              id="startTimestamp"
+              name="start_timestamp"
+              required
+            />
+          </div>
+          <br />
+          <div class="form-group">
+            <label for="endTimestamp"
+              ><i class="far fa-clock"></i> End Date & Time:</label
+            >
+            <br />
+            <input
+              type="datetime-local"
+              id="endTimestamp"
+              name="end_timestamp"
+              required
+            />
+          </div>
+          <br />
+          <button type="submit" class="btn-primary">
+            <i class="fas fa-plus"></i> Add Time Slot
+          </button>
+        </form>
+      </div>
+      <div class="availability-list">
+        <h2><i class="fas fa-list"></i> Your Current Availability</h2>
+        <div class="availability-slots">
+          <% if (availability && availability.length> 0) { %>
+          <% availability.forEach(slot=> { %>
+          <div
+            class="availability-slot"
+            data-id="<%= slot.availability_id %>"
+            data-start-timestamp="<%= new Date(slot.start_timestamp).toISOString().slice(0, 16) %>"
+            data-end-timestamp="<%= new Date(slot.end_timestamp).toISOString().slice(0, 16) %>"
+          >
+            <div class="slot-info">
+              <span class="date">
+                <i class="far fa-calendar-alt"></i>
+                <%= formatDate(slot.start_timestamp) %> -
+                <%= formatDate(slot.end_timestamp) %>
+
+              </span>
+              <span class="time">
+                <i class="far fa-clock"></i>
+                <%= formatTime12h(slot.start_timestamp) %> - 
+                <%= formatTime12h(slot.end_timestamp) %>
+              </span>
+            </div>
+            <div class="slot-actions">
+              <button
+                class="btn-edit"
+                onclick="editSlot('<%= slot.availability_id %>')"
+              >
+                <i class="fas fa-edit"></i> Edit
+              </button>
+              <button
+                class="btn-delete"
+                onclick="showDeleteModal('<%= slot.availability_id %>')"
+              >
+                <i class="fas fa-trash-alt"></i> Delete
+              </button>
+            </div>
+          </div>
+          <% }); %> 
+          <% } else { %>
+          <p class="no-slots">
+            <i class="fas fa-info-circle"></i> No availability slots added yet.
+          </p>
+          <% } %>
+        </div>
+      </div>
+    </div>
+
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeEditModal"
+          ><i class="fas fa-times"></i
+        ></span>
+        <h2><i class="fas fa-edit"></i> Edit Time Slot</h2>
+        <form id="editForm">
+          <input type="hidden" id="editSlotId" name="id" />
+          <div class="form-group">
+            <label for="editStartTimestamp"
+              ><i class="far fa-calendar-alt"></i> Start Date & Time:</label
+            >
+            <input
+              type="datetime-local"
+              id="editStartTimestamp"
+              name="start_timestamp"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="editEndTimestamp"
+              ><i class="far fa-clock"></i> End Date & Time:</label
+            >
+            <input
+              type="datetime-local"
+              id="editEndTimestamp"
+              name="end_timestamp"
+              required
+            />
+          </div>
+          <div class="modal-actions">
+            <button type="submit" class="btn-primary">
+              <i class="fas fa-save"></i> Save Changes
+            </button>
+            <button type="button" class="btn-secondary" id="cancelEditBtn">
+              <i class="fas fa-times"></i> Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="deleteModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeDeleteModal"
+          ><i class="fas fa-times"></i
+        ></span>
+        <h2><i class="fas fa-exclamation-triangle"></i> Confirm Deletion</h2>
+        <p>Are you sure you want to delete this availability slot?</p>
+        <div class="modal-actions">
+          <button type="button" id="confirmDeleteBtn" class="btn-danger">
+            <i class="fas fa-trash-alt"></i> Delete
+          </button>
+          <button type="button" id="cancelDeleteBtn" class="btn-secondary">
+            <i class="fas fa-times"></i> Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="errorModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeErrorModal"
+          ><i class="fas fa-times"></i
+        ></span>
+        <h2><i class="fas fa-times-circle"></i> An Error Occurred</h2>
+        <p id="errorMessageText"></p>
+        <div class="modal-actions">
+          <button type="button" id="errorModalOkBtn" class="btn-primary">
+            OK
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="/js/availability.js"></script>
+    <% 
+    function formatDate(timestamp) {
+      if (!timestamp) return '';
+      const date = new Date(timestamp);
+      return date.toLocaleDateString();
+     }
+    function formatTime12h(timestamp) {
+      if (!timestamp) return ''; 
+      const date = new Date(timestamp);
+      let hours = date.getHours();
+      const minutes = date.getMinutes();
+      const ampm = hours >= 12 ? 'PM' : 'AM';
+      hours = hours % 12;
+      hours = hours ? hours : 12; // the hour '0' should be '12' const
+    minutesFormatted = minutes < 10 ? '0' + minutes : minutes; 
+    return `${hours}:${minutesFormatted} ${ampm}`; } %> 
+    <%- include('./partials/footer') %>
+  </body>
+</html>

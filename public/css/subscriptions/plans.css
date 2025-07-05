@@ -1,0 +1,178 @@
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f5f6fa;
+  color: #333;
+}
+
+/* ... existing CSS ... */
+
+/* Ensure the content-header-wrapper exists and is correctly styled */
+.content-header-wrapper {
+    width: 100%; /* Make it take full available width of its parent (main/body) */
+    max-width: 800px; /* Or a suitable max-width for your header text */
+    margin: 0 auto; /* This is crucial for horizontally centering the wrapper itself */
+    padding: 0 20px; /* Add some horizontal padding for responsiveness on smaller screens */
+    box-sizing: border-box; /* Include padding in the width */
+    text-align: center; /* This will center all inline/inline-block content AND block content that can be centered, like text */
+    margin-bottom: 50px; /* Add some space below the header before the plan cards */
+}
+
+/* Ensure h1 and subtitle within the wrapper cooperate */
+.content-header-wrapper h1 {
+    font-family: "Cormorant Garamond", serif;
+
+    margin-top: 60px; /* Adjust as needed for space from navbar */
+    margin-bottom: 12px;
+    font-weight: 800;
+    font-size: 2.8rem;
+    color: black;
+    /* text-align: center; -- inherited from parent now, but can keep if specific */
+}
+
+.content-header-wrapper .subtitle {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin-bottom: 3%; /* Keep existing bottom margin */
+    /* text-align: center; -- inherited from parent now, but can keep if specific */
+}
+
+
+/* Existing h1 and subtitle rules.
+   You can remove 'text-align: center' from them if the wrapper handles it,
+   but keeping it doesn't hurt. Ensure their margins are clear. */
+h1 {
+  /* No need for margin: auto here if .content-header-wrapper handles centering */
+  margin: 0; /* Reset margins if content-header-wrapper is managing spacing */
+  padding: 0; /* Reset padding */
+  font-weight: 800;
+  font-size: 2.8rem;
+  color: black;
+  /* text-align: center; -- You can keep this here for robustness or remove if .content-header-wrapper is sufficient */
+}
+
+.subtitle {
+  margin: 0; /* Reset margins if content-header-wrapper is managing spacing */
+  padding: 0; /* Reset padding */
+  color: #7f8c8d;
+  font-size: 1.1rem;
+  max-width: 480px; /* This is important for readability */
+  display: block; /* Ensure it behaves as a block to respect max-width and margins */
+  margin-left: auto; /* Center the subtitle itself within the wrapper if its max-width is less than wrapper's */
+  margin-right: auto; /* Center the subtitle itself within the wrapper if its max-width is less than wrapper's */
+  /* text-align: center; -- You can keep this here for robustness or remove if .content-header-wrapper is sufficient */
+}
+
+
+/* Add some margin to the plans-container to create space from the header */
+.plans-container {
+    margin-top: 30px; /* Adjust this value as needed */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* This will center the row of cards */
+    width: 100%; /* Ensure it spans full width */
+}
+/* ... rest of your CSS ... */
+.plans-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-bottom: 5%;
+}
+
+.plan-card {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  flex: 1 1 280px;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 28px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.plan-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.15);
+}
+
+.plan-header {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: black;
+}
+
+.plan-price {
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #6722e6;
+  margin-bottom: 16px;
+  letter-spacing: -1px;
+}
+
+.features {
+  list-style: none;
+  padding: 0;
+  margin: 24px 0 32px;
+  flex-grow: 1;
+}
+
+.features li {
+  position: relative;
+  padding-left: 28px;
+  margin-bottom: 14px;
+  color: #555;
+  font-weight: 500;
+}
+
+.features li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  font-weight: 700;
+  color: #6722e6;
+}
+
+a.subscribe-btn {
+  display: inline-block;
+  background: #6722e6;
+  color: white;
+  font-weight: 800;
+  font-size: 1.15rem;
+  padding: 14px 0;
+  border-radius: 12px;
+  letter-spacing: 0.05em;
+  transition: background-color 0.3s ease;
+  width: 100%;
+  text-align: center;
+  text-decoration: none;
+}
+a.subscribe-btn:hover {
+  background: #e9cd32;
+}
+
+@media (max-width: 720px) {
+  .row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .plan-card {
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+}

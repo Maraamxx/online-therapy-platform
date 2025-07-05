@@ -1,0 +1,266 @@
+
+<% var extraCSS = '<link rel="stylesheet" href="/css/client/assessment.css" />'; %>
+<%- include('../partials/header', {title: 'Browse Therapists', extraCSS: extraCSS}) %>
+
+    <header class="assessment-header">
+        <h1>Your Personalized Therapy Journey</h1>
+        <p>Help us find the perfect therapist for you by answering a few questions.</p>
+    </header>
+
+    <main class="assessment-container">
+        <% if (errors && errors.length> 0) { %>
+            <div class="alert alert-danger">
+                <ul>
+                    <% errors.forEach(function(error) { %>
+                        <li>
+                            <%= error %>
+                        </li>
+                        <% }); %>
+                </ul>
+            </div>
+            <% } %>
+
+                <div class="progress-bar">
+                    <div class="progress"></div>
+                </div>
+                <form id="assessmentForm" action="/api/assessment/match-therapist" method="POST">
+
+                    <section class="form-section">
+                        <h2>1. What are your primary mental health concerns?</h2>
+                        <p>Select all that apply →</p>
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" name="mental_health_concerns" value="Anxiety" <%=formData &&
+                                    formData.mental_health_concerns &&
+                                    formData.mental_health_concerns.includes('Anxiety') ? 'checked' : '' %>>
+                                <span>Anxiety</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="mental_health_concerns" value="Depression" <%=formData &&
+                                    formData.mental_health_concerns &&
+                                    formData.mental_health_concerns.includes('Depression') ? 'checked' : '' %>>
+                                <span>Depression</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="mental_health_concerns" value="Stress Management"
+                                    <%=formData && formData.mental_health_concerns &&
+                                    formData.mental_health_concerns.includes('Stress Management') ? 'checked' : '' %>>
+                                <span>Stress Management</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="mental_health_concerns" value="Relationship Issues"
+                                    <%=formData && formData.mental_health_concerns &&
+                                    formData.mental_health_concerns.includes('Relationship Issues') ? 'checked' : '' %>>
+                                <span>Relationship Issues</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="mental_health_concerns" value="Trauma and PTSD" <%=formData
+                                    && formData.mental_health_concerns &&
+                                    formData.mental_health_concerns.includes('Trauma and PTSD') ? 'checked' : '' %>>
+                                <span>Trauma and PTSD</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="mental_health_concerns" value="Grief and Loss" <%=formData
+                                    && formData.mental_health_concerns &&
+                                    formData.mental_health_concerns.includes('Grief and Loss') ? 'checked' : '' %>>
+                                <span>Grief and Loss</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="mental_health_concerns" value="Bipolar Disorder"
+                                    <%=formData && formData.mental_health_concerns &&
+                                    formData.mental_health_concerns.includes('Bipolar Disorder') ? 'checked' : '' %>>
+                                <span>Bipolar Disorder</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="mental_health_concerns" value="Eating Disorders"
+                                    <%=formData && formData.mental_health_concerns &&
+                                    formData.mental_health_concerns.includes('Eating Disorders') ? 'checked' : '' %>>
+                                <span>Eating Disorders</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="mental_health_concerns" value="OCD" <%=formData &&
+                                    formData.mental_health_concerns && formData.mental_health_concerns.includes('OCD')
+                                    ? 'checked' : '' %>>
+                                <span>OCD</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="mental_health_concerns" value="ADHD" <%=formData &&
+                                    formData.mental_health_concerns && formData.mental_health_concerns.includes('ADHD')
+                                    ? 'checked' : '' %>>
+                                <span>ADHD</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="mental_health_concerns" value="Self-Esteem" <%=formData &&
+                                    formData.mental_health_concerns &&
+                                    formData.mental_health_concerns.includes('Self-Esteem') ? 'checked' : '' %>>
+                                <span>Self-Esteem</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="mental_health_concerns" value="Anger Management"
+                                    <%=formData && formData.mental_health_concerns &&
+                                    formData.mental_health_concerns.includes('Anger Management') ? 'checked' : '' %>>
+                                <span>Anger Management</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="mental_health_concerns" value="Career Counseling"
+                                    <%=formData && formData.mental_health_concerns &&
+                                    formData.mental_health_concerns.includes('Career Counseling') ? 'checked' : '' %>>
+                                <span>Career Counseling</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="mental_health_concerns" value="Family Therapy" <%=formData
+                                    && formData.mental_health_concerns &&
+                                    formData.mental_health_concerns.includes('Family Therapy') ? 'checked' : '' %>>
+                                <span>Family Therapy</span>
+                            </label>
+                            <label>
+                                <input type="checkbox" name="mental_health_concerns" value="Child and Adolescent Issues"
+                                    <%=formData && formData.mental_health_concerns &&
+                                    formData.mental_health_concerns.includes('Child and Adolescent Issues') ? 'checked'
+                                    : '' %>>
+                                <span>Child and Adolescent Issues</span>
+                            </label>
+                        </div>
+                    </section>
+
+                    <section class="form-section">
+                        <h2>2. Do you have a preferred therapist gender?</h2>
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="preferred_therapist_gender" value="female" <%=formData &&
+                                    formData.preferred_therapist_gender==='female' ? 'checked' : '' %>>
+                                <span>Female</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="preferred_therapist_gender" value="male" <%=formData &&
+                                    formData.preferred_therapist_gender==='male' ? 'checked' : '' %>>
+                                <span>Male</span>
+                            </label>
+                            <label>
+                                <input type="radio" name="preferred_therapist_gender" value="No Preference" <%=formData
+                                    && (!formData.preferred_therapist_gender ||
+                                    formData.preferred_therapist_gender==='No Preference' ) ? 'checked' : '' %>>
+                                <span>No Preference</span>
+                            </label>
+                        </div>
+                    </section>
+
+                    <section class="form-section">
+                        <h2>3. Do you have a preferred religious or spiritual background for your therapist?</h2>
+                        <select name="preferred_religion">
+                            <option value="" <%=formData && !formData.preferred_religion ? 'selected' : '' %>>No
+                                Preference</option>
+                            <option value="Christianity" <%=formData && formData.preferred_religion==='Christianity'
+                                ? 'selected' : '' %>>Christianity</option>
+                            <option value="Islam" <%=formData && formData.preferred_religion==='Islam' ? 'selected' : ''
+                                %>>Islam</option>
+                            <option value="Judaism" <%=formData && formData.preferred_religion==='Judaism' ? 'selected'
+                                : '' %>>Judaism</option>
+                            <option value="Buddhism" <%=formData && formData.preferred_religion==='Buddhism'
+                                ? 'selected' : '' %>>Buddhism</option>
+                            <option value="Hinduism" <%=formData && formData.preferred_religion==='Hinduism'
+                                ? 'selected' : '' %>>Hinduism</option>
+                            <option value="Spiritual but not religious" <%=formData &&
+                                formData.preferred_religion==='Spiritual but not religious' ? 'selected' : '' %>
+                                >Spiritual but not religious</option>
+                            <option value="Agnostic" <%=formData && formData.preferred_religion==='Agnostic'
+                                ? 'selected' : '' %>>Agnostic</option>
+                            <option value="Atheist" <%=formData && formData.preferred_religion==='Atheist' ? 'selected'
+                                : '' %>>Atheist</option>
+                        </select>
+                    </section>
+
+                    <section class="form-section">
+                        <h2>4. What language do you prefer for your therapy sessions?</h2>
+                        <select name="preferred_language">
+                            <option value="" <%=formData && !formData.preferred_language ? 'selected' : '' %>>Select
+                                Language</option>
+                            <option value="English" <%=formData && formData.preferred_language==='English' ? 'selected'
+                                : '' %>>English</option>
+                            <option value="Arabic" <%=formData && formData.preferred_language==='Arabic' ? 'selected'
+                                : '' %>>Arabic</option>
+                            <option value="Spanish" <%=formData && formData.preferred_language==='Spanish' ? 'selected'
+                                : '' %>>Spanish</option>
+                            <option value="French" <%=formData && formData.preferred_language==='French' ? 'selected'
+                                : '' %>>French</option>
+                            <option value="German" <%=formData && formData.preferred_language==='German' ? 'selected'
+                                : '' %>>German</option>
+                        </select>
+                    </section>
+
+                    <section class="form-section">
+                        <h2>5. Do you have an age group preference for your therapist?</h2>
+                        <select name="age_group_preference">
+                            <option value="" <%=formData && !formData.age_group_preference ? 'selected' : '' %>>No
+                                Preference</option>
+                            <option value="Young Adult (18-30)" <%=formData &&
+                                formData.age_group_preference==='Young Adult (18-30)' ? 'selected' : '' %>>Young Adult
+                                (18-30)</option>
+                            <option value="Adult (30-50)" <%=formData && formData.age_group_preference==='Adult (30-50)'
+                                ? 'selected' : '' %>>Adult (30-50)</option>
+                            <option value="Senior (50+)" <%=formData && formData.age_group_preference==='Senior (50+)'
+                                ? 'checked' : '' %>>Senior (50+)</option>
+                        </select>
+                    </section>
+
+                    <section class="form-section">
+                        <h2>6. When are you generally available for sessions? (Optional)</h2>
+                        <div class="availability-grid">
+                            <div class="day-col"></div>
+                            <div class="time-col">9AM-12PM</div>
+                            <div class="time-col">12PM-3PM</div>
+                            <div class="time-col">3PM-6PM</div>
+                            <div class="time-col">6PM-9PM</div>
+                            <div class="time-col">9PM-12AM</div>
+
+                            <% ['monday', 'tuesday' , 'wednesday' , 'thursday' , 'friday' , 'saturday' , 'sunday'
+                                ].forEach(day=> { %>
+                                <div class="day-col">
+                                    <%= day.charAt(0).toUpperCase() + day.slice(1) %>
+                                </div>
+                                <% ['9am-12pm', '12pm-3pm' , '3pm-6pm' , '6pm-9pm' , '9pm-12am' ].forEach(slot=> { %>
+                                    <div class="checkbox-slot">
+                                        <label>
+                                            <input type="checkbox" name="time_availability[<%= day %>][]"
+                                                value="<%= slot %>" <%=formData && formData.time_availability &&
+                                                formData.time_availability[day] &&
+                                                formData.time_availability[day].includes(slot) ? 'checked' : '' %>>
+                                            <span></span>
+                                        </label>
+                                    </div>
+                                    <% }); %>
+                                        <% }); %>
+                        </div>
+                        <small>Select times that work for you.</small>
+                    </section>
+
+                    <div class="form-navigation">
+                        <button type="button" class="btn btn-secondary" id="prevBtn" style="display:none;">Back</button>
+                        <button type="button" class="btn btn-primary" id="nextBtn">Next</button>
+                        <button type="submit" class="btn btn-primary" id="submitBtn"
+                            style="display:none;">Submit</button>
+                    </div>
+                </form>
+
+                <div id="results" class="results-section">
+                </div>
+    </main>
+
+    <div id="searchingOverlay"
+        style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(108,71,182,0.12); z-index:9999; align-items:center; justify-content:center;">
+        <div
+            style="background:#fff; padding:36px 48px; border-radius:16px; box-shadow:0 4px 32px rgba(108,71,182,0.15); text-align:center;">
+            <div style="font-size:2.2em; color:#6C47B6; margin-bottom:12px;">
+                <i class="fas fa-spinner fa-spin"></i>
+            </div>
+            <div style="font-size:1.2em; color:#6C47B6; font-weight:600;">
+                We are searching for your match...
+            </div>
+        </div>
+    </div>
+
+    <meta name="access-token" content="<%= accessToken %>">
+
+    <script src="/js/client/assessment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+<%- include('../partials/footer') %>

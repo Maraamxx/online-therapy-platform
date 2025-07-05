@@ -1,0 +1,37 @@
+<div class="section-header">
+    <h3>All Sessions</h3>
+</div>
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Patient</th>
+                <th>Therapist</th>
+                <th>Date</th>
+                <th>Duration</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (sessions && sessions.length > 0) { %>
+                <% sessions.forEach(session => { %>
+                    <tr>
+                        <td><%= session.patientname %></td>
+                        <td><%= session.therapistname %></td>
+                        <td><%= new Date(session.date_time).toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }) %></td>
+                        <td><%= session.duration %> minutes</td>
+                        <td><%= session.session_type %></td>
+                        <td><span class="status-badge status-<%= session.status.toLowerCase().replace(' ', '-') %>"><%= session.status %></span></td>
+                        <td><%= session.notes %></td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="7">No sessions found.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>

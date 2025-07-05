@@ -1,0 +1,38 @@
+
+<div class="section-header">
+    <h3>All Subscription Payments</h3>
+</div>
+<div class="table-container">
+    <table>
+        <thead>
+            <tr>
+                <th>Payment ID</th>
+                <th>User</th>
+                <th>Subscription Plan</th>
+                <th>Amount</th>
+                <th>Payment Date</th>
+                <th>Status</th>
+                <th>Next Due Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (subscriptionPayments && subscriptionPayments.length > 0) { %>
+                <% subscriptionPayments.forEach(payment => { %>
+                    <tr>
+                        <td><%= payment.subscriptions_payment_id %>...</td>
+                        <td><%= payment.username %></td>
+                        <td><%= payment.planname %></td>
+                        <td><%= payment.amount %> EGP</td>
+                        <td><%= new Date(payment.payment_date).toLocaleDateString('en-US') %></td>
+                        <td><span class="status-badge status-<%= payment.status.toLowerCase().replace(' ', '-') %>"><%= payment.status %></span></td>
+                        <td><%= payment.next_due_date ? new Date(payment.next_due_date).toLocaleDateString('en-US') : 'N/A' %></td>
+                    </tr>
+                <% }); %>
+            <% } else { %>
+                <tr>
+                    <td colspan="7">No subscription payments found.</td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+</div>

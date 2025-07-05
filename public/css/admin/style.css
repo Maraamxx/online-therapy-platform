@@ -1,0 +1,570 @@
+/* public/css/admin/style.css */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+:root {
+  --primary-color: #007bff; /* Blue */
+  --secondary-color: #30353a; /* Gray */
+  --success-color: #ceffd9; /* Green */
+  --warning-color: #fff3cd; /* Yellow */
+  --danger-color: #ffe2e5; /* Red */
+  --info-color: #e0fbff; /* Cyan */
+  --light-bg: #f8f9fa; /* Light Gray */
+  --dark-bg: #343a40; /* Dark Gray */
+  --text-color: #212529; /* Dark text */
+  --white: #ffffff;
+  --border-color: #dee2e6;
+  --sidebar-bg: #ffffff; /* White background for sidebar */
+  --sidebar-text: #333; /* Darker text for sidebar */
+  --sidebar-hover-bg: #f0f2f5; /* Light background on hover */
+  --sidebar-active-bg: #e6f0ff; /* Light blue for active link */
+  --sidebar-active-text: #007bff; /* Primary blue for active link text */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Arial", sans-serif; /* Changed font to Arial */
+  background-color: var(--light-bg);
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+/* Admin Container Layout */
+.admin-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 250px;
+  background-color: var(--sidebar-bg); /* White background */
+  color: var(--sidebar-text); /* Darker text */
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+.sidebar-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee; /* Lighter border */
+}
+
+.sidebar-header h2 {
+  font-size: 1.8em;
+  color: var(--sidebar-text); /* Darker text */
+  margin: 0;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar-nav ul li {
+  margin-bottom: 5px; /* Slightly less space */
+}
+
+.sidebar-nav ul li a {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px; /* Adjusted padding */
+  color: var(--sidebar-text); /* Default link color */
+  text-decoration: none;
+  border-radius: 8px; /* More rounded corners */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar-nav ul li a:hover {
+  background-color: var(--sidebar-hover-bg); /* Light background on hover */
+  color: var(--primary-color); /* Primary blue on hover */
+}
+
+.sidebar-nav ul li a.active {
+  background-color: var(--sidebar-active-bg); /* Light blue for active link */
+  color: var(--sidebar-active-text); /* Primary blue for active link text */
+  font-weight: 600;
+}
+
+.sidebar-nav ul li a i {
+  margin-right: 10px;
+  font-size: 1.2em; /* Slightly larger icon */
+  color: inherit; /* Icons inherit color */
+}
+
+/* Main Content Styling */
+.main-content {
+  flex-grow: 1;
+  padding: 30px;
+  background-color: var(--white); /* White background for main content */
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.05);
+  margin: 20px;
+}
+
+.main-header {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.main-header h1 {
+  font-size: 2.5em;
+  margin-bottom: 5px;
+  color: var(--text-color);
+}
+
+.main-header p {
+  color: var(--secondary-color);
+  font-size: 1.1em;
+}
+
+.dashboard-section {
+  margin-bottom: 40px;
+}
+
+.section-header {
+  margin-bottom: 20px;
+}
+
+.section-header h3 {
+  font-size: 1.8em;
+  color: var(--text-color);
+  margin-bottom: 15px;
+}
+
+/* Summary Cards */
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.summary-cards .card {
+  background-color: var(--white); /* Changed to white for consistency */
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  border: 1px solid #eee; /* Added a subtle border */
+}
+
+.summary-cards .card h4 {
+  font-size: 1.1em;
+  color: var(--secondary-color);
+  margin-bottom: 10px;
+}
+
+.summary-cards .card p {
+  font-size: 2em;
+  color: #0056b3;
+  font-weight: 600;
+  margin: 0;
+}
+
+/* Card specific colors (can be further refined based on full design) */
+.summary-cards .card.revenue p {
+  color: var(--primary-color);
+}
+.summary-cards .card.paid p,
+.summary-cards .card.approved p {
+  color:#218838;
+}
+.summary-cards .card.pending p {
+  color: #95741b;
+}
+.summary-cards .card.failed p,
+.summary-cards .card.declined p {
+  color: #dc3545;
+}
+
+/* Table Styling */
+.table-container {
+  overflow-x: auto;
+  background-color: var(--white); /* White background for container */
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  padding: 20px; /* Padding inside the table container */
+}
+
+table {
+  width: 100%;
+  border-collapse: separate; /* Allows for border-spacing for better control */
+  border-spacing: 0;
+  font-size: 0.95em;
+}
+
+table thead th {
+  background-color: #f8f8f8; /* Light grey for header background, matching image */
+  color: #333; /* Darker text for header */
+  padding: 15px; /* Generous padding */
+  text-align: left;
+  font-weight: bold; /* Bold font for headers */
+  text-transform: uppercase;
+  border-bottom: 1px solid #eee; /* Light border below header */
+}
+
+table tbody tr {
+  border-bottom: 1px solid #eee; /* Light border between rows */
+}
+
+table tbody tr:nth-of-type(even) {
+  background-color: var(--white); /* Keep rows white as per image */
+}
+
+table tbody tr:hover {
+  background-color: #f8f8f8; /* Subtle light grey on hover, matching image */
+}
+
+table tbody td {
+  padding: 15px; /* Generous padding */
+  vertical-align: middle;
+}
+
+/* Status Badges */
+.status-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.85em;
+  font-weight: bold; /* Bold font for badges */
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.status-scheduled {
+  background-color: #e6f0ff; /* Light blue */
+  color: #007bff; /* Darker blue */
+}
+.status-completed {
+  background-color: #e2fce4; /* Light green */
+  color: #28a745; /* Darker green */
+}
+.status-cancelled {
+  background-color: #ffe6e6; /* Light red */
+  color: #dc3545; /* Darker red */
+}
+/* Ensure other statuses are also defined or removed if not needed */
+.status-in-progress,
+.status-processing,
+.status-pending {
+  background-color: var(--warning-color); /* Adjust if you need a specific light yellow for these */
+  color: #95741b;
+}
+.status-approved,
+.status-confirmed {
+  background-color: var(--success-color); /* Adjust if you need a specific light green for these */
+  color: #218838;
+}
+.status-refunded,
+.status-rescheduled,
+.status-rescheduled_pending_acceptance {
+  background-color: var(--info-color); /* Adjust if you need a specific light cyan for these */
+  color: #447eb7;
+}
+.status-failed,
+.status-declined {
+  background-color: var(--danger-color); /* Adjust if you need a specific light red for these */
+  color: #c82333;
+}
+
+
+/* Therapist Applications List */
+.applications-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.application-card {
+  background-color: var(--white);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-color);
+}
+
+.application-card.status-pending {
+  border-left: 5px solid var(--warning-color);
+}
+.application-card.status-approved {
+  border-left: 5px solid var(--success-color);
+}
+.application-card.status-declined {
+  border-left: 5px solid var(--danger-color);
+}
+
+.application-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.application-header h4 {
+  font-size: 1.3em;
+  margin: 0;
+  color: var(--primary-color);
+}
+
+.therapy-type {
+  font-size: 0.95em;
+  color: var(--secondary-color);
+  margin-bottom: 15px;
+}
+
+.application-details p {
+  margin-bottom: 5px;
+  font-size: 0.9em;
+}
+
+.application-details strong {
+  color: var(--text-color);
+}
+
+.application-actions {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.btn {
+  padding: 8px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9em;
+  font-weight: 500;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.btn i {
+  font-size: 1em;
+}
+
+.btn-approve {
+  background-color: var(--success-color);
+  color: #218838;
+}
+
+.btn-approve:hover {
+  background-color: #218838;
+   color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.btn-decline {
+  background-color: var(--danger-color);
+  color: #c82333;
+}
+
+.btn-decline:hover {
+  background-color: #c82333;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.application-link {
+    color: #007bff; /* A nice blue color */
+    text-decoration: none; /* Remove underline */
+    font-weight: bold;
+    transition: color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.application-link:hover {
+    color: #0056b3; /* Darker blue on hover */
+    text-decoration: underline; /* Add underline on hover */
+}
+/* Responsive Adjustments (Basic) */
+@media (max-width: 768px) {
+  .admin-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 15px;
+    flex-direction: row; /* Keep as row for mobile bottom nav style if needed */
+    justify-content: space-around;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    overflow-x: auto;
+  }
+
+  .sidebar-header {
+    display: none; /* Hide header on small screens */
+  }
+
+  .sidebar-nav ul {
+    display: flex;
+    gap: 10px;
+  }
+
+  .sidebar-nav ul li a {
+    padding: 10px 12px;
+    font-size: 0.9em;
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .sidebar-nav ul li a i {
+    margin-right: 0;
+    margin-bottom: 5px;
+  }
+
+  .main-content {
+    margin: 15px;
+    padding: 20px;
+  }
+
+  .main-header h1 {
+    font-size: 2em;
+  }
+
+  .summary-cards {
+    grid-template-columns: 1fr;
+  }
+
+  table thead th,
+  table tbody td {
+    padding: 8px 10px;
+    font-size: 0.85em;
+  }
+}
+
+/* General button styling (already there, but confirm these classes are in use) */
+.action-buttons .btn {
+  padding: 6px 10px;
+  font-size: 0.85em;
+  margin-right: 5px; /* Space between buttons */
+}
+.btn-view-profile {
+  background-color: #ddedff;
+  color: #007bff;
+  text-decoration: none;
+}
+.btn-view-profile:hover {
+  background-color: #0056b3;
+}
+.btn-edit-profile {
+  background-color: var(--secondary-color);
+  color: var(--white);
+}
+.btn-edit-profile:hover {
+  background-color: #5a6268;
+}
+
+/* Ensure the `info` card style is present if you use it for Plan Subscribers */
+.summary-cards .card.info p {
+  color: #007bff;
+}
+
+/* Profile Card (for user_profile.ejs) */
+.profile-card {
+  background-color: var(--white);
+  border-radius: 8px;
+  padding: 30px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.profile-details {
+  flex: 1;
+  min-width: 280px;
+}
+
+.profile-details p {
+  margin-bottom: 10px;
+  font-size: 1.1em;
+}
+
+.profile-details strong {
+  display: inline-block;
+  width: 150px; /* Align labels */
+  color: var(--text-color);
+}
+
+.profile-actions {
+  flex-basis: 100%; /* Take full width on new line */
+  text-align: right;
+  padding-top: 20px;
+  border-top: 1px solid var(--border-color);
+  margin-top: 20px;
+}
+
+.profile-actions .btn {
+  margin-left: 10px;
+}
+
+/* Responsive adjustment for profile card */
+@media (max-width: 768px) {
+  .profile-card {
+    flex-direction: column;
+    gap: 20px;
+  }
+  .profile-details p {
+    font-size: 1em;
+  }
+  .profile-details strong {
+    width: 120px;
+  }
+  .profile-actions {
+    text-align: center;
+    padding-top: 15px;
+    margin-top: 15px;
+  }
+  .profile-actions .btn {
+    margin: 5px;
+  }
+}
+
+/* public/css/admin/style.css (add to existing styles) */
+.error-container {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+.error-container h1 {
+  color: var(--danger-color);
+  margin-bottom: 20px;
+  font-size: 2.5em;
+}
+.error-container p {
+  font-size: 1.1em;
+  color: var(--text-color); /* Changed from --text-color-light as it's not defined */
+  margin-bottom: 30px;
+}
+.error-container .btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: var(--white);
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+.error-container .btn:hover {
+  background-color: #0056b3; /* Darker primary color on hover */
+}

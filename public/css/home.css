@@ -1,0 +1,444 @@
+/* Color Palette (adjust as desired) */
+:root {
+  --primary-purple: #6722e6; /* Your existing brand color */
+  --primary-blue: #a7dffb; /* Lighter blue from navbar hover */
+  --calm-blue: #e5f8ff; /* Light blue */
+  --soft-green: #90ee90; /* Light green */
+  --muted-lavender: #d8bfd8; /* Thistle */
+  --off-white: #f9f9f9;
+  --dark-text: #333;
+  --light-text: #666;
+  --shadow-light: rgba(0, 0, 0, 0.08);
+}
+
+/* General Body & Typography */
+body {
+  color: var(--dark-text);
+  line-height: 1.6;
+  background-color: var(--off-white);
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 900;
+  color: var(--primary-purple);
+  margin-bottom: 0.8em;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 3.2em;
+  text-align: left;
+  font-weight: 700;
+  font-family: "Cormorant Garamond", serif;
+  line-height: 100%;
+}
+
+h2 {
+  font-size: 2.5em;
+  text-align: center;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+}
+h3 {
+  font-size: 1.8em;
+}
+
+p {
+  font-size: 1.1em;
+  margin-bottom: 1em;
+}
+
+/* Sections General Styling */
+section {
+  padding: 60px 5%;
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden; /* To contain floated/positioned illustrations */
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 12px 25px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1em;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+
+.btn-primary {
+  background-color: var(--primary-purple);
+  color: white;
+  border: 2px solid var(--primary-purple);
+}
+
+.btn-primary:hover {
+  background-color: darken(
+    var(--primary-purple),
+    10%
+  );
+  background-color: #571dab; /* A slightly darker purple */
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--primary-purple);
+  border: 2px solid var(--primary-purple);
+  margin-left: 15px;
+}
+
+.btn-secondary:hover {
+  background-color: var(--primary-purple);
+  color: white;
+}
+
+.btn-large {
+  padding: 15px 35px;
+  font-size: 1.3em;
+}
+
+/* Illustration Styling */
+.illustration {
+  max-width: 80%;
+  height: auto;
+  display: block; /* Remove extra space below images */
+  margin: 0 auto; /* Center illustrations */
+}
+
+/* Hero Section */
+.hero-section {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh; /* Full viewport height minus navbar */
+  background-color: var(--off-white);
+background-image: url("https://www.transparenttextures.com/patterns/dust.png");
+  text-align: center;
+  gap: 40px; /* Space between content and illustration */
+}
+
+.hero-content {
+  flex: 1; /* Allows content to take available space */
+  max-width: 600px; /* Limit content width */
+  text-align: center;
+}
+
+.hero-content h1 {
+  font-size: 3.8em;
+  margin-bottom: 15px;
+  color: var(--dark-text); /* Use dark text for prominent heading */
+}
+
+.hero-content .tagline {
+  font-size: 1.2em;
+  text-align: left;
+  color: var(--light-text);
+  margin-bottom: 40px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.hero-buttons {
+  display: flex;
+  justify-content: left;
+  gap: 20px;
+}
+
+.hero-illustration {
+  flex: 1;
+  min-width: 300px; /* Minimum width for illustration to prevent squishing */
+  max-width: 550px;
+  padding: 20px;
+}
+
+/* About Section */
+.about-section {
+  background-color: white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 80px 5%;
+}
+
+.about-content {
+  flex: 1;
+  max-width: 600px;
+  text-align: left; /* Align text left for readability */
+}
+
+.about-content h2 {
+  text-align: left; /* Keep h2 aligned with content */
+  margin-top: 0;
+}
+
+.about-illustration {
+  flex: 1;
+  min-width: 250px;
+  max-width: 450px;
+  padding: 20px;
+}
+
+/* How It Works Section */
+.how-it-works-section {
+  background: linear-gradient(to top left, var(--calm-blue), #fafdff);
+  text-align: center;
+  padding: 80px 5%;
+}
+
+.steps-container {
+  display: flex;
+  flex-wrap: wrap; /* Allows wrapping on smaller screens */
+  justify-content: center;
+  gap: 30px;
+  margin-top: 40px;
+  /* Add this for consistent height if content varies significantly */
+  align-items: stretch; /* Ensures all cards stretch to the height of the tallest */
+}
+
+.step-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 5px 15px var(--shadow-light);
+  flex: 1;
+  /* Use a fixed flex-basis to control minimum width, then allow it to grow/shrink */
+  flex-basis: 300px; /* Base width for each card before growing/shrinking */
+  max-width: 350px; /* Max width to prevent cards from becoming too wide on large screens */
+  display: flex;
+  flex-direction: column; /* Stack image, heading, and paragraph vertically */
+  align-items: center; /* Center items horizontally within the card */
+  text-align: center; /* Center the text within the card */
+  transition: transform 0.3s ease;
+  justify-content: space-between; /* Distribute space vertically, pushing text/image to ends if needed */
+}
+
+.step-card:hover {
+  transform: translateY(-8px);
+}
+
+.step-illustration {
+  width: 100px; /* Adjust size of step illustrations to be uniform */
+  height: 100px; /* Give it a fixed height to ensure consistent image box size */
+  object-fit: contain; /* Ensures the entire image fits within the box without cropping */
+  margin-bottom: 20px;
+  /* Add margin-top if you want more space above the image */
+  margin-top: 10px;
+}
+
+.step-card h3 {
+  color: var(--primary-purple);
+  margin-bottom: 10px;
+  flex-shrink: 0; /* Prevent the heading from shrinking */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+  letter-spacing: 0.02em;
+  padding-bottom: 10px;
+}
+
+.step-card p {
+  font-size: 1em;
+  color: var(--light-text);
+  /* Ensure paragraph takes up available space and doesn't push the card out of alignment */
+  flex-grow: 1;
+}
+
+/* Ensure images are centered vertically within their allocated space if the actual SVG is smaller than 100px */
+.step-illustration-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100px; /* Same as step-illustration width */
+  height: 100px; /* Same as step-illustration height */
+  margin-bottom: 20px;
+}
+
+/* Testimonials Section */
+.testimonials-section {
+  background-color: var(--off-white);
+  background-image: url("https://www.transparenttextures.com/patterns/dust.png");
+  text-align: center;
+  padding: 80px 5%;
+  display: flex; /* Make the section a flex container */
+  flex-direction: column; /* Stack children (h2, illustration, grid) vertically */
+  align-items: center; /* Center items horizontally within the section */
+}
+
+.testimonials-grid {
+  display: flex;
+  flex-wrap: wrap; /* Allows cards to wrap to the next line on smaller screens */
+  justify-content: center; /* Center the cards horizontally */
+  gap: 30px; /* Space between cards */
+  margin-top: 40px;
+  max-width: 1200px; /* Limit the maximum width of the grid */
+  align-items: stretch; /* Crucial: Ensures all cards stretch to the height of the tallest */
+}
+
+.testimonial-card {
+  background-color: white;
+  border-radius: 12px;
+  padding: 25px;
+  box-shadow: 0 5px 15px var(--shadow-light);
+  flex: 1; /* Allow cards to grow and shrink */
+  min-width: 280px; /* Minimum width for each card */
+  max-width: 380px; /* Maximum width for each card */
+  display: flex; /* Make the card itself a flex container */
+  flex-direction: column; /* Stack content (paragraph, author) vertically */
+  justify-content: space-between; /* Distribute space vertically: push quote to top, author to bottom */
+  text-align: center;
+  font-style: italic;
+  color: var(--light-text);
+  position: relative;
+  transition: transform 0.3s ease; /* Add a subtle hover effect */
+}
+
+.testimonial-card:hover {
+  transform: translateY(-8px); /* Lift the card slightly on hover */
+}
+
+.testimonial-card p {
+  font-size: 1.05em;
+  margin-bottom: 15px;
+  flex-grow: 1; /* Allow the paragraph to take up available space */
+  display: flex; /* Use flex on the paragraph to vertically center text if it's short */
+  align-items: center; /* Vertically align text within the paragraph's flex container */
+  justify-content: center; /* Horizontally align text within the paragraph's flex container */
+}
+
+.testimonial-author {
+  font-weight: bold;
+  color: var(--dark-text);
+  font-style: normal;
+  font-size: 0.95em;
+  flex-shrink: 0; /* Prevent the author line from shrinking */
+  margin-top: auto; /* Push the author to the bottom if `justify-content: space-between` is used on parent */
+}
+
+/* Ensure the illustration is centered and has appropriate spacing */
+.testimonials-illustration {
+  display: inline;
+  margin-top: 20px; /* Space above the illustration */
+  margin-bottom: 10px; /* Space below the illustration, before the grid */
+  max-width: 200px;
+}
+
+/* Bottom CTA Section */
+.cta-bottom-section {
+  background: linear-gradient(to bottom right, #37019c, var(--primary-purple));
+
+  /* background-color: var(--primary-purple); */
+  color: white;
+  text-align: center;
+  padding: 80px 5%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 0; /* Remove the bottom margin from the last section */
+}
+
+.cta-content {
+  flex: 1;
+  max-width: 700px;
+}
+
+.cta-content h2 {
+  color: white;
+  font-size: 2.8em;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.cta-content p {
+  font-size: 1.3em;
+  margin-bottom: 40px;
+}
+
+.cta-illustration {
+  flex: 1;
+  min-width: 250px;
+  max-width: 400px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .hero-section,
+  .about-section,
+  .cta-bottom-section {
+    flex-direction: column; /* Stack content and illustration */
+    text-align: center;
+  }
+
+  .hero-content,
+  .about-content,
+  .cta-content {
+    max-width: 100%; /* Allow full width */
+    text-align: center; /* Center text when stacked */
+  }
+
+  .hero-illustration,
+  .about-illustration,
+  .cta-illustration {
+    order: -1; /* Move illustration above content on smaller screens */
+    margin-bottom: 40px;
+  }
+
+  .hero-content h1 {
+    font-size: 2.8em;
+  }
+
+  h2 {
+    font-size: 2em;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5em;
+  }
+  h2 {
+    font-size: 1.8em;
+  }
+  .btn {
+    padding: 10px 20px;
+    font-size: 1em;
+  }
+  .btn-large {
+    padding: 12px 25px;
+    font-size: 1.1em;
+  }
+  .hero-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .btn-secondary {
+    margin-left: 0; /* Remove margin when stacked */
+  }
+  .step-card,
+  .testimonial-card {
+    min-width: unset; /* Allow cards to shrink */
+    width: 100%; /* Take full width of container */
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2em;
+  }
+  .hero-content .tagline {
+    font-size: 1.2em;
+  }
+  section {
+    padding: 40px 3%; /* More padding on very small screens */
+  }
+}

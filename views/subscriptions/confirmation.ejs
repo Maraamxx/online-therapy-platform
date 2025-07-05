@@ -1,0 +1,62 @@
+<% var extraCSS = '<link rel="stylesheet" href="/css/subscriptions/confirmation.css"/>'; %>
+ <%- include('../partials/header', {title: 'Subscription Confirmation', extraCSS: extraCSS}) %>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-16">
+      <div class="card">
+        <div class="card-header bg-success text-white">
+          <h2>Subscription Confirmed!</h2>
+        </div>
+        <div class="card-body text-center">
+          <div class="mb-4">
+            <i
+              class="bi bi-check-circle-fill text-success"
+              style="font-size: 5rem"
+            ></i>
+          </div>
+          <h3 class="mb-3">Thank you for your subscription!</h3>
+          <p class="lead">Your payment has been processed successfully.</p>
+
+          <div class="card mb-4">
+            <div class="card-header">
+              <h5>Subscription Details</h5>
+            </div>
+            <div class="card-body text-start">
+              <table class="table">
+                <tr>
+                  <th>Plan</th>
+                  <td><%= plan.plan_name %></td>
+                </tr>
+                <tr>
+                  <th>Start Date</th>
+                  <td>
+                    <%= new Date(subscription.start_date).toLocaleDateString()
+                    %>
+                  </td>
+                </tr>
+                <tr>
+                  <th>End Date</th>
+                  <td>
+                    <%= new Date(subscription.end_date).toLocaleDateString() %>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Remaining Sessions</th>
+                  <td><%= subscription.remaining_sessions %> Sessions</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+
+          <div class="d-grid gap-2 col-md-6 mx-auto">
+            <a href="/api/subscriptions/plans" class="btn btn-primary"
+              >Back to Plans</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/footer') %>

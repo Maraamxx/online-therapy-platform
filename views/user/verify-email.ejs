@@ -1,0 +1,48 @@
+<% var extraCSS = '<link rel="stylesheet" href="/css/user/profile.css" />'; %> <%-
+include('../partials/header', {title: 'Email Verification', extraCSS: extraCSS})
+%><style>
+        .verification-container {
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .verification-container h1 {
+            color: #007bff;
+            margin-bottom: 20px;
+        }
+        .verification-container .message-area {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .verification-container .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        .verification-container .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .verification-container .loading {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="verification-container">
+        <h1>Email Verification</h1>
+        <div id="verification-status" class="message-area loading">
+            Verifying your email... Please wait.
+        </div>
+        <p><a href="/dashboard">Go to Dashboard</a></p>
+    </div>
+    <script src="/js/user/verify-email.js"></script>
+</body>
+</html>

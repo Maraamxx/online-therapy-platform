@@ -1,0 +1,214 @@
+/* --- Contact Us Page Styles --- */
+
+/* Basic element styling (assumed from global or other pages) */
+:root {
+    --primary-purple: #6722E6;
+    --primary-blue: #45c1ff; /* Lighter accent */
+    --calm-blue: #c5f0fe;
+    --off-white: #F9F9F9;
+    --dark-text: #333;
+    --light-text: #666;
+    --border-color: #ddd;
+    --shadow-light: rgba(0, 0, 0, 0.08);
+}
+
+body {
+    color: var(--dark-text);
+    line-height: 1.6;
+    background-color: var(--off-white);
+}
+
+h1, h2, h3 {
+  font-family: "Cormorant Garamond", serif;
+    color: var(--primary-purple);
+    line-height: 1.2;
+    font-weight: 900;
+}
+h1 { font-size: 3.2em; text-align: center; margin-bottom: 0.5em; }
+p { font-size: 1.1em; }
+
+.btn { /* Button styles copied from home.css */
+    display: inline-block; padding: 12px 25px; border-radius: 8px; text-decoration: none;
+    font-weight: bold; font-size: 1.1em; transition: all 0.3s ease; text-align: center;
+}
+.btn-primary { background-color: var(--primary-purple); color: white; border: 2px solid var(--primary-purple); }
+.btn-primary:hover { background-color: #571dab; } /* Slightly darker purple */
+
+/* Section Layout */
+.contact-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start; /* Align content to the top within its flex container */
+    padding: 80px 5%;
+    gap: 50px; /* Space between illustration and content */
+    background-color: white; /* Clean white background */
+}
+
+.contact-illustration {
+    flex: 1;
+    min-width: 300px; /* Minimum width for the illustration column */
+    max-width: 500px; /* Maximum width for the illustration */
+    padding-top: 30px; /* Align illustration visually with form top */
+}
+
+.contact-illustration .illustration {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.contact-content {
+    flex: 2; /* Allow content to take more space */
+    max-width: 700px; /* Max width for the form/text content */
+    text-align: left;
+}
+
+.contact-content h1 {
+    text-align: left; /* Align heading with content */
+    margin-top: 0;
+}
+
+.intro-text {
+    font-size: 1.2em;
+    color: var(--light-text);
+    margin-bottom: 30px;
+}
+
+/* Form Styling */
+.contact-form {
+    background-color: var(--off-white); /* Light background for the form itself */
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px var(--shadow-light);
+    margin-bottom: 40px; /* Space below form */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block; /* Label on its own line */
+    font-weight: bold;
+    margin-bottom: 8px;
+    color: var(--dark-text);
+    font-size: 1em;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+    width: calc(100% - 20px); /* Full width minus padding */
+    padding: 12px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    font-size: 1em;
+    font-family: 'Open Sans', sans-serif; /* Consistent font */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--primary-purple);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(103, 34, 230, 0.2); /* Soft focus glow */
+}
+
+.form-group textarea {
+    resize: vertical; /* Allow vertical resizing */
+}
+
+.contact-form .btn-primary {
+    width: auto; /* Allow button to size naturally */
+    padding: 12px 30px;
+    font-size: 1.1em;
+    cursor: pointer;
+}
+
+/* Direct Contact Info */
+.contact-info {
+    border-top: 1px solid var(--border-color);
+    padding-top: 30px;
+    margin-top: 30px;
+}
+
+.contact-info h3 {
+    color: var(--primary-blue); /* Use accent color for this heading */
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.contact-info p {
+    font-size: 1em;
+    color: var(--light-text);
+    margin-bottom: 10px;
+    display: flex; /* For icon alignment */
+    align-items: center;
+}
+
+.contact-info p i {
+    margin-right: 10px;
+    color: var(--primary-purple); /* Icon color */
+    font-size: 1.2em;
+}
+
+.contact-info p a {
+    color: var(--light-text);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-info p a:hover {
+    color: var(--primary-purple);
+}
+
+.contact-info .hours {
+    font-style: italic;
+    color: var(--light-text);
+    font-size: 0.95em;
+    margin-top: 20px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+    .contact-section {
+        flex-direction: column; /* Stack content and illustration */
+        align-items: center;
+        text-align: center;
+    }
+
+    .contact-illustration {
+        order: -1; /* Move illustration above content */
+        margin-bottom: 40px;
+    }
+
+    .contact-content h1,
+    .contact-info h3 {
+        text-align: center; /* Center these headings when stacked */
+    }
+
+    .contact-info p {
+        justify-content: center; /* Center direct contact info */
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.5em;
+    }
+    .intro-text {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-form {
+        padding: 20px;
+    }
+    .form-group input, .form-group textarea {
+        width: calc(100% - 16px); /* Adjust for smaller padding */
+        padding: 10px 8px;
+    }
+}

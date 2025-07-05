@@ -1,0 +1,214 @@
+<% var extraCSS = '<link rel="stylesheet" href="/css/view-therapists/view-all.css" />'; %>
+<%- include('../partials/header', {title: 'Browse Therapists', extraCSS: extraCSS}) %>
+
+    <div class="header-section">
+        <h1>It starts with the right person.</h1>
+        <div class="header-search-bar">
+            <input type="text" id="headerSearch" placeholder="Search by name or specialization..." onkeyup="handleHeaderSearch(event)">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <aside class="filter-sidebar">
+            <h3><i class="fas fa-filter"></i> Refine Your Search</h3>
+            <form id="filterForm" action="/api/therapists" method="GET">
+                <div class="search-bar filter-group">
+                    <label for="search">Search by Name/Specialization</label>
+                    <input type="text" id="search" name="search" placeholder="e.g., CBT, depression, Ahmed" value="<%= filters.search %>">
+                    <i class="fas fa-search search-icon"></i>
+                </div>
+
+                <div class="filter-group">
+                    <label for="specialization">Specialization</label>
+                    <select id="specialization" name="specialization">
+                        <option value="All" <%= filters.specialization === 'All' ? 'selected' : '' %>>All Specializations</option>
+                        <option value="Anxiety disorders" <%= filters.specialization === 'Anxiety disorders' ? 'selected' : '' %>>Anxiety disorders</option>
+                        <option value="Depression" <%= filters.specialization === 'Depression' ? 'selected' : '' %>>Depression</option>
+                        <option value="Couple Therapy" <%= filters.specialization === 'Couple Therapy' ? 'selected' : '' %>>Couple Therapy</option>
+                        <option value="Child Psychology" <%= filters.specialization === 'Child Psychology' ? 'selected' : '' %>>Child Psychology</option>
+                        <option value="Trauma & PTSD" <%= filters.specialization === 'Trauma & PTSD' ? 'selected' : '' %>>Trauma & PTSD</option>
+                        <option value="Addiction" <%= filters.specialization === 'Addiction' ? 'selected' : '' %>>Addiction</option>
+                        </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="level">Experience Level</label>
+                    <select id="level" name="level">
+                        <option value="All" <%= filters.level === 'All' ? 'selected' : '' %>>Any Level</option>
+                        <option value="Junior" <%= filters.level === 'Junior' ? 'selected' : '' %>>Junior</option>
+                        <option value="Licensed" <%= filters.level === 'Licensed' ? 'selected' : '' %>>Licensed</option>
+                        <option value="Senior" <%= filters.level === 'Senior' ? 'selected' : '' %>>Senior</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="genderPreference">Therapist Gender</label>
+                    <select id="genderPreference" name="genderPreference">
+                        <option value="All" <%= filters.genderPreference === 'All' ? 'selected' : '' %>>Any Gender</option>
+                        <option value="male" <%= filters.genderPreference === 'male' ? 'selected' : '' %>>Male</option>
+                        <option value="female" <%= filters.genderPreference === 'female' ? 'selected' : '' %>>Female</option>
+                        <option value="no_preference" <%= filters.genderPreference === 'no_preference' ? 'selected' : '' %>>No Preference</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="language">Language</label>
+                    <select id="language" name="language">
+                        <option value="All" <%= filters.language === 'All' ? 'selected' : '' %>>Any Language</option>
+                        <option value="English" <%= filters.language === 'English' ? 'selected' : '' %>>English</option>
+                        <option value="Arabic" <%= filters.language === 'Arabic' ? 'selected' : '' %>>Arabic</option>
+                        <option value="French" <%= filters.language === 'French' ? 'selected' : '' %>>French</option>
+                        </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="approachStyle">Therapy Approach</label>
+                    <select id="approachStyle" name="approachStyle">
+                        <option value="All" <%= filters.approachStyle === 'All' ? 'selected' : '' %>>Any Approach</option>
+                        <option value="CBT" <%= filters.approachStyle === 'CBT' ? 'selected' : '' %>>Cognitive Behavioral Therapy (CBT)</option>
+                        <option value="DBT" <%= filters.approachStyle === 'DBT' ? 'selected' : '' %>>Dialectical Behavior Therapy (DBT)</option>
+                        <option value="Psychodynamic" <%= filters.approachStyle === 'Psychodynamic' ? 'selected' : '' %>>Psychodynamic Therapy</option>
+                        <option value="Humanistic" <%= filters.approachStyle === 'Humanistic' ? 'selected' : '' %>>Humanistic Therapy</option>
+                        <option value="Integrative" <%= filters.approachStyle === 'Integrative' ? 'selected' : '' %>>Integrative Therapy</option>
+                        </select>
+                </div>
+
+                <div class="filter-group">
+                    <label for="religion">Religion</label>
+                    <select id="religion" name="religion">
+                        <option value="All" <%= filters.religion === 'All' ? 'selected' : '' %>>Any Religion</option>
+                        <option value="Islam" <%= filters.religion === 'Islam' ? 'selected' : '' %>>Islam</option>
+                        <option value="Christianity" <%= filters.religion === 'Christianity' ? 'selected' : '' %>>Christianity</option>
+                        <option value="Judaism" <%= filters.religion === 'Judaism' ? 'selected' : '' %>>Judaism</option>
+                        <option value="Atheism" <%= filters.religion === 'Atheism' ? 'selected' : '' %>>Atheism</option>
+                        <option value="Other" <%= filters.religion === 'Other' ? 'selected' : '' %>>Other / Spiritual</option>
+                        </select>
+                </div>
+
+                 <div class="filter-group">
+                    <label for="therapyMode">Therapy Mode</label>
+                    <select id="therapyMode" name="therapyMode">
+                        <option value="All" <%= filters.therapyMode === 'All' ? 'selected' : '' %>>Any Mode</option>
+                        <option value="Online" <%= filters.therapyMode === 'Online' ? 'selected' : '' %>>Online</option>
+                        <option value="In-person" <%= filters.therapyMode === 'In-person' ? 'selected' : '' %>>In-person</option>
+                        <option value="Hybrid" <%= filters.therapyMode === 'Hybrid' ? 'selected' : '' %>>Hybrid</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="view-details-btn" style="width: 100%; margin-top: 20px; background-color: var(--primary-aura);">Apply Filters</button>
+                <button type="button" class="view-details-btn" onclick="clearFilters()" style="width: 100%; margin-top: 15px; background-color: #6c757d;">Clear Filters</button>
+            </form>
+        </aside>
+
+        <div class="content-area">
+            <p class="results-summary">Found <%= therapists.length %> therapists matching your criteria</p>
+            <% if (therapists && therapists.length > 0) { %>
+                <div class="therapist-grid">
+                    <% therapists.forEach(therapist => {
+                        let price;
+                        switch (therapist.level.toLowerCase()) {
+                            case 'junior':
+                                price = 300;
+                                break;
+                            case 'licensed':
+                                price = 500;
+                                break;
+                            case 'senior':
+                                price = 700;
+                                break;
+                            default:
+                                price = 'N/A';
+                        }
+                    %>
+                        <div class="therapist-card">
+                            <div class="card-header">
+                                <div class="profile-pic-container">
+                                    <%
+                                        let avatarSrc = '/images/illustrations/default-generic-avatar.png'; // Default fallback if no gender or picture
+                                        if (therapist.profile_picture) {
+                                            avatarSrc = therapist.profile_picture;
+                                        } else if (therapist.gender && therapist.gender.toLowerCase() === 'female') {
+                                            avatarSrc = '/images/illustrations/default-female-avatar.png';
+                                        } else { // Assuming male if not female and no picture
+                                            avatarSrc = '/images/illustrations/default-male-avatar.png';
+                                        }
+                                    %>
+                                    <img src="<%= avatarSrc %>" alt="<%= therapist.name %> Profile Picture">
+                                </div>
+                                <div class="therapist-info">
+                                    <h2>Dr. <%= therapist.name %></h2>
+                                    <p class="specialization"><%= therapist.specialization %></p>
+                                    <div class="rating">
+                                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i> <span>4.9</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p class="bio-summary">
+                                <%= therapist.bio ? therapist.bio.substring(0, 100) + (therapist.bio.length > 100 ? '...' : '') : 'Specialized in providing compassionate support.' %>
+                            </p>
+
+                            <div class="tag level-tag">
+                                <i class="fas fa-graduation-cap"></i> <span style="text-transform: capitalize;"><%= therapist.level %></span>
+                            </div>
+
+                            <div class="details-grid">
+                                <div class="detail-item">
+                                    <i class="fas fa-briefcase"></i> <%= therapist.experience_years %> years experience
+                                </div>
+                                <% if (therapist.languages && therapist.languages.length > 0) { %>
+                                    <div class="detail-item">
+                                        <i class="fas fa-language"></i> <%= therapist.languages.join(', ') %>
+                                    </div>
+                                <% } %>
+                                <% if (therapist.approach_style) { %>
+                                    <div class="detail-item">
+                                        <i class="fas fa-heart"></i> <%= therapist.approach_style %>
+                                    </div>
+                                <% } %>
+                            </div>
+
+                            <div class="price-display">
+                                <%= price %> EGP <span>/session</span>
+                            </div>
+                            <a href="/api/therapists/<%= therapist.user_id %>" class="view-details-btn">View Full Profile <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    <% }); %>
+                </div>
+            <% } else { %>
+                <div class="no-therapists">
+                    <p><i class="fas fa-exclamation-triangle"></i> No therapists found matching your criteria.</p>
+                    <p>Try clearing your filters or adjusting your search.</p>
+                    <button onclick="clearFilters()" class="clear-filters-btn">Clear All Filters</button>
+                </div>
+            <% } %>
+        </div>
+    </div>
+
+    <script>
+        function clearFilters() {
+            document.getElementById('search').value = '';
+            document.getElementById('specialization').value = 'All';
+            document.getElementById('level').value = 'All';
+            document.getElementById('genderPreference').value = 'All';
+            document.getElementById('language').value = 'All';
+            document.getElementById('approachStyle').value = 'All';
+            document.getElementById('religion').value = 'All';
+            document.getElementById('therapyMode').value = 'All'; // Ensure this is cleared
+            document.getElementById('filterForm').submit();
+        }
+
+        // Handles the search input in the header
+        document.getElementById('headerSearch').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                const searchValue = this.value;
+                const form = document.getElementById('filterForm');
+                // Set the main search input value to the header search value
+                document.getElementById('search').value = searchValue;
+                form.submit();
+            }
+        });
+    </script>
+
+<%- include('../partials/footer') %>

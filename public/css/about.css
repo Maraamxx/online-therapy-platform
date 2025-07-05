@@ -1,0 +1,457 @@
+/* Import general styles or define variables if not imported globally */
+/* @import url('home.css'); */ /* If you have a main styles.css, you might import it */
+
+:root {
+  --primary-purple: #6722e6;
+  --primary-blue: #85d7ff;
+  --calm-blue: #c5f0fe;
+  --soft-green: #90ee90;
+  --muted-lavender: #d8bfd8;
+  --off-white: #f9f9f9;
+  --dark-text: #333;
+  --light-text: #666;
+  --shadow-light: rgba(0, 0, 0, 0.08);
+}
+
+/* Re-use general body/heading/button styles from home.css or a global stylesheet */
+body {
+  color: var(--dark-text);
+  line-height: 1.6;
+  background-color: var(--off-white);
+  margin: 0;
+  padding: 0;
+}
+
+h1,
+h2,
+h3 {
+    font-family: "Cormorant Garamond", serif;
+  color: var(--primary-purple);
+  font-weight: 900;
+  margin-bottom: 0.8em;
+  line-height: 1.2;
+}
+
+.about-hero-content h3 {
+    font-family: "Cormorant Garamond", serif;
+    color: #000;
+  font-size: 2.5em;
+  text-align: center;
+  font-weight: 900;
+}
+h2 {
+  font-size: 2.5em;
+  text-align: center;
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+}
+
+p {
+  font-size: 1.1em;
+  margin-bottom: 1em;
+}
+
+.btn {
+  /* Button styles copied from home.css */
+  display: inline-block;
+  padding: 12px 25px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.1em;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+.btn-primary {
+  background-color: var(--primary-purple);
+  color: white;
+  border: 2px solid var(--primary-purple);
+}
+.btn-primary:hover {
+  background-color: #571dab;
+}
+.btn-secondary {
+  background-color: transparent;
+  color: var(--primary-purple);
+  border: 2px solid var(--primary-purple);
+}
+.btn-secondary:hover {
+  background-color: var(--primary-purple);
+  color: white;
+}
+
+/* General Section Styling */
+section {
+  padding: 60px 5%;
+  margin-bottom: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.illustration {
+  max-width: 70%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+/* About Hero Section */
+.about-hero-section {
+  background-color: white;
+  background-image: url("https://www.transparenttextures.com/patterns/dust.png");
+  min-height: 40vh;
+  text-align: center;
+  padding-top: 80px; /* More space at top */
+}
+
+.about-hero-content {
+  flex: 1;
+  max-width: 700px;
+  text-align: center;
+}
+
+.about-hero-content h1 {
+  font-size: 4em;
+  color: var(--dark-text);
+  margin-bottom: 10px;
+}
+
+.about-hero-content .tagline {
+  font-size: 1.3em;
+  color: var(--light-text);
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  
+}
+
+.about-hero-illustration {
+  flex: 1;
+  min-width: 200px;
+  max-width: 400px;
+  padding: 20px;
+}
+
+/* Mission Section */
+.mission-section {
+  background-color: white;
+  flex-direction: row-reverse; /* Puts illustration on the right initially */
+  text-align: left; /* Align text left within content block */
+}
+
+.mission-illustration {
+  flex: 1;
+  min-width: 250px;
+  max-width: 400px;
+  padding: 20px;
+}
+
+.mission-content {
+  flex: 1;
+  max-width: 600px;
+  text-align: left;
+}
+
+.mission-content h2 {
+  text-align: left;
+  margin-top: 0;
+}
+
+/* Values Section */
+.values-section {
+    background-color: white;
+    background-image: url("https://www.transparenttextures.com/patterns/dust.png");
+    flex-direction: column; /* Stack heading, then grid */
+    text-align: center;
+    /* Already good, ensure padding is consistent */
+    padding: 80px 5%; /* Example consistent padding */
+}
+
+.values-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 40px;
+    max-width: 1200px;
+    /* Crucial: Ensures all cards stretch to the height of the tallest */
+    align-items: stretch;
+}
+
+.value-card {
+    background-color: var(--off-white);
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 5px 15px var(--shadow-light);
+    flex: 1; /* Allows cards to grow and shrink */
+    /* Set a consistent flex-basis for initial sizing */
+    flex-basis: 250px; /* Base width for each card before growing/shrinking */
+    max-width: 300px; /* Max width to prevent cards from becoming too wide on large screens */
+    display: flex;
+    flex-direction: column; /* Stack icon, heading, and paragraph vertically */
+    align-items: center; /* Center items horizontally within the card */
+    text-align: center; /* Center the text within the card */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Distribute space vertically: push icon to top, paragraph to bottom, heading in between */
+    justify-content: space-between;
+}
+
+.value-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.value-icon {
+    width: 80px; /* Consistent size for value icons */
+    height: 80px; /* Consistent height */
+    object-fit: contain; /* Ensures the entire image fits within the box */
+    margin-bottom: 20px;
+    flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+.value-card h3 {
+    color: var(--primary-purple);
+    margin-bottom: 10px;
+    flex-shrink: 0; /* Prevent heading from shrinking */
+}
+
+.value-card p {
+    font-size: 0.95em;
+    color: var(--light-text);
+    /* Allow paragraph to take up available space and align text */
+    flex-grow: 1;
+    display: flex; /* Use flex on the paragraph to help with vertical alignment if text is short */
+    align-items: center; /* Vertically align text within the paragraph's flex container */
+    justify-content: center; /* Horizontally align text within the paragraph's flex container */
+}
+
+/* Responsive adjustments for values section */
+@media (max-width: 768px) {
+    .values-grid {
+        /* When stacked, allow cards to take more width */
+        flex-direction: column;
+        align-items: center; /* Center the stacked cards */
+    }
+    .value-card {
+        min-width: 80%; /* Allow cards to be wider on smaller screens */
+        max-width: 400px; /* Max width for single column layout */
+    }
+}
+
+@media (max-width: 480px) {
+    .value-card {
+        padding: 20px; /* Reduce padding on very small screens */
+    }
+    .value-icon {
+        width: 60px;
+        height: 60px;
+    }
+}
+
+/* --- Team Section --- */
+.team-section {
+  background-color: white; /* Or var(--off-white); */
+  flex-direction: column; /* Ensure content stacks vertically */
+  text-align: center;
+  padding: 80px 5%;
+}
+
+.team-intro {
+  max-width: 800px;
+  margin: 0 auto 50px auto; /* Center text and add space below */
+  font-size: 1.2em;
+  color: var(--light-text);
+}
+
+.team-members-grid {
+  display: grid;
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(280px, 1fr)
+  ); /* Responsive grid */
+  gap: 30px; /* Space between cards */
+  max-width: 1200px; /* Max width for the grid */
+  width: 100%;
+}
+
+.member-card {
+  background-color: var(--off-white);
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 5px 15px var(--shadow-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.member-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.member-img-circle {
+  width: 150px; /* Size of the circle */
+  height: 150px;
+  border-radius: 50%; /* Makes it circular */
+  overflow: hidden; /* Clips the image to the circle */
+  margin-bottom: 20px;
+  border: 4px solid var(--primary-purple); /* Optional: add a border */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e0e0e0; /* Placeholder background */
+}
+
+.member-img-circle img {
+  width: 100%; /* Image fills the circle */
+  height: 100%;
+  object-fit: cover; /* Ensures image covers the circle without distortion */
+  display: block;
+}
+
+.member-card h3 {
+  color: var(--primary-purple);
+  margin-top: 0; /* Adjust spacing */
+  margin-bottom: 5px;
+  font-size: 1.7em;
+}
+
+.member-role {
+  font-weight: bold;
+  color: var(--primary-blue); /* Highlight role with a secondary color */
+  font-size: 1.1em;
+  margin-bottom: 15px;
+}
+
+.member-detail {
+  font-size: 0.95em;
+  color: var(--light-text);
+  margin-bottom: 0;
+}
+
+/* Responsive adjustments for team section if needed (inherits from general grid behavior) */
+@media (max-width: 768px) {
+  .team-members-grid {
+    grid-template-columns: 1fr; /* Stack cards on small screens */
+  }
+}
+
+/* Bottom CTA Section */
+.about-cta-section {
+  background-color: var(--primary-purple);
+  color: white;
+  text-align: center;
+  padding: 80px 5%;
+  margin-bottom: 0; /* Remove the bottom margin from the last section */
+}
+
+.about-cta-content {
+  flex: 1;
+  max-width: 800px;
+}
+
+.about-cta-content h2 {
+  color: white;
+  font-size: 2.8em;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.about-cta-content p {
+  font-size: 1.3em;
+  margin-bottom: 40px;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap; /* Allow buttons to wrap */
+}
+
+/* Override btn-secondary for dark background */
+.about-cta-section .btn-secondary {
+  color: white;
+  border-color: white;
+}
+.about-cta-section .btn-secondary:hover {
+  background-color: white;
+  color: var(--primary-purple);
+}
+
+.about-cta-illustration {
+  flex: 1;
+  min-width: 250px;
+  max-width: 400px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 992px) {
+  .about-hero-section,
+  .mission-section,
+  .about-cta-section {
+    flex-direction: column; /* Stack content and illustration */
+    text-align: center;
+  }
+
+  .about-hero-content,
+  .mission-content,
+  .about-cta-content {
+    max-width: 100%;
+    text-align: center; /* Center text when stacked */
+  }
+
+  .about-hero-illustration,
+  .mission-illustration,
+  .about-cta-illustration {
+    order: -1; /* Move illustration above content on smaller screens */
+    margin-bottom: 40px;
+  }
+
+  .about-hero-content h1 {
+    font-size: 3em;
+  }
+
+  h2 {
+    font-size: 2em;
+  }
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5em;
+  }
+  h2 {
+    font-size: 1.8em;
+  }
+  .cta-buttons {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .btn-secondary {
+    margin-left: 0; /* Remove margin when stacked */
+  }
+  .value-card {
+    min-width: unset;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 2em;
+  }
+  .about-hero-content .tagline {
+    font-size: 1.2em;
+  }
+  section {
+    padding: 40px 3%;
+  }
+}

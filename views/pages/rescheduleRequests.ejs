@@ -1,0 +1,19 @@
+<%- include('../partials/header') %>
+    <div class="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+        <main class="container mx-auto px-4 py-8">
+            <h2 class="text-2xl font-semibold mb-6">Pending Reschedule Requests</h2>
+            <% if (requests.length===0) { %>
+                <p class="text-muted-foreground">No pending reschedule requests.</p>
+                <% } else { %>
+                    <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+                        <% requests.forEach(appointment=> { %>
+                            <%- include('../partials/rescheduleRequestCard', { appointment, requestorName:
+                                appointment.reschedule_initiated_by==='client' ? appointment.client_name :
+                                appointment.therapist_name }) %>
+                                <% }) %>
+                    </div>
+                    <% } %>
+        </main>
+    </div>
+    <%- include('../partials/footer') %>
+        <script src="/js/reschedule-requests.js"></script>

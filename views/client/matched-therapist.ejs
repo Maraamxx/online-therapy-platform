@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Matched Therapist</title>
+    <link rel="stylesheet" href="/css/style.css"> </head>
+<body>
+    <div class="container">
+        <h1>Your Matched Therapist</h1>
+
+        <% if (matchedTherapist) { %>
+            <div class="therapist-card">
+                <h2><%= matchedTherapist.name %></h2>
+                <p><strong>Specialization:</strong> <%= matchedTherapist.specialization.join(', ') %></p>
+                <p><strong>Experience:</strong> <%= matchedTherapist.experience_years %> years</p>
+                <p><strong>Bio:</strong> <%= matchedTherapist.bio %></p>
+                <p><strong>Gender:</strong> <%= matchedTherapist.gender %></p>
+                <p><strong>Languages:</strong> <%= matchedTherapist.languages.join(', ') %></p>
+                <p><strong>Religion:</strong> <%= matchedTherapist.religion %></p>
+                <button class="btn btn-success" onclick="bookTherapist('<%= matchedTherapist.therapist_id %>')">Accept & Book with <%= matchedTherapist.name %></button>
+            </div>
+            <hr>
+            <h3>Not what you're looking for? Browse others:</h3>
+            <% if (topOtherOptions && topOtherOptions.length > 0) { %>
+                <div class="other-therapists-list">
+                    <% topOtherOptions.forEach(therapist => { %>
+                        <div class="therapist-card small-card">
+                            <h4><%= therapist.name %></h4>
+                            <p>Specialties: <%= therapist.specialization.join(', ') %></p>
+                            <p>Experience: <%= therapist.experience_years %> years</p>
+                             <button class="btn btn-info" onclick="bookTherapist('<%= therapist.therapist_id %>')">Book <%= therapist.name %></button>
+                        </div>
+                    <% }) %>
+                </div>
+            <% } else { %>
+                <p>No other highly matched therapists found based on your criteria.</p>
+            <% } %>
+        <% } else { %>
+            <p>No direct match found based on your assessment.</p>
+            <p>Don't worry, you can still browse our full list of therapists.</p>
+        <% } %>
+
+        <a href="/therapists/browse" class="btn btn-secondary">Browse All Therapists Manually</a>
+    </div>
+
+    <script>
+        function bookTherapist(therapistId) {
+            alert('Booking functionality for therapist ' + therapistId + ' would go here!');
+            // In a real application, this would trigger an API call to create a booking
+            // window.location.href = `/book?therapistId=${therapistId}`;
+        }
+
+        // Example of how to fetch data for matched therapist if needed on page load
+        // You would typically pass the data directly from the server when rendering.
+        // If coming from a redirect with a therapistId in query, you'd fetch it here.
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const therapistId = urlParams.get('therapistId');
+            if (therapistId) {
+                // In a real app, you'd make an API call to get therapist details
+                // const response = await fetch(`/api/therapists/${therapistId}`);
+                // const therapist = await response.json();
+                // console.log('Fetched therapist:', therapist);
+                // Dynamically populate the page if data wasn't rendered directly.
+            }
+        });
+    </script>
+</body>
+</html>

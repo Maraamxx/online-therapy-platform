@@ -1,0 +1,1317 @@
+/* Remove Tailwind directives as we are converting to pure CSS */
+/* @tailwind base; */
+/* @tailwind components; */
+/* @tailwind utilities; */
+
+/* Define your brand colors explicitly using CSS variables */
+:root {
+  /* Brand Colors */
+  --brandpurple: #6722e6;
+  --brandblue: #85d7ff;
+  --brandcalmblue: #c5f0fe;
+  --color-dark-text: #333;
+  --color-light-text: #666;
+  --color-off-white: #f9f9f9;
+
+  /* Existing Root Variables (ensure consistency) */
+  --primary-aura: #6722e6;
+  --secondary-aura: #45c1ff; /* Adjusted to match brandblue */
+  --text-dark: #333;
+  --text-medium: #555;
+  --text-light: #f4f4f4;
+  --bg-light: #f0f2f5;
+  --card-bg: #ffffff;
+  --border-color: #e0e0e0;
+  --shadow-light: rgba(0, 0, 0, 0.05);
+  --shadow-medium: rgba(0, 0, 0, 0.12);
+  --hover-purple: #571dab; /* A slightly darker primary-aura for hover */
+  --star-gold: #ffd700;
+
+  /* New color variables for greens/reds/grays */
+  --green-600: #059669; /* Darker green for button */
+  --green-700: #047857; /* Even darker green for hover */
+  --red-600: #dc2626;   /* Darker red for button */
+  --red-700: #b91c1c;   /* Even darker red for hover */
+  --gray-200: #e5e7eb;  /* Light gray for disabled button */
+  --gray-300: #d1d5db;  /* Border color for disabled */
+  --gray-500: #6b7280;  /* Text color for disabled */
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-light);
+  min-height: 100vh;
+  color: var(--text-dark);
+  line-height: 1.6;
+}
+
+/* Custom Button Base Styles */
+.btn {
+  padding: 8px 16px; /* px-4 py-2 */
+  border-radius: 8px; /* rounded-lg */
+  font-weight: 600; /* font-semibold */
+  font-size: 0.875rem; /* text-sm */
+  transition: all 0.2s ease; /* transition-all duration-200 */
+  display: inline-flex; /* inline-flex */
+  align-items: center; /* items-center */
+  justify-content: center; /* justify-center */
+  white-space: nowrap; /* whitespace-nowrap */
+  border: none; /* Default to no border, add if needed for specific buttons */
+  cursor: pointer;
+  text-decoration: none; /* For anchor tags acting as buttons */
+}
+
+/* Primary Button (for general actions, e.g., Save Changes, Reschedule if it's the main action) */
+.btn-primary {
+  background-color: var(--brandpurple); /* bg-[#6722e6] */
+  color: white; /* text-white */
+}
+.btn-primary:hover {
+  background-color: var(--hover-purple); /* hover:bg-[#571dab] */
+  opacity: 0.9; /* For specific opacity hover, if used */
+}
+.btn-primary:focus {
+  outline: none; /* focus:ring-2 focus:ring-[#6722e6] focus:ring-offset-2; */
+  box-shadow: 0 0 0 2px var(--brandpurple), 0 0 0 4px white; /* focus:ring-offset-2 */
+}
+
+/* Success Button (for positive actions like Join) */
+.btn-success {
+  background-color: var(--green-600); /* bg-green-600 */
+  color: white; /* text-white */
+}
+.btn-success:hover {
+  background-color: var(--green-700); /* hover:bg-green-700 */
+}
+.btn-success:focus {
+  outline: none; /* focus:ring-2 focus:ring-green-400 focus:ring-offset-2; */
+  box-shadow: 0 0 0 2px #34d399, 0 0 0 4px white; /* green-400 */
+}
+
+/* Danger Button (for destructive actions like Cancel) */
+.btn-danger {
+  background-color: var(--red-600); /* bg-red-600 */
+  color: white; /* text-white */
+}
+.btn-danger:hover {
+  background-color: var(--red-700); /* hover:bg-red-700 */
+}
+.btn-danger:focus {
+  outline: none; /* focus:ring-2 focus:ring-red-400 focus:ring-offset-2; */
+  box-shadow: 0 0 0 2px #f87171, 0 0 0 4px white; /* red-400 */
+}
+
+/* Secondary Button (for less prominent actions, e.g., Reschedule, Cancel if they are not primary) */
+.btn-secondary {
+  background-color: transparent; /* bg-transparent */
+  color: var(--brandpurple); /* text-[#6722e6] */
+  border: 1px solid var(--brandpurple); /* border border-[#6722e6] */
+}
+.btn-secondary:hover {
+  background-color: var(--brandpurple); /* hover:bg-[#6722e6] */
+  color: white; /* hover:text-white */
+}
+.btn-secondary:focus {
+  outline: none; /* focus:ring-2 focus:ring-[#6722e6] focus:ring-offset-2; */
+  box-shadow: 0 0 0 2px var(--brandpurple), 0 0 0 4px white;
+}
+
+/* Tertiary Button (for very subtle actions or alternative links) */
+.btn-tertiary {
+  background-color: var(--brandcalmblue); /* bg-[#c5f0fe] */
+  color: var(--brandpurple); /* text-[#6722e6] */
+  border: 1px solid var(--brandcalmblue); /* border border-[#c5f0fe] */
+}
+.btn-tertiary:hover {
+  background-color: #9ac2d1; /* hover:bg-[#9ac2d1] */
+  border-color: #9ac2d1; /* hover:border-[#9ac2d1] */
+}
+.btn-tertiary:focus {
+  outline: none; /* focus:ring-2 focus:ring-[#c5f0fe] focus:ring-offset-2; */
+  box-shadow: 0 0 0 2px var(--brandcalmblue), 0 0 0 4px white;
+}
+
+
+/* Specific styles for the action buttons (Reschedule, Cancel, Join) to look good together */
+.action-btn-group {
+    display: flex; /* flex */
+    gap: 12px; /* gap-3 (assuming 1 unit = 4px, so 3 units = 12px) */
+    margin-top: 16px; /* mt-4 (4 units = 16px) */
+    /* Adjust gap and margin-top as needed for layout */
+}
+
+.action-btn {
+    padding: 8px 16px; /* px-4 py-2 */
+    border-radius: 6px; /* rounded-md (assuming 0.375rem = 6px) */
+    font-weight: 500; /* font-medium */
+    font-size: 0.875rem; /* text-sm */
+    transition: all 0.2s ease; /* transition-all duration-200 */
+    display: inline-flex; /* inline-flex */
+    align-items: center; /* items-center */
+    justify-content: center; /* justify-center */
+    min-width: 120px; /* min-w-[120px] */
+    cursor: pointer;
+    text-decoration: none; /* For anchor tags */
+    border: none;
+}
+
+/* Reschedule Button */
+.action-btn.reschedule-btn {
+    /* Make reschedule a secondary button if it's not the primary "save" on the modal */
+    background-color: transparent; /* bg-transparent */
+    color: var(--brandpurple); /* text-[#6722e6] */
+    border: 1px solid var(--brandpurple); /* border border-[#6722e6] */
+    flex: 1; /* flex-1 */
+      width: 50%;
+
+}
+.action-btn.reschedule-btn:hover {
+    background-color: var(--brandpurple); /* hover:bg-[#6722e6] */
+    color: white; /* hover:text-white */
+}
+
+/* Cancel Button */
+.action-btn.cancel-btn {
+    /* Use btn-danger for clear negative action */
+    background-color: var(--red-600); /* bg-red-600 */
+    color: white; /* text-white */
+    flex: 1; /* flex-1 */
+      width: 50%;
+
+}
+.action-btn.cancel-btn:hover {
+    background-color: var(--red-700); /* hover:bg-red-700 */
+}
+
+/* Join Session Button */
+.action-btn.join-session-btn {
+    /* Use btn-success for clear positive action */
+    background-color: var(--green-600); /* bg-green-600 */
+    color: white; /* text-white */
+    width: 100%; /* w-full */
+}
+.action-btn.join-session-btn:hover {
+    background-color: var(--green-700); /* hover:bg-green-700 */
+}
+
+/* Disabled Join Session Button - Re-applying specific disabled styles */
+.action-btn.join-session-btn-disabled {
+    background-color: var(--gray-200); /* bg-gray-200 */
+    color: var(--gray-500); /* text-gray-500 */
+    border: 1px solid var(--gray-300); /* border border-gray-300 */
+    cursor: not-allowed; /* cursor-not-allowed */
+    box-shadow: none; /* shadow-none */
+    pointer-events: none; /* pointer-events: none */
+    width: 100%; /* w-full */
+}
+.action-btn.join-session-btn-disabled:hover {
+    background-color: var(--gray-200); /* hover:bg-gray-200 */
+    color: var(--gray-500); /* hover:text-gray-500 */
+}
+
+/* Icon styling within buttons */
+.action-btn i {
+    margin-right: 8px; /* mr-2 (2 units = 8px) */
+    /* Ensure feather icons inherit color */
+    stroke: currentColor;
+}
+
+/* Feather Icon Colors */
+[data-feather] {
+  stroke: currentColor;
+}
+
+/* Status Badge Variants */
+.status-badge {
+  display: inline-flex; /* inline-flex */
+  align-items: center; /* items-center */
+  padding: 4px 12px; /* px-3 py-1 (assuming 1 unit = 4px, 3 units = 12px, 1 unit = 4px) */
+  border-radius: 9999px; /* rounded-full */
+  font-size: 0.875rem; /* text-sm */
+  font-weight: 600; /* font-semibold */
+  border: 2px solid currentColor; /* border-2 border-current */
+}
+
+.status-confirmed {
+  background-color: #f0fdf4; /* bg-green-50 */
+  color: #15803d; /* text-green-700 */
+  border-color: #bbf7d0; /* border-green-200 */
+}
+
+.status-pending {
+  background-color: #fffbeb; /* bg-yellow-50 */
+  color: #a16207; /* text-yellow-700 */
+  border-color: #fde68a; /* border-yellow-200 */
+}
+
+.status-cancelled {
+  background-color: #fef2f2; /* bg-red-50 */
+  color: #b91c1c; /* text-red-700 */
+  border-color: #fecaca; /* border-red-200 */
+}
+
+.status-rescheduled {
+  background-color: #eff6ff; /* bg-blue-50 */
+  color: #1d4ed8; /* text-blue-700 */
+  border-color: #bfdbfe; /* border-blue-200 */
+}
+
+.status-default {
+  background-color: #f9fafb; /* bg-gray-50 */
+  color: #4b5563; /* text-gray-700 */
+  border-color: #e5e7eb; /* border-gray-200 */
+}
+
+
+/* Animations */
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out;
+}
+
+.animate-slide-in {
+  animation: slide-in 0.5s ease-out;
+}
+
+/* Custom Card Styles */
+.appointment-card {
+  background-color: white; /* bg-white */
+  border-radius: 12px; /* rounded-xl */
+  border: 1px solid #e5e7eb; /* border border-gray-200 */
+  padding: 24px; /* p-6 (6 units = 24px) */
+  transition: all 0.3s ease; /* transition-all duration-300 */
+  animation: fade-in 0.6s ease-out; /* animate-fade-in */
+  margin-bottom: 20px;
+}
+.appointment-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* hover:shadow-lg */
+}
+
+
+/* Override any conflicting styles */
+.min-w-\[120px\] { /* This class can likely be removed if .action-btn sets min-width */
+  min-width: 120px !important;
+}
+
+/* These specific overrides might not be needed if variables are used consistently */
+.bg-brandpurple {
+  background-color: #6722e6 !important;
+}
+
+.hover\:bg-opacity-90:hover { /* This is already handled by specific button hover states */
+  opacity: 0.9 !important;
+}
+
+.focus\:ring-brandpurple:focus { /* This is already handled by specific button focus states */
+  box-shadow: 0 0 0 2px #6722e6, 0 0 0 4px white !important; /* Tailwind's ring simulation */
+}
+
+/* Custom Styles */
+.gradient-bg {
+  background: linear-gradient(135deg, #6722e6 0%, #e67222 100%);
+}
+
+.card-shadow {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.card-shadow-hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+
+/* --------------------------------------------MAAAAAAAAAAAARRRRRRRRRRRAAAAAAAAAAAAAAAAMMMMMMMMMMMM-------------------------------------- */
+/* public/css/view-therapists/view-all.css */
+/* Add this new style to your CSS file, e.g., view-therapists/view-all.css or a dedicated components.css if you have one */
+
+.header-section {
+  background: linear-gradient(to right, #6722e6, #85d7ff);
+  /* Gradient from primary-aura to secondary-aura */
+  color: var(--text-light);
+  padding: 20px 20%;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+.header-section h1 {
+  font-size: 1.8em;
+  font-family: "Cormorant Garamond", serif;
+  font-weight: 900;
+  margin: 0;
+  letter-spacing: 0.5px;
+  color: var(--text-light);
+}
+
+.header-section p {
+  display: none;
+  /* Hide the descriptive paragraph for this UI */
+}
+
+/* Specific Search Bar in Header */
+.header-search-bar {
+  position: relative;
+  width: 320px;
+  /* Adjust as needed */
+}
+
+.header-search-bar input {
+  width: 100%;
+  padding: 10px 15px 10px 40px;
+  /* Left padding for icon */
+  border: none;
+  border-radius: 25px;
+  background-color: var(--bg-light);
+  /* Darker background for search input */
+  color: var(--text-dark);
+  font-size: 0.95em;
+  outline: none;
+  transition: background-color 0.3s ease;
+}
+
+.header-search-bar input::placeholder {
+  color: var(--text-dark);
+}
+
+.header-search-bar input:focus {
+  background-color: #e1e2e3;
+  border: 3px solid var(--primary-aura);
+  /* Light border */
+  transition: all 0.1s ease;
+}
+
+.header-search-bar .search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-dark);
+  font-size: 1em;
+}
+
+.main-content {
+  display: flex;
+  padding: 30px 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 30px;
+  box-sizing: border-box;
+}
+
+.filter-sidebar {
+  flex: 0 0 280px;
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--shadow-light);
+  padding: 25px;
+  align-self: flex-start;
+  position: sticky;
+  top: 20px;
+  /* Adjust as needed */
+  height: fit-content;
+  transition: all 0.3s ease;
+  border: 1px solid var(--border-color);
+  /* Light border */
+}
+
+.filter-sidebar h3 {
+  color: var(--text-dark);
+  margin-bottom: 25px;
+  font-size: 1.2em;
+  /* Smaller as per image */
+  border-bottom: 1px solid var(--border-color);
+  /* Lighter border */
+  padding-bottom: 15px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+}
+
+.filter-sidebar h3 i {
+  margin-right: 10px;
+  color: var(--primary-aura);
+}
+
+.filter-group {
+  margin-bottom: 20px;
+  /* Reduced spacing */
+}
+
+.filter-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text-medium);
+  font-size: 0.95em;
+}
+
+.filter-group select,
+.filter-group input[type="text"] {
+  /* Target the search input within sidebar */
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  /* Slightly less rounded */
+  font-size: 0.9em;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+  background-color: #fcfcfc;
+}
+
+.filter-group select:focus,
+.filter-group input[type="text"]:focus {
+  border-color: var(--primary-aura);
+  box-shadow: 0 0 0 3px rgba(106, 13, 173, 0.1);
+  /* Lighter shadow */
+  outline: none;
+}
+
+/* Specific styling for the search bar within the sidebar, if any */
+.filter-sidebar .search-bar {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.filter-sidebar .search-bar input {
+  padding-right: 35px;
+  /* Space for icon */
+}
+
+.filter-sidebar .search-bar .search-icon {
+  position: absolute;
+  right: 12px;
+  top: 30%;
+  transform: translateY(-50%);
+  color: #aaa;
+  font-size: 1em;
+}
+
+.content-area {
+  flex: 1;
+}
+
+.results-summary {
+  font-size: 1.1em;
+  color: var(--text-medium);
+  margin-bottom: 25px;
+  padding-left: 5px;
+  /* Align with therapist cards */
+}
+
+.therapist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  /* Wider cards */
+  gap: 25px;
+  /* Reduced gap */
+}
+
+.therapist-card {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  /* Less rounded corners */
+  box-shadow: 0 5px 20px var(--shadow-light);
+  /* Lighter shadow */
+  padding: 25px;
+  text-align: left;
+  /* Align text left as per image */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  /* For proper internal layout */
+}
+
+.therapist-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px var(--shadow-medium);
+}
+
+.therapist-card::before {
+  display: none;
+  /* Remove the top gradient bar from previous design */
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.profile-pic-container {
+  width: 70px;
+  /* Smaller profile pic */
+  height: 70px;
+  border-radius: 50%;
+  border: 3px solid var(--brandpurple);
+  /* Purple border */
+  overflow: hidden;
+  margin-right: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  flex-shrink: 0;
+  /* Prevent shrinking */
+}
+
+.profile-pic-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.therapist-info {
+  flex-grow: 1;
+}
+
+.therapist-info h2 {
+  font-size: 1.8em;
+  /* Adjusted size */
+  margin: 0 0 5px 0;
+  color: var(--text-dark);
+  font-weight: 700;
+}
+
+.therapist-info .specialization {
+  font-size: 1em;
+  color: var(--secondary-aura);
+  /* Purple color */
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.rating {
+  color: var(--star-gold);
+  /* Gold stars */
+  font-size: 0.9em;
+}
+
+.rating span {
+  color: var(--text-medium);
+  /* Rating number color */
+  margin-left: 5px;
+  font-weight: 600;
+}
+
+.therapist-card .bio-summary {
+  font-size: 0.95em;
+  color: var(--text-medium);
+  margin-bottom: 15px;
+  flex-grow: 1;
+  /* Allow bio to take space */
+}
+
+.tag {
+  display: inline-flex;
+  /* Changed from flex to inline-flex */
+  align-items: center;
+  background-color: var(--primary-aura);
+  color: white;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.85em;
+  font-weight: 600;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  /* Prevents text from breaking into multiple lines */
+  width: fit-content;
+  /* Ensures the tag shrinks to fit content */
+}
+
+.tag i {
+  margin-right: 6px;
+  font-size: 0.9em;
+}
+
+/* Specific tag for level, as per image */
+.tag.level-tag {
+  background-color: #45c1ff;
+  /* Hot pink for level */
+}
+
+.details-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  /* Stack details vertically */
+  gap: 10px;
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  font-size: 0.9em;
+  color: var(--text-medium);
+}
+
+.detail-item i {
+  color: var(--primary-aura);
+  margin-right: 10px;
+  font-size: 1.1em;
+}
+
+.price-display {
+  font-size: 1.8em;
+  font-weight: 700;
+  color: var(--primary-aura);
+  margin-top: 20px;
+  margin-bottom: 25px;
+  text-align: center;
+  /* Aligned right as per image */
+  padding-top: 15px;
+  border-top: 1px dashed var(--border-color);
+  /* Dashed line above price */
+}
+
+.price-display span {
+  font-size: 0.8em;
+  /* "per session" text */
+  color: var(--text-medium);
+  font-weight: 400;
+}
+
+.view-details-btn {
+  display: flex;
+  /* Use flex for icon alignment */
+  justify-content: center;
+  align-items: center;
+  background-color: #313338;
+  /* Dark button background */
+  color: white;
+  padding: 12px 28px;
+  border-radius: 8px;
+  /* Less rounded */
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1em;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  /* Full width button */
+  box-sizing: border-box;
+}
+
+.view-details-btn i {
+  margin-left: 10px;
+  font-size: 0.9em;
+}
+
+.view-details-btn:hover {
+  background-color: var(--hover-purple);
+  transform: translateY(-2px);
+}
+
+.no-therapists {
+  text-align: center;
+  font-size: 1.2em;
+  color: #777;
+  padding: 50px;
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--shadow-light);
+  margin-top: 20px;
+  grid-column: 1 / -1;
+  border: 1px solid var(--border-color);
+  margin-bottom: 40px;
+}
+
+.no-therapists p {
+  margin-bottom: 15px;
+}
+
+.no-therapists .clear-filters-btn {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  font-weight: 500;
+}
+
+.no-therapists .clear-filters-btn:hover {
+  background-color: #5a6268;
+}
+
+/* Footer styling is kept minimal here, assuming it's in a global CSS or separate partial */
+/* Or you can copy the full footer from the previous response here if you don't use a partial */
+
+/* Mobile responsiveness */
+@media (max-width: 992px) {
+  .main-content {
+    flex-direction: column;
+    padding: 20px 15px;
+  }
+
+  .filter-sidebar {
+    position: static;
+    width: 100%;
+    margin-bottom: 25px;
+    padding: 20px;
+  }
+
+  .therapist-grid {
+    grid-template-columns: 1fr;
+    /* Stack cards vertically */
+  }
+
+  .therapist-card {
+    padding: 20px;
+  }
+
+  .card-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .profile-pic-container {
+    margin-right: 0;
+    margin-bottom: 15px;
+  }
+
+  .therapist-info {
+    text-align: center;
+  }
+
+  .therapist-info h2 {
+    font-size: 1.6em;
+  }
+
+  .tag {
+    margin: 5px 5px 0 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .header-section {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  .header-search-bar {
+    width: 100%;
+    margin-top: 15px;
+  }
+}
+
+/* --- Refined Appointment Card Styles --- */
+.appointment-card {
+  background: var(--card-bg) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 2px 12px var(--shadow-light) !important;
+  border: 1px solid var(--border-color) !important;
+  padding: 22px 18px !important;
+  margin-bottom: 16px !important;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  max-width: 410px;
+  width: 100%;
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+
+.appointment-card:hover {
+  box-shadow: 0 6px 18px var(--shadow-medium) !important;
+  transform: translateY(-2px) scale(1.012);
+}
+
+.appointment-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 14px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em; /* Approximately 8px */
+  padding: 0.32em 1.1em;
+  border-radius: 999px;
+  font-size: 0.97em;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  background: #f6f6fa !important;
+  color: var(--primary-aura) !important;
+  border: none !important;
+  box-shadow: 0 1px 4px rgba(103, 34, 230, 0.04);
+  min-width: 0;
+}
+
+.status-confirmed {
+  background: #eaf6f0 !important;
+  color: #219150 !important;
+}
+
+.status-pending {
+  background: #fffbe6 !important;
+  color: #bfa100 !important;
+}
+
+.status-cancelled {
+  background: #fff0f0 !important;
+  color: #e53935 !important;
+}
+
+.status-rescheduled {
+  background: #f0f7ff !important;
+  color: #1976d2 !important;
+}
+
+.appointment-details {
+  color: var(--text-medium);
+  font-size: 1em;
+  margin-bottom: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.appointment-details .detail-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.appointment-details i {
+  color: var(--primary-aura);
+  font-size: 1.08em;
+}
+
+/* --- Refined Cancellation Reason Area: Purple --- */
+.cancellation-reason {
+  background: #f3eafe !important;
+  /* Soft purple background */
+  border: 1px solid #a084e8 !important;
+  /* Muted purple border */
+  border-radius: 7px !important;
+  color: #6722e6 !important;
+  /* Brand purple for text */
+  font-size: 0.97em;
+  padding: 8px 12px !important;
+  margin-bottom: 10px !important;
+  margin-top: 2px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  box-shadow: 0 1px 3px rgba(103, 34, 230, 0.04);
+  display: inline-block;
+  max-width: 100%;
+}
+
+.cancellation-reason strong {
+  color: #6722e6 !important;
+  font-weight: 600;
+}
+.appointment-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 14px;
+  /* height: 50px; Remove fixed height unless absolutely necessary, let content determine it */
+  /* padding: 1%; Remove this if you want buttons to truly be full width */
+  /* font-size: 15px; */
+}
+
+/* Container for the two buttons (Reschedule & Cancel) that are side-by-side */
+.appointment-actions .flex { /* Targeting the div with flex in EJS */
+    display: flex;
+    gap: 12px; /* gap-3 */
+    width: 100%; /* w-full */
+    margin-bottom: 12px; /* mb-3 */
+}
+
+
+.action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 11px 0 !important;
+  border-radius: 7px !important;
+  font-weight: 600 !important;
+  font-size: 1em !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  transition: background 0.18s, color 0.18s, transform 0.13s;
+  border: none !important;
+  cursor: pointer;
+  text-decoration: none; /* For anchor tags */
+  min-width: 120px; /* from .action-btn in previous code */
+}
+
+.action-btn i {
+  display: inline-block !important;
+  width: 16px !important; /* h-4 w-4 */
+  height: 16px !important; /* h-4 w-4 */
+  margin-right: 8px !important; /* mr-2 */
+  stroke: currentColor !important;
+}
+
+.action-btn span {
+  font-weight: 500 !important;
+}
+
+.action-btn.reschedule-btn { /* Changed from .action-btn.reschedule */
+  background: transparent !important; /* bg-transparent */
+  color: var(--brandpurple) !important; /* text-[#6722e6] */
+  border: 1px solid var(--brandpurple) !important; /* border border-[#6722e6] */
+  flex: 1; /* flex-1 */
+    width: 50%;
+
+}
+
+.action-btn.reschedule-btn:hover {
+  background: var(--brandpurple) !important; /* hover:bg-[#6722e6] */
+  color: white !important; /* hover:text-white */
+  transform: translateY(-1px) !important; /* Adding subtle lift on hover */
+}
+
+.action-btn.cancel-btn { /* Changed from .action-btn.cancel */
+  background: var(--red-600) !important; /* bg-red-600 */
+  color: #fff !important;
+  flex: 1; /* flex-1 */
+    width: 50%;
+
+}
+
+.action-btn.cancel-btn:hover {
+  background: var(--red-700) !important; /* hover:bg-red-700 */
+  color: #fff !important;
+  transform: translateY(-1px) !important; /* Adding subtle lift on hover */
+  
+}
+
+.action-btn.join-session-btn {
+  background: var(--green-600) !important; /* bg-green-600 */
+  color: white !important;
+  width: 100%; /* w-full */
+}
+
+.action-btn.join-session-btn:hover {
+  background: var(--green-700) !important; /* hover:bg-green-700 */
+  transform: translateY(-1px) !important;
+}
+
+.action-btn.join-session-btn-disabled {
+  background-color: var(--gray-200) !important; /* bg-gray-200 */
+  color: var(--gray-500) !important; /* text-gray-500 */
+  border: 1px solid var(--gray-300) !important; /* border border-gray-300 */
+  cursor: not-allowed !important;
+  box-shadow: none !important;
+  pointer-events: none;
+  width: 100%; /* w-full */
+}
+
+.action-btn.join-session-btn-disabled i,
+.action-btn.join-session-btn-disabled span {
+  color: var(--gray-500) !important; /* Ensure icon and text are muted */
+}
+
+/* For Accept/Decline buttons for pending appointments */
+.action-btn.accept-reschedule-btn { /* Renamed for clarity, assuming it matches EJS */
+  background: #43a047 !important; /* Specific green */
+  color: #fff !important;
+  flex: 1;
+}
+.action-btn.accept-reschedule-btn:hover {
+  background: #388e3c !important;
+  transform: translateY(-1px) !important;
+}
+
+.action-btn.decline-reschedule-btn { /* Renamed for clarity, assuming it matches EJS */
+  background: #bdbdbd !important; /* Light gray */
+  color: #333 !important;
+  flex: 1;
+}
+.action-btn.decline-reschedule-btn:hover {
+  background: #757575 !important;
+  color: #fff !important;
+  transform: translateY(-1px) !important;
+}
+
+
+.appointment-card,
+.appointment-card * {
+  font-family: "Poppins", sans-serif !important;
+}
+
+@media (max-width: 600px) {
+  .appointment-card {
+    padding: 12px 4px !important;
+    max-width: 100%;
+  }
+
+  .appointment-actions {
+    flex-direction: column;
+    gap: 7px;
+  }
+}
+
+/* --- Tighter Appointment Card Grid Layout --- */
+.appointment-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 24px;
+  align-items: start;
+  justify-content: start;
+  margin-bottom: 32px;
+  padding: 0 8px;
+}
+
+.appointment-card {
+  margin: 0;
+  padding: 24px !important;
+  background: var(--card-bg) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+  border: 1px solid var(--border-color) !important;
+  transition: all 0.2s ease-in-out;
+}
+
+.appointment-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08) !important;
+  transform: translateY(-2px);
+}
+
+.appointment-header {
+  margin-bottom: 20px;
+}
+
+.appointment-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--text-medium);
+  font-size: 0.95em;
+}
+
+.detail-row i {
+  color: var(--primary-aura);
+  width: 16px;
+  height: 16px;
+}
+
+@media (max-width: 1200px) {
+  .appointment-grid {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .appointment-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .appointment-card {
+    padding: 20px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .appointment-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 0 4px;
+  }
+
+  .appointment-card {
+    padding: 16px !important;
+  }
+}
+
+/* --- Decline Reason Area: Blue --- */
+.decline-reason {
+  background: #eef2ff !important;
+  /* Soft blue background */
+  border: 1px solid #818cf8 !important;
+  /* Muted blue border */
+  border-radius: 7px !important;
+  color: #4f46e5 !important;
+  /* Indigo blue for text */
+  font-size: 0.97em;
+  padding: 8px 12px !important;
+  margin-bottom: 10px !important;
+  margin-top: 2px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  box-shadow: 0 1px 3px rgba(79, 70, 229, 0.04);
+  display: inline-block;
+  max-width: 100%;
+}
+
+.decline-reason strong {
+  color: #4f46e5 !important;
+  font-weight: 600;
+}
+
+/* Appointment Card Text Styles */
+.appointment-card .status-badge {
+  font-weight: 600 !important;
+}
+
+.appointment-card .detail-row .font-medium {
+  font-weight: 500 !important;
+}
+
+.appointment-card .detail-row .font-normal {
+  font-weight: 400 !important;
+}
+
+.appointment-card .cancellation-reason strong,
+.appointment-card .decline-reason strong {
+  font-weight: 600 !important;
+}
+
+.appointment-card .cancellation-reason span,
+.appointment-card .decline-reason span {
+  font-weight: 400 !important;
+}
+
+.appointment-card .cancellation-reason .ml-2,
+.appointment-card .decline-reason .ml-2 {
+  font-weight: 500 !important;
+}
+
+.appointment-card .action-btn span {
+  font-weight: 500 !important;
+}
+
+.cancel-modal {
+  background: white !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+  max-width: 500px !important;
+  width: 100% !important;
+  padding: 24px !important;
+}
+
+.cancel-modal .modal-header {
+  margin-bottom: 16px !important;
+}
+
+.cancel-modal .modal-title {
+  color: #1f2937 !important;
+  font-size: 1.25rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 8px !important;
+}
+
+.cancel-modal .modal-subtitle {
+  color: #6b7280 !important;
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+}
+
+.cancel-modal .modal-content {
+  margin-bottom: 24px !important;
+}
+
+.cancel-modal .modal-actions {
+  display: flex;
+  gap: 8px !important;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.cancel-modal .close-modal {
+  background-color: #2563eb !important;
+  color: white !important;
+  transition: all 0.2s ease !important;
+  padding: 8px 16px !important;
+  border: none !important;
+  border-radius: 6px !important;
+  font-weight: 500 !important;
+  margin-left: 8px !important;
+}
+
+.cancel-modal .close-modal:hover {
+  background-color: #1d4ed8 !important;
+  transform: translateY(-1px) !important;
+  opacity: 1 !important;
+}
+
+.cancel-modal .close-modal:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px #93c5fd !important;
+}
+
+.cancel-modal .confirm-btn {
+  background: #ef4444 !important;
+  color: white !important;
+  transition: all 0.2s ease !important;
+  padding: 8px 16px !important;
+  border: none !important;
+  border-radius: 6px !important;
+  font-weight: 500 !important;
+}
+
+.cancel-modal .confirm-btn:hover {
+  background: #dc2626 !important;
+  transform: translateY(-1px) !important;
+}
+
+button.close-modal {
+  background-color: #2563eb !important;
+  color: white !important;
+  transition: all 0.2s ease !important;
+  padding: 8px 16px !important;
+  border: none !important;
+  border-radius: 6px !important;
+  font-weight: 500 !important;
+  margin-left: 8px !important;
+}
+
+button.close-modal:hover {
+  background-color: #1d4ed8 !important;
+  transform: translateY(-1px) !important;
+  opacity: 1 !important;
+}
+
+button.close-modal:focus {
+  outline: none !important;
+  box-shadow: 0 0 0 2px #93c5fd !important;
+}
+

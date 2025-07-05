@@ -1,0 +1,150 @@
+/* error.css */
+
+/* Variables (ensure these are consistent with your global.css) */
+:root {
+    --primary-purple: #6722E6;
+    --secondary-blue: #3E8EFF;
+    --light-grey: #f5f5f5;
+    --medium-grey: #ccc;
+    --dark-grey: #333;
+    --white: #ffffff;
+    --text-color: #444;
+    --error-red: #dc3545; /* A standard red for errors */
+}
+
+/* Base Container for Centering */
+.error-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: calc(100vh - var(--navbar-height, 80px) - var(--footer-height, 60px)); /* Adjust for header/footer */
+    padding: 30px 20px;
+    background-color: var(--light-grey); /* Light background for the page */
+    box-sizing: border-box; /* Include padding in element's total width and height */
+}
+
+/* Error Content Box */
+.error-content {
+    background-color: var(--white);
+    padding: 50px 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 600px; /* Max width for readability */
+    width: 100%;
+    animation: fadeInScale 0.5s ease-out; /* Subtle animation */
+}
+
+@keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Illustration/Icon */
+.error-illustration {
+    margin-bottom: 30px;
+}
+
+.error-icon {
+    font-size: 5em; /* Large icon */
+    color: var(--error-red); /* Red color for error */
+    animation: shakeIcon 0.8s ease-in-out infinite alternate; /* Subtle shake */
+}
+
+@keyframes shakeIcon {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(5deg); }
+    50% { transform: rotate(0deg); }
+    75% { transform: rotate(-5deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* Title and Message */
+.error-title {
+    font-size: 2.5em;
+    color: var(--primary-purple);
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+.error-message {
+    font-size: 1.1em;
+    color: var(--text-color);
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+/* Development Details (Preformatted Text) */
+.error-details {
+    background-color: #fcebeb; /* Lighter red background */
+    border: 1px solid var(--error-red);
+    color: var(--error-red);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: left;
+    white-space: pre-wrap; /* Preserve whitespace and wrap long lines */
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 0.9em;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    overflow-x: auto; /* For very long lines */
+}
+
+/* Actions (Buttons) */
+.error-actions {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.error-actions .btn { /* Reuse existing btn styles if defined in global.css */
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.error-actions .btn-primary {
+    background-color: var(--primary-purple);
+    color: var(--white);
+    border: none;
+}
+
+.error-actions .btn-primary:hover {
+    background-color: #571dab;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(103, 34, 230, 0.3);
+}
+
+.error-actions .btn-secondary {
+    background-color: var(--secondary-blue);
+    color: var(--white);
+    border: none;
+}
+
+.error-actions .btn-secondary:hover {
+    background-color: #3172c7;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(62, 142, 255, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .error-content {
+        padding: 30px 20px;
+    }
+
+    .error-title {
+        font-size: 2em;
+    }
+
+    .error-actions {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .error-actions .btn {
+        width: 100%;
+    }
+}

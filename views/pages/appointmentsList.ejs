@@ -1,0 +1,122 @@
+<% var extraCSS = '<link rel="stylesheet" href="/css/appointments.css" />'; %>
+<% var extraCSS = '<link href="/css/style.css" rel="stylesheet">'; %>
+
+<%- include('../partials/header', {title: 'Browse Appointments', extraCSS: extraCSS}) %>
+
+
+
+<div class="min-h-screen bg-bg-light">
+  <!-- Header Section for Appointments - Mimics the Find a Therapist header -->
+  <section class="header-section">
+    <div class="header-content">
+      <h1>Your upcoming sessions, all set and ready.</h1>
+      <p>Stay on top of your sessions, reschedule with ease, and keep your progress moving forward!</p>
+    </div>
+    <!-- You can add a search bar here if needed, similar to the therapist page -->
+    <!-- <div class="header-search-bar">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" placeholder="Search appointments..." />
+    </div> -->
+  </section>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <div class="content-area">
+      <% if (viewType==='therapist' ) { %>
+        <!-- Show client info -->
+        <% } %>
+
+          <h2 class="text-2xl font-semibold mb-6 text-text-dark flex items-center gap-2">
+            <i data-feather="calendar" class="h-6 w-6 text-blue-600"></i>
+            Upcoming Appointments
+          </h2>
+          
+          <% if (upcoming.length===0) { %>
+            <div class="no-therapists">
+              <p class="text-muted-foreground mb-8">No upcoming appointments.</p>
+            </div>
+            <% } else { %>
+              <div class="therapist-grid mb-8">
+                <% upcoming.forEach(appointment=> { %>
+                  <%- include('../partials/appointmentCard', { appointment, viewType, type: 'upcoming' }) %>
+                    <% }) %>
+              </div>
+              <% } %>
+
+                <h2 class="text-2xl font-semibold mb-6 text-text-dark flex items-center gap-2">
+                  <i data-feather="clock" class="h-6 w-6 text-blue-600"></i>
+                  Pending Appointments
+                </h2>
+                <% if (pending.length===0) { %>
+                  <div class="no-therapists">
+                    <p class="text-muted-foreground">No pending appointments.</p>
+                  </div>
+                  <% } else { %>
+                    <div class="therapist-grid mb-8">
+                      <% pending.forEach(appointment=> { %>
+                        <%- include('../partials/appointmentCard', { appointment, viewType, type: 'pending' }) %>
+                          <% }) %>
+                    </div>
+                    <% } %>
+
+                      <h2 class="text-2xl font-semibold mb-6 text-text-dark flex items-center gap-2">
+                        <i data-feather="refresh-cw" class="h-6 w-6 text-blue-600"></i>
+                        Rescheduled Appointments
+                      </h2>
+                      <% if (rescheduled.length===0) { %>
+                        <div class="no-therapists">
+                          <p class="text-muted-foreground">No rescheduled appointments.</p>
+                        </div>
+                        <% } else { %>
+                          <div class="therapist-grid mb-8">
+                            <% rescheduled.forEach(appointment=> { %>
+                              <%- include('../partials/appointmentCard', { appointment, viewType, type: 'rescheduled' })
+                                %>
+                                <% }) %>
+                          </div>
+                          <% } %>
+
+                            <h2 class="text-2xl font-semibold mb-6 text-text-dark flex items-center gap-2">
+                              <i data-feather="check-circle" class="h-6 w-6 text-blue-600"></i>
+                              Past Appointments
+                            </h2>
+                            <% if (past.length===0) { %>
+                              <div class="no-therapists">
+                                <p class="text-muted-foreground">No past appointments.</p>
+                              </div>
+                              <% } else { %>
+                                <div class="therapist-grid mb-8">
+                                  <% past.forEach(appointment=> { %>
+                                    <%- include('../partials/appointmentCard', { appointment, viewType, type: 'past' })
+                                      %>
+                                      <% }) %>
+                                </div>
+                                <% } %>
+
+                                  <h2 class="text-2xl font-semibold mb-6 text-text-dark flex items-center gap-2">
+                                    <i data-feather="x-circle" class="h-6 w-6 text-blue-600"></i>
+                                    Cancelled & Declined Appointments
+                                  </h2>
+                                  <% if (cancelled.length===0 && declined.length===0) { %>
+                                    <div class="no-therapists">
+                                      <p class="text-muted-foreground">No cancelled or declined appointments.</p>
+                                    </div>
+                                    <% } else { %>
+                                      <div class="therapist-grid">
+                                        <% cancelled.forEach(appointment=> { %>
+                                          <%- include('../partials/appointmentCard', { appointment, viewType,
+                                            type: 'cancelled' }) %>
+                                            <% }) %>
+                                              <% declined.forEach(appointment=> { %>
+                                                <%- include('../partials/appointmentCard', { appointment, viewType,
+                                                  type: 'declined' }) %>
+                                                  <% }) %>
+                                      </div>
+                                      <% } %>
+    </div>
+  </main>
+</div>
+
+<%- include('../partials/footer') %>
+
+  <script src="/js/appointments.js"></script>

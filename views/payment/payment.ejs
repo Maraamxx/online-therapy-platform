@@ -1,0 +1,120 @@
+<% var extraCSS='<link rel="stylesheet" href="/css/payment/payment.css" />' ; %> <%- include('../partials/header',
+    {title: 'Session Payment' , extraCSS: extraCSS}) %>
+    <div class="container" role="main">
+      <div class="payment-container">
+        <h1 class="text-center mb-4">Payment to Your Therapist</h1>
+        <section class="therapist-info" aria-label="Therapist information">
+          <div class="info-row">
+            <span class="info-label">Name:</span> Dr. <%= appointment.therapist_name %>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Email:</span>
+            <%= appointment.therapist_email %>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Phone:</span>
+            <%= appointment.therapist_phone_number %>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Specialization:</span>
+            <%= appointment.therapist_specialization %>
+          </div>
+          <div class="info-row">
+            <span class="info-label">Experience:</span>
+            <%= appointment.therapist_experience_years %> years
+          </div>
+          <div class="info-row">
+            <span class="info-label">Level:</span>
+            <% if(appointment.level==='junior' ) { %> Junior Therapist <% } else if(appointment.level==='licensed' ) {
+                %> Licensed Therapist <% } else {%> Senior Therapist <% } %>
+          </div>
+          <div class="info-row bio">"<%= appointment.therapist_bio %>"</div>
+        </section>
+        <form class="payment-section" aria-label="Payment form" id="paymentForm">
+          <p>
+            <strong>Session Date</strong>: <%= new Date(appointment.date_time).toLocaleString('en-US') %>
+          </p>
+          <p class="price">Price: <%= appointment.price %> EGP</p>
+
+          <input type="hidden" name="client_id" value="<%= user.userId %>" />
+          <input type="hidden" name="therapist_id" value="<%= appointment.therapist_id %>" />
+          <input type="hidden" name="appointment_id" value="<%= appointment.appointment_id %>" />
+          <input type="hidden" name="amount" value="<%= price %>" />
+
+          <div class="mb-3">
+            <label for="payment-method" class="form-label">Payment method</label>
+            <select class="form-select" id="payment-method" name="payment_method" required>
+              <option value="">Choose payment method</option>
+              <option value="card">Credit/Debit Card</option>
+              <option value="vodafone_cash">Vodafone Cash</option>
+              <option value="orange_money">Orange Money</option>
+              <option value="etisalat_cash">Etisalat Cash</option>
+            </select>
+          </div>
+
+          <div id="card-fields" class="conditional-field">
+            <div class="mb-3">
+              <label class="form-label">Card Number</label>
+              <input type="text" class="form-control" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19"
+                pattern="[0-9\s]{13,19}" autocomplete="cc-number" />
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label">Expiration Date</label>
+                <input type="text" class="form-control" id="expirationDate" placeholder="MM/YY" maxlength="5"
+                  pattern="(0[1-9]|1[0-2])\/?([0-9]{2})" />
+              </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label">CVV</label>
+                <input type="text" class="form-control" id="cvv" placeholder="123" maxlength="4" pattern="[0-9]{3,4}" />
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Cardholder Name</label>
+              <input type="text" class="form-control" id="cardholderName" placeholder="Name on card" />
+            </div>
+          </div>
+
+          <div id="vodafone-cash-fields" class="conditional-field">
+            <div class="mb-3">
+              <label class="form-label">Vodafone Cash Number</label>
+              <input type="text" class="form-control" id="mobileNumber" placeholder="0100 123 4567" maxlength="11"
+                pattern="01[0-9]{9}" />
+            </div>
+          </div>
+
+          <div id="orange-money-fields" class="conditional-field">
+            <div class="mb-3">
+              <label class="form-label">Orange Money Number</label>
+              <input type="text" class="form-control" id="mobileNumber" placeholder="0122 345 6789" maxlength="11"
+                pattern="01[0-9]{9}" />
+            </div>
+          </div>
+
+          <div id="etisalat-cash-fields" class="conditional-field">
+            <div class="mb-3">
+              <label class="form-label">Etisalat Cash Number</label>
+              <input type="text" class="form-control" id="mobileNumber" placeholder="0111 987 6543" maxlength="11"
+                pattern="01[0-9]{9}" />
+            </div>
+          </div>
+
+          <button type="submit" id="submit-btn" class="btn btn-pay">
+            Pay Now (<%= appointment.price %> EGP)
+          </button>
+        </form>
+        <p class="footer-note">Secure payment processing ensured.</p>
+      </div>
+    </div>
+    <div id="toast" class="toast align-items-center position-fixed top-0 end-0 m-3">
+      <div class="d-flex">
+        <div class="toast-body"></div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast"></button>
+      </div>
+    </div>
+
+    <script src="/js/payments/payment.js"></script>
+
+    <%- include('../partials/footer') %>

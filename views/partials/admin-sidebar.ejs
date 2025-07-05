@@ -1,0 +1,62 @@
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h2>Admin Panel</h2>
+    </div>
+    <ul>
+        <li>
+            <a href="/api/admin/users" class="<%= currentPage === 'all-users' ? 'active' : '' %>">
+                <i class="fas fa-users"></i> All Users
+            </a>
+        </li>
+        <li>
+            <a href="/api/admin/users/inactive" class="<%= currentPage === 'inactive-users' ? 'active' : '' %>">
+                <i class="fas fa-user-slash"></i> Inactive Users
+            </a>
+        </li>
+        <li>
+            <a href="/api/admin/therapists" class="<%= currentPage === 'all-therapists' ? 'active' : '' %>">
+                <i class="fas fa-user-md"></i> All Therapists
+            </a>
+        </li>
+        <li>
+            <a href="/api/admin/therapists/active" class="<%= currentPage === 'active-therapists' ? 'active' : '' %>">
+                <i class="fas fa-user-check"></i> Active Therapists
+            </a>
+        </li>
+        <li>
+            <a href="/api/admin/clients" class="<%= currentPage === 'clients' ? 'active' : '' %>">
+                <i class="fas fa-users"></i> Clients
+            </a>
+        </li>
+        <li>
+            <a href="/api/admin/appointments" class="<%= currentPage === 'appointments' ? 'active' : '' %>">
+                <i class="fas fa-calendar-alt"></i> Appointments
+            </a>
+        </li>
+        <li>
+            <a href="/api/admin/sessions" class="<%= currentPage === 'sessions' ? 'active' : '' %>">
+                <i class="fas fa-comments"></i> Sessions
+            </a>
+        </li>
+        <li>
+            <a href="/api/admin/payments" class="<%= currentPage === 'payments' ? 'active' : '' %>">
+                <i class="fas fa-dollar-sign"></i> Payments
+            </a>
+        </li>
+        <li>
+            <a href="/api/admin/subscription-payments" class="<%= currentPage === 'sub-payments' ? 'active' : '' %>">
+                <i class="fas fa-credit-card"></i> Sub. Payments
+            </a>
+        </li>
+        <li>
+            <a href="/api/admin/plan-subscribers-count" class="<%= currentPage === 'plan-subscribers' ? 'active' : '' %>">
+                <i class="fas fa-receipt"></i> Plan Subscribers
+            </a>
+        </li>
+        <li>
+            <a href="/api/admin/therapist-applications/pending" class="<%= currentPage === 'therapist-apps' ? 'active' : '' %>">
+                <i class="fas fa-file-alt"></i> Therapist Apps
+            </a>
+        </li>
+    </ul>
+</div>

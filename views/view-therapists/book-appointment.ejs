@@ -1,0 +1,451 @@
+<%- include('../partials/header', { title: title, extraCSS: extraCSS, loggedIn: loggedIn, user: user }) %>
+
+    <div class="booking-container">
+        <!-- Therapist Info Header -->
+        <div class="therapist-header">
+            <% // Logic for determining the avatar source let
+                avatarSrc='/images/illustrations/default-generic-avatar.png' ; if (therapist.profile_picture) {
+                avatarSrc=therapist.profile_picture; } else if (therapist.gender &&
+                therapist.gender.toLowerCase()==='female' ) {
+                avatarSrc='/images/illustrations/default-female-avatar.png' ; } else if (therapist.gender &&
+                therapist.gender.toLowerCase()==='male' ) { avatarSrc='/images/illustrations/default-male-avatar.png' ;
+                } %>
+                <img src="<%= avatarSrc %>" alt="<%= therapist.name %>" class="therapist-pic">
+                <div class="therapist-info">
+                    <h1>Book a Session with</h1>
+                    <h2>
+                        <%= therapist.name %>
+                    </h2>
+                    <p>
+                        <%= therapist.specialization %>
+                    </p>
+                </div>
+        </div>
+
+         <form id="bookingForm" class="booking-form">
+            <!-- Hidden fields for submission -->
+            <input type="hidden" name="therapistId" value="<%= therapist.therapist_id %>">
+            <input type="hidden" name="clientId" value="<%= user.user_id %>">
+            <input type="hidden" name="price" value="<%= therapist.price_per_session || 500 %>">
+            <!-- Price from therapist level or a default -->
+
+            <!-- Section 1: Choose Time Slot -->
+            <div class="form-section">
+                <h3 class="section-title"><i class="fas fa-calendar-alt"></i> Choose an Available Time Slot</h3>
+
+                <% if (Object.keys(availabilityByDate).length> 0) { %>
+                    <div class="calendar-container">
+                        <% Object.keys(availabilityByDate).sort().forEach(date=> { %>
+                            <div class="date-card">
+                                <div class="date-header">
+                                    <div class="date-day">
+                                        <%= new Date(date + 'T00:00:00' ).toLocaleDateString('en-US', { weekday: 'short'
+                                            }) %>
+                                    </div>
+                                    <div class="date-number">
+                                        <%= new Date(date + 'T00:00:00' ).toLocaleDateString('en-US', { day: 'numeric'
+                                            }) %>
+                                    </div>
+                                    <div class="date-month">
+                                        <%= new Date(date + 'T00:00:00' ).toLocaleDateString('en-US', { month: 'short'
+                                            }) %>
+                                    </div>
+                                </div>
+                                <div class="time-slots-container">
+                                    <% availabilityByDate[date].forEach(slot=> { %>
+                                        <div class="time-slot" data-datetime="<%= slot.start_timestamp %>"
+                                            data-availability-id="<%= slot.availability_id %>">
+                                            <div class="time-slot-content">
+                                                <div class="time-range">
+                                                    <span class="start-time">
+                                                        <%= formatTime12h(new
+                                                            Date(slot.start_timestamp).toTimeString().slice(0, 5)) %>
+                                                    </span>
+                                                    <span class="time-separator">-</span>
+                                                    <span class="end-time">
+                                                        <%= formatTime12h(new
+                                                            Date(slot.end_timestamp).toTimeString().slice(0, 5)) %>
+                                                    </span>
+                                                </div>
+                                                <div class="slot-status available">
+                                                    <i class="fas fa-check-circle"></i> Available
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <% }); %>
+                                </div>
+                            </div>
+                            <% }); %>
+                    </div>
+                    <% } else { %>
+                        <div class="no-slots-message">
+                            <i class="fas fa-calendar-times"></i>
+                            <p>This therapist has no upcoming availability. Please check back later.</p>
+                        </div>
+                        <% } %>
+            </div>
+
+            <!-- Section 2: Session Details -->
+            <div class="form-section">
+                <h3 class="section-title"><i class="fas fa-cog"></i> Session Details</h3>
+
+                <!-- Session Type -->
+                <div class="form-group">
+                    <label for="sessionType">Session Type</label>
+                    <select id="sessionType" name="sessionType" class="form-control" required>
+                        <option value="">Select a session type</option>
+                        <option value="Video">Video Session</option>
+                        <option value="Audio">Audio Session</option>
+                        <option value="Text">Text Session</option>
+                    </select>
+                </div>
+
+                <!-- Session Duration -->
+                <div class="form-group">
+                    <label for="duration">Session Duration (minutes)</label>
+                    <select id="duration" name="duration" class="form-control" required>
+                        <option value="">Select duration</option>
+                        <option value="30">30 minutes</option>
+                        <option value="45">45 minutes</option>
+                        <option value="50">50 minutes</option>
+                        <option value="60">60 minutes</option>
+                        <option value="90">90 minutes</option>
+                    </select>
+                </div>
+
+                <!-- Session Type -->
+                <div class="form-group">
+                    <label for="therapyType">Therapy Type</label>
+                    <select id="therapyType" name="therapyType" class="form-control" required>
+                        <option value="">Select therapy type</option>
+                        <option value="Individual">Individual Therapy</option>
+                        <option value="Couples">Couples Counseling</option>
+                        <option value="Family">Family Therapy</option>
+                        <option value="Group">Group Therapy</option>
+                    </select>
+                </div>
+
+                <!-- Price Information -->
+                <div class="price-info">
+                    <h4>Session Pricing</h4>
+                    <p>Base Price: <span id="basePrice">
+                            <%= therapist.price_per_session || 500 %> EGP
+                        </span></p>
+                    <p>Duration Adjustment: <span id="durationAdjustment">0 EGP</span></p>
+                    <p>Session Type Adjustment: <span id="typeAdjustment">0 EGP</span></p>
+                    <p class="total-price">Total Price: <span id="totalPrice">
+                            <%= therapist.price_per_session || 500 %> EGP
+                        </span></p>
+                </div>
+            </div>
+
+            <!-- Submission Button -->
+            <div class="form-actions">
+                <button type="submit" class="btn-submit-booking" disabled>
+                    <i class="fas fa-check-circle"></i> Confirm Booking
+                </button>
+                <p id="selection-error" class="error-message"></p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const timeSlots = document.querySelectorAll('.time-slot');
+            const bookingForm = document.getElementById('bookingForm');
+            const submitButton = document.querySelector('.btn-submit-booking');
+            const selectionError = document.getElementById('selection-error');
+            const durationSelect = document.getElementById('duration');
+            let selectedSlotElement = null;
+
+            // Set default duration to 60 minutes
+            durationSelect.value = '60';
+
+            // Price calculation elements
+            const basePriceElement = document.getElementById('basePrice');
+            const durationAdjustmentElement = document.getElementById('durationAdjustment');
+            const typeAdjustmentElement = document.getElementById('typeAdjustment');
+            const totalPriceElement = document.getElementById('totalPrice');
+            const basePrice = parseFloat(basePriceElement.textContent);
+
+            // Function to calculate price adjustments
+            function calculatePriceAdjustments() {
+                const duration = parseInt(durationSelect.value) || 60;
+                const sessionType = document.getElementById('sessionType').value;
+                const therapyType = document.getElementById('therapyType').value;
+
+                // Duration adjustment (proportional to base price)
+                let durationAdjustment = 0;
+                if (duration > 60) {
+                    // For longer sessions, increase by 20% per 30 minutes
+                    durationAdjustment = basePrice * 0.2 * ((duration - 60) / 30);
+                } else if (duration < 60) {
+                    // For shorter sessions, decrease by 15% per 30 minutes
+                    durationAdjustment = -basePrice * 0.15 * ((60 - duration) / 30);
+                }
+
+                // Session type adjustment
+                let typeAdjustment = 0;
+                switch (sessionType) {
+                    case 'Video':
+                        typeAdjustment = basePrice * 0.15; // 15% more for video
+                        break;
+                    case 'Audio':
+                        typeAdjustment = basePrice * 0.05; // 5% more for audio
+                        break;
+                    case 'Text':
+                        typeAdjustment = -basePrice * 0.2; // 20% less for text
+                        break;
+                }
+
+                // Therapy type adjustment
+                let therapyAdjustment = 0;
+                switch (therapyType) {
+                    case 'Couples':
+                        therapyAdjustment = basePrice * 0.3; // 30% more for couples
+                        break;
+                    case 'Family':
+                        therapyAdjustment = basePrice * 0.4; // 40% more for family
+                        break;
+                    case 'Group':
+                        therapyAdjustment = -basePrice * 0.2; // 20% less for group
+                        break;
+                    // Individual therapy has no adjustment
+                }
+
+                // Update UI
+                durationAdjustmentElement.textContent = `${durationAdjustment.toFixed(0)} EGP`;
+                typeAdjustmentElement.textContent = `${(typeAdjustment + therapyAdjustment).toFixed(0)} EGP`;
+
+                // Calculate and update total price
+                const totalPrice = basePrice + durationAdjustment + typeAdjustment + therapyAdjustment;
+                totalPriceElement.textContent = `${totalPrice.toFixed(0)} EGP`;
+
+                // Update hidden price input
+                document.querySelector('input[name="price"]').value = totalPrice;
+            }
+
+            // Add event listeners for price calculation
+            durationSelect.addEventListener('change', calculatePriceAdjustments);
+            document.getElementById('sessionType').addEventListener('change', calculatePriceAdjustments);
+            document.getElementById('therapyType').addEventListener('change', calculatePriceAdjustments);
+
+            // Calculate initial price
+            calculatePriceAdjustments();
+
+            // Time slot selection
+            timeSlots.forEach(slot => {
+                slot.addEventListener('click', () => {
+                    console.log('Time slot clicked:', slot);
+                    if (slot.classList.contains('booked')) {
+                        return;
+                    }
+                    timeSlots.forEach(s => s.classList.remove('selected'));
+                    slot.classList.add('selected');
+                    selectedSlotElement = slot;
+                    submitButton.disabled = false;
+                    selectionError.textContent = '';
+                });
+            });
+
+            // Form submission
+            bookingForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+
+                if (!selectedSlotElement) {
+                    selectionError.textContent = 'Please select a time slot before booking.';
+                    return;
+                }
+
+                const formData = new FormData(bookingForm);
+                const appointmentDateTime = new Date(selectedSlotElement.dataset.datetime);
+
+                console.log('Selected time details:', {
+                    datetime: appointmentDateTime.toISOString(),
+                    availabilityId: selectedSlotElement.dataset.availabilityId
+                });
+
+                const data = {
+                    therapist_id: formData.get('therapistId'),
+                    client_id: formData.get('clientId'),
+                    date_time: appointmentDateTime.toISOString(),
+                    duration: parseInt(formData.get('duration'), 10),
+                    status: 'Pending',
+                    session_type: formData.get('sessionType'),
+                    therapy_type: formData.get('therapyType'),
+                    price: parseFloat(formData.get('price')),
+                    notes: formData.get('notes'),
+                    availability_id: selectedSlotElement.dataset.availabilityId
+                };
+
+                console.log('Submitting booking data:', data);
+
+                submitButton.disabled = true;
+                submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+                try {
+                    const response = await fetch('/api/appointment/book', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(data)
+                    });
+
+                    const result = await response.json();
+                    console.log('Booking response:', result);
+
+                    if (response.ok && result.success && result.appointment) {
+                        // Make sure we have a valid appointment ID
+                        if (!result.appointment.appointment_id) {
+                            throw new Error('No appointment ID received from server');
+                        }
+
+                        if (result.subscription) {
+                            // Show subscription details modal
+                            const modal = document.createElement('div');
+                            modal.className = 'subscription-modal';
+                            modal.innerHTML = `
+                                <div class="subscription-modal-content">
+                                    <h3>Appointment Booked with Subscription</h3>
+                                    <div class="subscription-details">
+                                        <p><strong>Remaining Sessions:</strong> ${result.subscription.remaining_sessions}</p>
+                                        <p><strong>Subscription End Date:</strong> ${new Date(result.subscription.end_date).toLocaleDateString()}</p>
+                                    </div>
+                                    <div class="modal-buttons">
+                                        <button onclick="window.location.href='/api/appointments'">View My Appointments</button>
+                                        <button onclick="this.closest('.subscription-modal').remove()">Close</button>
+                                    </div>
+                                </div>
+                            `;
+                            document.body.appendChild(modal);
+                        } else {
+                            // Redirect to payment page with the appointment ID
+                            window.location.href = `/api/appointment/payment/${result.appointment.appointment_id}`;
+                        }
+                    } else {
+                        alert(`Booking failed: ${result.message || 'An unknown error occurred.'}`);
+                        submitButton.disabled = false;
+                        submitButton.innerHTML = '<i class="fas fa-check-circle"></i> Confirm Booking';
+                    }
+                } catch (error) {
+                    console.error('Error submitting form:', error);
+                    alert('An unexpected error occurred. Please try again.');
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = '<i class="fas fa-check-circle"></i> Confirm Booking';
+                }
+            });
+        });
+    </script>
+
+    <style>
+        .time-selection-dropdown {
+            display: block !important;
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .time-selection-dropdown label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .time-selection-dropdown select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: all 0.2s ease;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        .time-selection-dropdown select:focus {
+            border-color: var(--primary-aura);
+            box-shadow: 0 0 0 0.2rem rgba(138, 43, 226, 0.25);
+            outline: none;
+        }
+
+        .time-selection-dropdown option {
+            padding: 10px;
+            font-size: 1em;
+        }
+
+        .time-selection-dropdown option:hover {
+            background-color: #f0f0ff;
+        }
+
+        .subscription-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .subscription-modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 90%;
+        }
+
+        .subscription-details {
+            margin: 1.5rem 0;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 6px;
+        }
+
+        .subscription-details p {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .modal-buttons button {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .modal-buttons button:first-child {
+            background-color: var(--primary-aura);
+            color: white;
+        }
+
+        .modal-buttons button:last-child {
+            background-color: #e9ecef;
+            color: #495057;
+        }
+
+        .modal-buttons button:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+    </style>
+
+    <!-- ===== FIX #3: Corrected the path to the footer partial ===== -->
+    <%- include('../partials/footer') %>

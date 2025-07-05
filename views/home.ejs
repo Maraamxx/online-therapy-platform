@@ -1,0 +1,95 @@
+
+<% var extraCSS = '<link rel="stylesheet" href="/css/home.css" />'; %>
+<%- include('partials/header', {title: 'INNERAURA. - Your Mental Wellness Journey Starts Here', extraCSS: extraCSS}) %>
+
+<main>
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1>“Somewhere in the silence, healing begins. We help you find your voice.”</h1>
+            <p class="tagline">Find the right therapist and embark on a journey of self-discovery and healing with InnerAura → </p>
+            <div class="hero-buttons">
+                <% if (!loggedIn) { %>
+                    <a href="/api/auth/register" class="btn btn-primary">Start Your Journey</a>
+                    <a href="/api/therapists" class="btn btn-secondary">Explore Therapists</a>
+                <% } else { %>
+                    <a href="/api/user/dashboard" class="btn btn-primary">Go to Profile</a>
+                    <a href="/api/therapists" class="btn btn-secondary">Find a Therapist</a>
+                <% } %>
+            </div>
+        </div>
+        <div class="hero-illustration">
+            <img src="/images/illustrations/hero-wellness.svg" alt="Person meditating and feeling serene, representing mental wellness." class="illustration">
+        </div>
+    </section>
+
+    <section class="about-section">
+        <div class="about-content">
+            <h2>The Heart Behind InnerAura</h2>
+            <p>At InnerAura, we believe that everyone deserves access to compassionate and effective mental health support. We connect individuals with qualified therapists who can guide them through life's challenges, foster personal growth, and promote overall well-being. Our platform is designed to be a safe, confidential, and convenient space for your healing journey.</p>
+            <a href="/about" class="btn btn-secondary">Learn More</a>
+        </div>
+        <div class="about-illustration">
+            <img src="/images/illustrations/about-community.svg" alt="People connecting and supporting each other, symbolizing community." class="illustration">
+        </div>
+    </section>
+
+    <section class="how-it-works-section">
+        <h2>Here’s How We Help You Heal, Step by Step</h2>
+        <div class="steps-container">
+            <div class="step-card">
+                <img src="/images/illustrations/step-1-find.svg" alt="Magnifying glass searching for a therapist." class="step-illustration">
+                <h3>1. Find Your Match</h3>
+                <p>Explore a diverse network of trusted therapists. Filter by what matters to you — whether it’s their approach, experience, or shared values — and discover someone who truly fits.</p>
+            </div>
+            <div class="step-card">
+                <img src="/images/illustrations/step-2-connect.svg" alt="Two people connected via a video call, representing online sessions." class="step-illustration">
+                <h3>2. Connect Securely</h3>
+                <p>Book sessions with just a few clicks. Join your therapist in a safe, encrypted video space — no apps, no stress, just real connection from wherever you are.</p>
+            </div>
+            <div class="step-card">
+                <img src="/images/illustrations/step-3-heal.svg" alt="A person growing a plant, symbolizing personal growth and healing." class="step-illustration">
+                <h3>3. Begin Your Healing</h3>
+                <p>Start working through what’s been weighing on you. Whether it’s anxiety, burnout, or past trauma, your therapist will guide you with empathy and a plan that grows with you.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <h2>Stories That Speak for Themselves</h2>
+                <!-- <div class="testimonials-illustration">
+            <img src="/images/illustrations/testimonials-positive.svg" alt="Person happy and expressing positive feedback." class="illustration">
+        </div> -->
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p>"I finally found a therapist who actually gets me. I’ve been through so many sessions before that felt cold or generic, but this was different. My anxiety doesn’t control my days the way it used to, and that means everything."</p>
+                <p class="testimonial-author">- Sarah P.</p>
+            </div>
+            <div class="testimonial-card">
+                <p>"I’m not the best with tech, but everything here just works. No awkward setups, no stress — just click, connect, and talk. Honestly makes therapy feel way more accessible."</p>
+                <p class="testimonial-author">- Mark T.</p>
+            </div>
+            <div class="testimonial-card">
+                <p>"Starting therapy always felt too overwhelming — where do I even begin? But InnerAura made it easy. They matched me with someone who truly fit, and for the first time in a while, I don’t feel stuck anymore."</p>
+                <p class="testimonial-author">- Emily R.</p>
+            </div>
+        </div>
+
+    </section>
+
+    <section class="cta-bottom-section">
+        <div class="cta-content">
+            <h2>Start where you are. We’ll meet you there.</h2>
+            <p>Join the InnerAura community today and start your journey towards a healthier, happier you.</p>
+            <% if (!loggedIn) { %>
+                <a href="/api/auth/register" class="btn btn-primary btn-large">Register Now</a>
+            <% } else { %>
+                <a href="/api/user/dashboard" class="btn btn-primary btn-large">Continue to Profile</a>
+            <% } %>
+        </div>
+        <div class="cta-illustration">
+            <img src="/images/illustrations/cta-journey.svg" alt="Person moving forward on a path, symbolizing a journey." class="illustration">
+        </div>
+    </section>
+</main>
+
+<%- include('partials/footer') %>

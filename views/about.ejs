@@ -1,0 +1,124 @@
+<% var extraCSS = '<link rel="stylesheet" href="/css/about.css" />'; %>
+<%- include('partials/header', {title: 'About INNERAURA. - Our Mission & Vision', extraCSS: extraCSS}) %>
+
+<main>
+    <section class="about-hero-section">
+        <div class="about-hero-content">
+            <h3>We believe mental health care should be compassionate, personal, and within reach. InnerAura was built to make finding support feel safe, simple, and human.</h3>
+            <p class="tagline">
+                Because healing isn’t "one-size-fits-all".
+            </p>
+        </div>
+        <div class="about-hero-illustration">
+            <img src="/images/illustrations/about-hero.svg" alt="Illustration of people connecting and supporting each other." class="illustration">
+        </div>
+    </section>
+
+    <section class="mission-section">
+        <div class="mission-illustration">
+            <img src="/images/illustrations/mission-vision.svg" alt="Illustration of a person holding a lightbulb, symbolizing new ideas and vision." class="illustration">
+        </div>
+        <div class="mission-content">
+            <h2>Our Mission</h2>
+            <p>Everyone deserves a safe space to heal. InnerAura connects you with therapists who get it, so you can show up as you are and take care of your mental health without barriers or pressure.</p>
+        </div>
+    </section>
+
+    <section class="values-section">
+        <h2>Our Core Values</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <img src="/images/illustrations/value-compassion.svg" alt="Heart illustration, symbolizing compassion." class="value-icon">
+                <h3>Compassion</h3>
+                <p>We approach every individual with empathy, understanding, and respect, fostering a safe space for vulnerability and growth.</p>
+            </div>
+            <div class="value-card">
+                <img src="/images/illustrations/value-accessibility.svg" alt="Accessible ramp illustration, symbolizing accessibility." class="value-icon">
+                <h3>Accessibility</h3>
+                <p>We are committed to breaking down barriers to therapy, making professional support available to everyone, everywhere.</p>
+            </div>
+            <div class="value-card">
+                <img src="/images/illustrations/value-integrity.svg" alt="Balance scales illustration, symbolizing integrity." class="value-icon">
+                <h3>Integrity</h3>
+                <p>We uphold the highest ethical standards, ensuring confidentiality, professionalism, and trustworthiness in all interactions.</p>
+            </div>
+            <div class="value-card">
+                <img src="/images/illustrations/value-empowerment.svg" alt="Person breaking chains, symbolizing empowerment." class="value-icon">
+                <h3>Empowerment</h3>
+                <p>We equip individuals with the tools and insights to navigate challenges, foster resilience, and lead fulfilling lives.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="team-section">
+        <h2>Meet Our Dedicated Team</h2>
+        <p class="team-intro">At InnerAura, we're a passionate group committed to making mental wellness accessible. Get to know the faces behind our mission!</p>
+        <div class="team-members-grid">
+            <div class="member-card">
+                <div class="member-img-circle">
+                    <img src="/images/team/maram.svg" alt="Maram - Backend Developer Illustration">
+                </div>
+                <h3>Maram</h3>
+                <p class="member-role">Backend Developer</p>
+                <p class="member-detail">Crafting robust and secure systems that power your InnerAura experience.</p>
+            </div>
+            <div class="member-card">
+                <div class="member-img-circle">
+                    <img src="/images/team/mohamed.svg" alt="Mohamed - Marketing Planning Illustration">
+                </div>
+                <h3>Mohamed</h3>
+                <p class="member-role">Marketing Planner</p>
+                <p class="member-detail">Connecting InnerAura with those who need it most through impactful campaigns.</p>
+            </div>
+            <div class="member-card">
+                <div class="member-img-circle">
+                    <img src="/images/team/ayman.svg" alt="Ayman - Frontend Developer Illustration">
+                </div>
+                <h3>Ayman</h3>
+                <p class="member-role">Frontend Developer</p>
+                <p class="member-detail">Designing engaging visuals and responsive layouts for a delightful user experience.</p>
+            </div>
+            <div class="member-card">
+                <div class="member-img-circle">
+                    <img src="/images/team/shahd.svg" alt="Shahd - Backend Developer Illustration">
+                </div>
+                <h3>Shahd</h3>
+                <p class="member-role">Backend Developer</p>
+                <p class="member-detail">Ensuring seamless data flow and a reliable infrastructure for our platform.</p>
+            </div>
+                        
+            <div class="member-card">
+                <div class="member-img-circle">
+                    <img src="/images/team/renad.svg" alt="Renad - Financial Planning Illustration">
+                </div>
+                <h3>Renad</h3>
+                <p class="member-role">Financial Planner</p>
+                <p class="member-detail">Strategizing sustainable growth and ensuring the financial health of InnerAura.</p>
+            </div>
+            <div class="member-card">
+                <div class="member-img-circle">
+                    <img src="/images/team/ahmed.svg" alt="Ahmed - Frontend Developer Illustration">
+                </div>
+                <h3>Ahmed</h3>
+                <p class="member-role">Frontend Developer</p>
+                <p class="member-detail">Bringing intuitive interfaces and a smooth user journey to life on your screen.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-cta-section">
+        <div class="about-cta-content">
+            <h2>Start Your Journey with InnerAura Today</h2>
+            <p>Whether you're seeking support or looking to offer your expertise, InnerAura is here for you.</p>
+            <div class="cta-buttons">
+                <a href="/api/auth/register?role=client" class="btn btn-primary">Join as a Client</a>
+                <a href="/api/auth/register?role=therapist" class="btn btn-secondary">Join as a Therapist</a>
+            </div>
+        </div>
+        <div class="about-cta-illustration">
+            <img src="/images/illustrations/cta-start.svg" alt="Illustration of a person starting a new journey." class="illustration">
+        </div>
+    </section>
+</main>
+
+<%- include('partials/footer') %>
